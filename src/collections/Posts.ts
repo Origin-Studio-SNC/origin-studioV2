@@ -38,13 +38,14 @@ export const Posts: CollectionConfig = {
       },
       hooks: {
         beforeValidate: [
-          ({ value, data }) => {
-            if (!value && data?.title) {
-              return formatSlug(data.title)
-            }
-            return value
-          },
-        ],
+            ({ value, data }) => {
+              const title = typeof data?.title === 'string' ? data.title : undefined
+              if (!value && title) {
+                return formatSlug(title)
+              }
+              return value
+            },
+          ],
       },
     },
     {
