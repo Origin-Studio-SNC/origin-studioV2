@@ -4,7 +4,7 @@ import { Button } from './ui/button'
 
 const HeroSection = () => {
   return (
-    <section className="hero-glow relative flex min-h-screen flex-col items-center justify-center px-6 text-center">
+    <section className="hero-glow relative flex min-h-[calc(100dvh-4rem)] flex-col items-center justify-center px-4 pb-24 text-center sm:px-6 md:min-h-[calc(100dvh-5rem)] md:pb-28">
         <span className="section-label text-violet-100/50 mb-10 max-w-xs justify-center">
           Studio digital premium
         </span>
@@ -23,23 +23,25 @@ const HeroSection = () => {
           expériences, en tout type d&apos;excellence.
         </p>
 
-        <div className="mt-10 flex items-center gap-5">
-          <Button asChild size="xl" className="rounded-full px-8 text-base">
-            <Link href="/realisations">
-              Voir nos réalisations
-            </Link>
+        <div className="mt-8 flex w-full max-w-md flex-col items-stretch gap-2 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-5">
+          <Button
+            asChild
+            size="xl"
+            className="h-10 w-full gap-2 rounded-full px-5 text-sm sm:h-12 sm:w-auto sm:gap-2.5 sm:px-8 sm:text-base"
+          >
+            <Link href="/realisations">Voir nos réalisations</Link>
           </Button>
           <Button
             asChild
             variant="outline"
             size="xl"
-            className="rounded-full px-8 py-6 text-base"
+            className="h-10 w-full gap-2 rounded-full px-5 text-sm sm:h-12 sm:w-auto sm:gap-2.5 sm:px-8 sm:text-base"
           >
             <Link href="/services">Nos services</Link>
           </Button>
         </div>
 
-        <div className="absolute bottom-12 left-0 w-full px-6 lg:px-40">
+        <div className="absolute bottom-8 left-0 w-full px-4 sm:bottom-12 sm:px-6 lg:px-40">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 text-[11px] uppercase tracking-[0.2em] text-foreground/30">
             <span>Genève, Suisse</span>
             <span className="size-1 rounded-full bg-foreground/30" />

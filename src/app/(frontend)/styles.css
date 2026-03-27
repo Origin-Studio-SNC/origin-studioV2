@@ -71,12 +71,6 @@ body {
   }
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
 h1 {
   @apply text-7xl font-bold tracking-tight leading-tight;
 
@@ -221,6 +215,11 @@ svg {
   }
   body {
     @apply bg-background text-foreground;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 }
 

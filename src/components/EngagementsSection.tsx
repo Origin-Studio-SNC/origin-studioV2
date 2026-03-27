@@ -21,15 +21,18 @@ const engagements = [
 
 const EngagementsSection = () => {
   return (
-    <section id="engagements" className="px-6 py-[130px] lg:px-40">
+    <section
+      id="engagements"
+      className="px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-[130px]"
+    >
       <div className="mx-auto max-w-7xl">
-        <p className="section-label mb-16">Nos engagements</p>
+        <p className="section-label mb-10 md:mb-16">Nos engagements</p>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {engagements.map((item) => (
             <div
               key={item.num}
-              className="group relative border border-border bg-card p-12"
+              className="group relative border border-border bg-card p-6 sm:p-8 md:p-10 lg:p-12"
             >
               <span className="absolute left-8 top-8 font-mono text-xs text-foreground/40">
                 {item.num}

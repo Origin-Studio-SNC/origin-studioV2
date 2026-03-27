@@ -54,18 +54,21 @@ const posts: ResourcePost[] = [
 
 const ResourcesSection = () => {
   return (
-    <section id="ressources" className="bg-muted/20 px-6 py-[130px] lg:px-40">
+    <section
+      id="ressources"
+      className="bg-muted/20 px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-[130px]"
+    >
       <div className="mx-auto max-w-7xl">
-        <p className="section-label mb-16">Ressources</p>
+        <p className="section-label mb-10 md:mb-16">Ressources</p>
 
-        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3 md:items-center md:gap-8">
           {posts.map((post) => (
             <Link
               key={post.title}
               href={post.href}
               className={
                 post.featured
-                  ? 'group overflow-hidden rounded-sm border border-primary/30 bg-card shadow-2xl shadow-primary/5 md:-mt-12 md:mb-12'
+                  ? 'group overflow-hidden rounded-sm border border-primary/30 bg-card shadow-2xl shadow-primary/5 lg:-mt-12 lg:mb-12'
                   : 'group overflow-hidden rounded-sm border border-border bg-card'
               }
             >
@@ -80,7 +83,7 @@ const ResourcesSection = () => {
                   }
                 />
               </div>
-              <div className="p-8">
+              <div className="p-5 sm:p-6 md:p-8">
                 <div className="mb-4 flex flex-wrap items-center gap-3">
                   <span className="text-[10px] uppercase tracking-widest text-foreground/50">
                     {post.date}

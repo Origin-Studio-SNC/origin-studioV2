@@ -39,7 +39,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         suppressHydrationWarning
       >
         <Navbar />
-        <main className="flex flex-1 flex-col">{children}</main>
+        <main className="flex flex-1 flex-col pt-16 md:pt-20">{children}</main>
         <Footer />
       </body>
     </html>

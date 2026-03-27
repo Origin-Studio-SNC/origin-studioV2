@@ -25,26 +25,31 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="px-6 py-[130px] lg:px-40">
+    <section
+      id="services"
+      className="px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-[130px]"
+    >
       <div className="mx-auto max-w-7xl">
-        <p className="section-label mb-16">Nos services</p>
+        <p className="section-label mb-10 md:mb-16">Nos services</p>
 
         <div className="flex flex-col border-t border-border">
           {services.map((s) => (
             <div
               key={s.num}
-              className="group relative flex flex-col justify-between border-b border-border px-8 py-12 transition-all duration-500 hover:bg-muted/30 md:flex-row md:items-center"
+              className="group relative flex flex-col justify-between border-b border-border px-4 py-8 transition-all duration-500 hover:bg-muted/30 sm:px-6 md:flex-row md:items-center md:px-8 md:py-12"
             >
               <div className="absolute bottom-0 left-0 top-0 w-0 bg-primary transition-all duration-500 group-hover:w-[3px]" />
 
-              <div className="flex items-center gap-8">
-                <span className="font-mono text-md text-foreground/40">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-8">
+                <span className="font-mono text-sm text-foreground/40">
                   {s.num}
                 </span>
-                <h3 className="text-2xl font-light text-foreground/90 md:text-3xl">{s.title}</h3>
+                <h3 className="text-xl font-light text-foreground/90 sm:text-2xl md:text-3xl">
+                  {s.title}
+                </h3>
               </div>
 
-              <p className="mt-4 max-w-md text-md leading-relaxed text-foreground/70 md:mt-0">
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-foreground/70 md:mt-0">
                 {s.desc}
               </p>
 

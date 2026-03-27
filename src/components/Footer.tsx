@@ -17,8 +17,8 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border px-6 pb-12 pt-[130px] lg:px-40">
-      <div className="mx-auto mb-24 grid max-w-7xl grid-cols-1 gap-12 md:grid-cols-12 md:gap-x-8 md:gap-y-0 lg:gap-x-12">
+    <footer className="border-t border-border px-5 pb-10 pt-20 sm:px-6 md:pb-12 md:pt-28 lg:px-40 lg:pt-[130px]">
+      <div className="mx-auto mb-16 grid max-w-7xl grid-cols-1 gap-10 md:mb-24 md:grid-cols-12 md:gap-x-8 md:gap-y-0 md:gap-12 lg:gap-x-12">
 
         <div className="md:col-span-5">
           <Image
