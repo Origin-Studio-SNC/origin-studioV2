@@ -2,6 +2,7 @@ import React from 'react'
 import './styles.css'
 
 import { Space_Grotesk, Playfair_Display } from 'next/font/google'
+import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import { cn } from '@/lib/utils'
 
@@ -38,7 +39,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         suppressHydrationWarning
       >
         <Navbar />
-        <main className="flex-1 flex flex-col">{children}</main>
+        <main className="flex flex-1 flex-col">{children}</main>
+        <Footer />
       </body>
     </html>
   )

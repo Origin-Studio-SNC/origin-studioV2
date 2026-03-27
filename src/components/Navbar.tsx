@@ -94,7 +94,7 @@ const Navbar = () => {
               )}
               href={href}
             >
-              <span className="text-[11px] font-semibold uppercase tracking-widest">
+              <span className="text-xs font-semibold uppercase tracking-widest">
                 {label}
               </span>
             </a>

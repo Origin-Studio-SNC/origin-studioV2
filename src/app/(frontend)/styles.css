@@ -136,7 +136,7 @@ svg {
   vertical-align: middle;
 }
 
-/* ─── Dark theme — navy-tinted palette matching mockup ─── */
+/* ─── Dark theme ─── */
 /* Brand: #5b6df5 ≈ oklch(0.56 0.23 272) */
 .dark {
   --background: oklch(0.06 0.02 270);
@@ -150,7 +150,7 @@ svg {
   --secondary: oklch(0.15 0.02 270);
   --secondary-foreground: oklch(0.92 0 0);
   --muted: oklch(0.15 0.015 270);
-  --muted-foreground: oklch(0.55 0.02 280);
+  --muted-foreground: oklch(0.72 0.01 280);
   --accent: oklch(0.56 0.23 272);
   --accent-foreground: oklch(0.97 0 0);
   --destructive: oklch(0.704 0.191 22.216);
@@ -224,7 +224,7 @@ svg {
   }
 }
 
-/* ─── Hero glow effect — apply to your hero <section> ─── */
+/* ─── Hero glow effect ─── */
 .hero-glow {
   background:
     radial-gradient(
@@ -254,18 +254,11 @@ svg {
   }
 }
 
-/* ─── Italic serif accent text ─── */
-.text-accent-serif {
-  font-family: var(--font-serif);
-  font-style: italic;
-  color: oklch(0.62 0.22 272);
-}
-
 /* ─── Nav link styles ─── */
 .link-nav {
   position: relative;
   text-decoration: none;
-  color: oklch(0.5 0.02 270);
+  color: oklch(0.78 0.01 270);
   padding-left: 0;
   transition: color 0.25s ease, padding-left 0.25s ease;
 
@@ -299,7 +292,7 @@ svg {
   }
 }
 
-/* ─── Card styles matching mockup ─── */
+/* ─── Card styles ─── */
 .card-dark {
   background: var(--card);
   border: 1px solid oklch(1 0 0 / 8%);

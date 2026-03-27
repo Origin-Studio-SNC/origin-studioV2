@@ -38,13 +38,13 @@ const ServicesSection = () => {
               <div className="absolute bottom-0 left-0 top-0 w-0 bg-primary transition-all duration-500 group-hover:w-[3px]" />
 
               <div className="flex items-center gap-8">
-                <span className="font-mono text-sm text-foreground/30">
+                <span className="font-mono text-md text-foreground/40">
                   {s.num}
                 </span>
-                <h3 className="text-2xl font-light md:text-3xl">{s.title}</h3>
+                <h3 className="text-2xl font-light text-foreground/90 md:text-3xl">{s.title}</h3>
               </div>
 
-              <p className="mt-4 max-w-sm text-sm leading-relaxed text-foreground/50 md:mt-0">
+              <p className="mt-4 max-w-md text-md leading-relaxed text-foreground/70 md:mt-0">
                 {s.desc}
               </p>
 
