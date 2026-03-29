@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 const navLinks = [
-  { href: '#services', label: 'Services' },
+  { href: '/services', label: 'Services' },
   { href: '#realisations', label: 'Réalisations' },
   { href: '/about', label: 'À propos' },
   { href: '/contact', label: 'Contact' },

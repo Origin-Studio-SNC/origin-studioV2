@@ -5,6 +5,13 @@ import { AboutStorySection } from '@/components/about/AboutStorySection'
 import { AboutTeamSection } from '@/components/about/AboutTeamSection'
 import { AboutTechSection } from '@/components/about/AboutTechSection'
 import { AboutValuesSection } from '@/components/about/AboutValuesSection'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'À propos — Origin Studio',
+  description:
+    "Découvrez l'histoire d'Origin Studio, notre agence de développement web basée à Genève.",
+}
 
 export default function AboutPage() {
   return (

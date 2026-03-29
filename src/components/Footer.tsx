@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { MapPin } from '@phosphor-icons/react/dist/ssr'
 
 const menuLinks = [
-  { href: '/#services', label: 'Services' },
+  { href: '/services', label: 'Services' },
   { href: '/#realisations', label: 'Projets' },
   { href: '/#about', label: 'Agence' },
   { href: '/blog', label: 'Journal' },
