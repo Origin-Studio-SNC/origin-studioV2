@@ -223,6 +223,13 @@ svg {
   }
 }
 
+/* ─── About page hero (override global h1) ─── */
+.about-page h1.about-hero-title {
+  font-weight: 300;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+}
+
 /* ─── Hero glow effect ─── */
 .hero-glow {
   background:

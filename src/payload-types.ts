@@ -187,6 +187,7 @@ export interface Post {
    * Résumé de l'article (max 200 caractères)
    */
   excerpt: string;
+  category: 'strategie' | 'technique' | 'cas-clients' | 'hebergement';
   /**
    * Image de couverture de l'article
    */
@@ -252,6 +253,8 @@ export interface Project {
    * Nom du projet
    */
   title: string;
+  category: 'vitrine' | 'application' | 'refonte' | 'ecommerce';
+  confidential?: boolean | null;
   /**
    * URL du projet
    */
@@ -260,6 +263,7 @@ export interface Project {
    * Description courte (max 200 caractères)
    */
   excerpt: string;
+  order?: number | null;
   /**
    * Afficher dans le bento grid homepage
    */
@@ -372,6 +376,7 @@ export interface Project {
   githubUrl?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -504,6 +509,7 @@ export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   excerpt?: T;
+  category?: T;
   coverImage?: T;
   publishedAt?: T;
   content?: T;
@@ -527,8 +533,11 @@ export interface PostsSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
+  category?: T;
+  confidential?: T;
   slug?: T;
   excerpt?: T;
+  order?: T;
   featured?: T;
   thumbnail?: T;
   year?: T;
@@ -554,6 +563,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   githubUrl?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

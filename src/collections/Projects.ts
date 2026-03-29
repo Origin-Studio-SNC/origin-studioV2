@@ -12,6 +12,10 @@ export const Projects: CollectionConfig = {
   access: {
     read: () => true,
   },
+
+  versions: {
+    drafts: true,
+  }, 
   
   fields: [
     {
@@ -22,6 +26,24 @@ export const Projects: CollectionConfig = {
       admin: {
         description: 'Nom du projet',
       },
+    },
+    {
+      name: 'category',
+      type: 'select',
+      required: true,
+      admin: { position: 'sidebar' },
+      options: [
+        { label: 'Site vitrine', value: 'vitrine' },
+        { label: 'Application', value: 'application' },
+        { label: 'Refonte', value: 'refonte' },
+        { label: 'E-commerce', value: 'ecommerce' },
+      ],
+    },
+    {
+      name: 'confidential',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: { position: 'sidebar' },
     },
     {
       name: 'slug',
@@ -52,6 +74,11 @@ export const Projects: CollectionConfig = {
       admin: {
         description: 'Description courte (max 200 caractères)',
       },
+    },
+    {
+      name: 'order',
+      type: 'number',
+      admin: { position: 'sidebar' },
     },
     {
       name: 'featured',
