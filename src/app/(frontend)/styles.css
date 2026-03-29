@@ -230,6 +230,13 @@ svg {
   line-height: 0.92;
 }
 
+/* ─── Contact page hero ─── */
+.contact-page h1.contact-hero-title {
+  font-weight: 300;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
 /* ─── Hero glow effect ─── */
 .hero-glow {
   background:
