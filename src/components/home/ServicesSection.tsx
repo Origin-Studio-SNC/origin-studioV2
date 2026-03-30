@@ -21,6 +21,11 @@ const services = [
     title: 'Solutions sécurisées & infrastructures',
     desc: 'Infrastructure sécurisée, hébergement suisse et protection des données.',
   },
+  {
+    num: '/05',
+    title: 'E-commerce & boutiques en ligne',
+    desc: 'Catalogue, paiements, commandes et back-office pour vendre en ligne sereinement.',
+  },
 ] as const
 
 const ServicesSection = () => {

@@ -1,36 +1,15 @@
-import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
-import Link from 'next/link'
 import React from 'react'
 
+import { ServiceOfferActions } from '@/components/services/ServiceOfferActions'
+import { SERVICE_OFFERS } from '@/components/services/serviceOffersData'
 import { ServiceVisual } from '@/components/services/ServiceVisual'
 import { cn } from '@/lib/utils'
-
-const OFFERS = [
-  {
-    title: 'Sites web sur mesure',
-    description:
-      'Votre identité numérique développée selon vos besoins spécifiques.',
-    tags: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Payload CMS'],
-    price: "3'500",
-    visual: 'streaks' as const,
-    reverse: false, 
-  },
-  {
-    title: 'SaaS & plateformes',
-    description:
-      'Applications métier sur mesure, logique métier robuste et données structurées. De la conception à la mise en production cloud, nous livrons des plateformes prêtes à scaler.',
-    tags: ['TypeScript', 'PostgreSQL', 'AWS'],
-    price: "12'000",
-    visual: 'code' as const,
-    reverse: false,
-  },
-] as const
 
 export function ServicesOffers() {
   return (
     <section className="relative z-10 mb-24 md:mb-32 lg:mb-40">
       <div className="flex flex-col gap-20 md:gap-28 lg:gap-36">
-        {OFFERS.map((offer) => (
+        {SERVICE_OFFERS.map((offer) => (
           <article
             key={offer.title}
             className="grid grid-cols-1 items-center gap-10 md:gap-14 lg:grid-cols-2 lg:gap-16"
@@ -55,22 +34,7 @@ export function ServicesOffers() {
                   </span>
                 ))}
               </div>
-              <p className="text-sm text-foreground/80">
-                À partir de{' '}
-                <span className="text-lg font-semibold tabular-nums text-foreground">
-                  {offer.price} CHF
-                </span>
-              </p>
-              <Link
-                href="/contact"
-                className="group inline-flex w-fit items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
-              >
-                En savoir plus
-                <ArrowRight
-                  className="size-4 transition-transform group-hover:translate-x-0.5"
-                  weight="bold"
-                />
-              </Link>
+              <ServiceOfferActions offer={offer} />
             </div>
           </article>
         ))}

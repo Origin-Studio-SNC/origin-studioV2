@@ -7,7 +7,7 @@ export function ServicesHero() {
       <h1 className="services-hero-title max-w-5xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
         <span className="uppercase">On construit </span>
         <span className="services-text-outline uppercase not-italic">des sites qui </span>
-        <span className="font-serif text-[1.02em] font-bold uppercase not-italic text-primary">
+        <span className="text-[1.02em] font-bold uppercase not-italic text-primary">
           durent.
         </span>
       </h1>

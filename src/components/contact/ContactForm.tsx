@@ -1,7 +1,8 @@
 'use client'
 
 import { ArrowRight, CaretDown } from '@phosphor-icons/react'
-import React, { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import React, { useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -23,6 +24,14 @@ const BUDGETS = [
   '50k CHF et +',
   'À définir',
 ] as const
+
+/** Query `?service=` from /services links → pré-sélection du type de projet */
+const SERVICE_QUERY_MAP: Record<string, (typeof PROJECT_TYPES)[number]> = {
+  site: 'Site web sur mesure',
+  ecommerce: 'E-commerce / boutique en ligne',
+  app: 'Application web/SaaS ou outil métier',
+  ia: 'IA & automatisation',
+}
 
 const fieldClass =
   'w-full rounded-lg border border-border bg-card/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/40'
@@ -65,6 +74,13 @@ function NativeSelect({
 }
 
 export function ContactForm() {
+  const searchParams = useSearchParams()
+  const serviceKey = searchParams.get('service') ?? ''
+  const presetProjectType = useMemo(() => {
+    const v = SERVICE_QUERY_MAP[serviceKey]
+    return v && PROJECT_TYPES.includes(v) ? v : ''
+  }, [serviceKey])
+
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -137,7 +153,13 @@ export function ContactForm() {
             <label htmlFor="contact-type" className={labelClass}>
               Type de projet
             </label>
-            <NativeSelect id="contact-type" name="projectType" required defaultValue="">
+            <NativeSelect
+              id="contact-type"
+              name="projectType"
+              required
+              key={serviceKey || 'default-type'}
+              defaultValue={presetProjectType}
+            >
               <option value="" disabled>
                 Sélectionner…
               </option>

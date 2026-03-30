@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import { ContactForm } from '@/components/contact/ContactForm'
 import { ContactHero } from '@/components/contact/ContactHero'
@@ -21,7 +21,9 @@ export default function ContactPage() {
       <ContactHero />
       <div className="relative z-10 grid grid-cols-1 gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20 xl:gap-24">
         <ContactSidebar />
-        <ContactForm />
+        <Suspense fallback={<div className="min-h-[520px] rounded-xl border border-border bg-card/20" />}>
+          <ContactForm />
+        </Suspense>
       </div>
     </div>
   )
