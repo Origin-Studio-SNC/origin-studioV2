@@ -1,8 +1,8 @@
-// components/ResourcesSection.tsx
 import Link from 'next/link'
 import Image from 'next/image'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import { Reveal } from '@/components/motion/Reveal'
 
 const ResourcesSection = async () => {
   const payload = await getPayload({ config: configPromise })
@@ -25,7 +25,9 @@ const ResourcesSection = async () => {
       className="bg-muted/20 px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-[130px]"
     >
       <div className="mx-auto max-w-7xl">
-        <p className="section-label mb-10 md:mb-16">Ressources</p>
+        <Reveal>
+          <p className="section-label mb-10 md:mb-16">Ressources</p>
+        </Reveal>
 
         <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3 md:items-center md:gap-8">
           {posts.map((post, index) => {
@@ -44,13 +46,17 @@ const ResourcesSection = async () => {
               : ''
 
             return (
-              <Link
+              <Reveal
                 key={post.id}
+                delay={index * 0.1}
+                className="h-full min-h-0 min-w-0"
+              >
+              <Link
                 href={`/blog/${post.slug}`}
                 className={
                   isFeatured
-                    ? 'group overflow-hidden rounded-sm border border-primary/30 bg-card shadow-2xl shadow-primary/5 lg:-mt-12 lg:mb-12'
-                    : 'group overflow-hidden rounded-sm border border-border bg-card'
+                    ? 'group flex h-full min-h-0 flex-col overflow-hidden rounded-sm border border-primary/30 bg-card shadow-2xl shadow-primary/5 lg:-mt-12 lg:mb-12'
+                    : 'group flex h-full min-h-0 flex-col overflow-hidden rounded-sm border border-border bg-card'
                 }
               >
                 <div className="aspect-video overflow-hidden">
@@ -96,6 +102,7 @@ const ResourcesSection = async () => {
                   </div>
                 </div>
               </Link>
+              </Reveal>
             )
           })}
         </div>

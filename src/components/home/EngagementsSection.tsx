@@ -1,3 +1,5 @@
+import { Reveal } from '@/components/motion/Reveal'
+
 const engagements = [
   {
     num: '01',
@@ -26,13 +28,15 @@ const EngagementsSection = () => {
       className="px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-[130px]"
     >
       <div className="mx-auto max-w-7xl">
-        <p className="section-label mb-10 md:mb-16">Nos engagements</p>
+        <Reveal>
+          <p className="section-label mb-10 md:mb-16">Nos engagements</p>
+        </Reveal>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          {engagements.map((item) => (
+          {engagements.map((item, i) => (
+            <Reveal key={item.num} delay={i * 0.08}>
             <div
-              key={item.num}
-              className="group relative border border-border bg-card p-6 sm:p-8 md:p-10 lg:p-12"
+              className="group relative h-full border border-border bg-card p-6 sm:p-8 md:p-10 lg:p-12"
             >
               <span className="absolute left-8 top-8 font-mono text-xs text-foreground/40">
                 {item.num}
@@ -44,6 +48,7 @@ const EngagementsSection = () => {
                 {item.description}
               </p>
             </div>
+            </Reveal>
           ))}
         </div>
       </div>

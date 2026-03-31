@@ -1,12 +1,15 @@
-// components/RealisationsClient.tsx
 'use client'
 
+import { motion, useReducedMotion } from 'motion/react'
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Project } from '@/payload-types'
+import { Reveal } from '@/components/motion/Reveal'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 const CATEGORIES = [
   { label: 'Tous', value: 'tous' },
@@ -32,7 +35,13 @@ const STATS = [
 ] as const
 
 export function RealisationsClient({ projects }: { projects: Project[] }) {
+  const reduced = useReducedMotion()
   const [active, setActive] = useState('tous')
+
+  const itemHidden = reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }
+  const itemShow = reduced
+    ? { opacity: 1, y: 0, transition: { duration: 0 } }
+    : { opacity: 1, y: 0, transition: { duration: 0.5, ease } }
 
   const filtered =
     active === 'tous'
@@ -43,22 +52,45 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
     <main className="relative z-10 text-left">
       <div className="max-w-7xl text-left">
         {/* Hero */}
-        <header className="relative z-10 mb-16 md:mb-20 lg:mb-24">
-        <p className="section-label mb-6 max-w-none text-violet-100/50 md:mb-8">
-          Nos projets
-        </p>
-        <h1 className="page-hero-title mb-4 max-w-5xl wrap-break-words text-3xl leading-tight sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
-          Chaque projet,
-          <br />
-          <span className="text-primary italic">une obsession.</span>
-        </h1>
-        <p className="mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg">
-          Sites vitrines, applications, migrations — tous livrés à temps,
-          tous hébergés en Suisse.
-        </p>
-        </header>
+        <motion.header
+          className="relative z-10 mb-16 md:mb-20 lg:mb-24"
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: reduced ? 0 : 0.1,
+                delayChildren: reduced ? 0 : 0.06,
+              },
+            },
+          }}
+        >
+          <motion.p
+            className="section-label mb-6 max-w-none text-violet-100/50 md:mb-8"
+            variants={{ hidden: itemHidden, show: itemShow }}
+          >
+            Nos projets
+          </motion.p>
+          <motion.h1
+            className="page-hero-title mb-4 max-w-5xl wrap-break-words text-3xl leading-tight sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl"
+            variants={{ hidden: itemHidden, show: itemShow }}
+          >
+            Chaque projet,
+            <br />
+            <span className="text-primary italic">une obsession.</span>
+          </motion.h1>
+          <motion.p
+            className="mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg"
+            variants={{ hidden: itemHidden, show: itemShow }}
+          >
+            Sites vitrines, applications, migrations — tous livrés à temps,
+            tous hébergés en Suisse.
+          </motion.p>
+        </motion.header>
 
         {/* Filtres */}
+        <Reveal>
         <div className="mb-10 flex flex-wrap justify-start gap-2 sm:gap-3">
           {CATEGORIES.map((cat) => {
             const isActive = active === cat.value
@@ -79,11 +111,13 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
             )
           })}
         </div>
+        </Reveal>
 
         {/* Bento Grid */}
         <BentoGrid projects={filtered} />
 
         {/* Stats */}
+        <Reveal>
         <div className="mt-20 grid grid-cols-2 gap-3 md:grid-cols-4">
           {STATS.map((s) => (
             <div
@@ -97,6 +131,7 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
             </div>
           ))}
         </div>
+        </Reveal>
       </div>
     </main>
   )
@@ -105,9 +140,11 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
 function BentoGrid({ projects }: { projects: Project[] }) {
   if (!projects.length) {
     return (
-      <p className="py-20 text-center text-foreground/40">
-        Aucun projet dans cette catégorie.
-      </p>
+      <Reveal>
+        <p className="py-20 text-center text-foreground/40">
+          Aucun projet dans cette catégorie.
+        </p>
+      </Reveal>
     )
   }
 
@@ -119,16 +156,35 @@ function BentoGrid({ projects }: { projects: Project[] }) {
   const row2 = projects.slice(2, 4)
   const row3 = projects.slice(4)
 
+  let cardIndex = 0
+  const nextDelay = () => (cardIndex++) * 0.07
+
   return (
     <div className="space-y-4">
       {/* Row 1 */}
       {row1.length > 0 && (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-10">
           {row1[0] && (
-            <ProjectCard project={row1[0]} className="min-h-[300px] md:col-span-6 md:min-h-[420px]" />
+            <Reveal
+              className="min-h-0 md:col-span-6"
+              delay={nextDelay()}
+            >
+              <ProjectCard
+                project={row1[0]}
+                className="h-full min-h-[300px] md:min-h-[420px]"
+              />
+            </Reveal>
           )}
           {row1[1] && (
-            <ProjectCard project={row1[1]} className="min-h-[300px] md:col-span-4 md:min-h-[420px]" />
+            <Reveal
+              className="min-h-0 md:col-span-4"
+              delay={nextDelay()}
+            >
+              <ProjectCard
+                project={row1[1]}
+                className="h-full min-h-[300px] md:min-h-[420px]"
+              />
+            </Reveal>
           )}
         </div>
       )}
@@ -137,10 +193,26 @@ function BentoGrid({ projects }: { projects: Project[] }) {
       {row2.length > 0 && (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-10">
           {row2[0] && (
-            <ProjectCard project={row2[0]} className="min-h-[280px] md:col-span-4 md:min-h-[380px]" />
+            <Reveal
+              className="min-h-0 md:col-span-4"
+              delay={nextDelay()}
+            >
+              <ProjectCard
+                project={row2[0]}
+                className="h-full min-h-[280px] md:min-h-[380px]"
+              />
+            </Reveal>
           )}
           {row2[1] && (
-            <ProjectCard project={row2[1]} className="min-h-[280px] md:col-span-6 md:min-h-[380px]" />
+            <Reveal
+              className="min-h-0 md:col-span-6"
+              delay={nextDelay()}
+            >
+              <ProjectCard
+                project={row2[1]}
+                className="h-full min-h-[280px] md:min-h-[380px]"
+              />
+            </Reveal>
           )}
         </div>
       )}
@@ -149,7 +221,12 @@ function BentoGrid({ projects }: { projects: Project[] }) {
       {row3.length > 0 && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {row3.map((project) => (
-            <ProjectCard key={project.id} project={project} className="min-h-[300px]" />
+            <Reveal key={project.id} delay={nextDelay()}>
+              <ProjectCard
+                project={project}
+                className="h-full min-h-[300px]"
+              />
+            </Reveal>
           ))}
         </div>
       )}

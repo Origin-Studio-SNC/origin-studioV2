@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Reveal } from '@/components/motion/Reveal'
+
 const VALUES = [
   {
     n: '01',
@@ -21,13 +23,15 @@ const VALUES = [
 export function AboutValuesSection() {
   return (
     <section className="relative z-10 mb-24 lg:mb-40">
-      <div className="mb-12 md:mb-16">
-        <span className="section-label mb-4 max-w-none text-violet-100/50"> Nos valeurs </span>
-      </div>
+      <Reveal>
+        <div className="mb-12 md:mb-16">
+          <span className="section-label mb-4 max-w-none text-violet-100/50"> Nos valeurs </span>
+        </div>
+      </Reveal>
       <div className="flex flex-col">
         {VALUES.map((row, i) => (
+          <Reveal key={row.n} delay={i * 0.06}>
           <div
-            key={row.n}
             className={`group flex min-w-0 flex-col items-start justify-between gap-4 border-t border-border px-2 py-10 transition-all duration-300 hover:bg-muted/20 md:flex-row md:items-center md:gap-8 md:px-4 md:py-12 ${i === VALUES.length - 1 ? 'border-b' : ''}`}
           >
             <div className="flex min-w-0 items-center gap-4 sm:gap-6 md:gap-8">
@@ -38,6 +42,7 @@ export function AboutValuesSection() {
               {row.body}
             </p>
           </div>
+          </Reveal>
         ))}
       </div>
     </section>

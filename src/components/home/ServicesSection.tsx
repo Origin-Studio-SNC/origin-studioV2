@@ -1,4 +1,5 @@
 import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
+import { Reveal } from '@/components/motion/Reveal'
 
 const services = [
   {
@@ -35,12 +36,14 @@ const ServicesSection = () => {
       className="px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-[130px]"
     >
       <div className="mx-auto max-w-7xl">
-        <p className="section-label mb-10 md:mb-16">Nos services</p>
+        <Reveal>
+          <p className="section-label mb-10 md:mb-16">Nos services</p>
+        </Reveal>
 
         <div className="flex flex-col border-t border-border">
-          {services.map((s) => (
+          {services.map((s, i) => (
+            <Reveal key={s.num} delay={i * 0.06}>
             <div
-              key={s.num}
               className="group relative flex flex-col justify-between border-b border-border px-4 py-8 transition-all duration-500 hover:bg-muted/30 sm:px-6 md:flex-row md:items-center md:px-8 md:py-12"
             >
               <div className="absolute bottom-0 left-0 top-0 w-0 bg-primary transition-all duration-500 group-hover:w-[3px]" />
@@ -63,6 +66,7 @@ const ServicesSection = () => {
                 className="hidden size-6 text-foreground/20 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-foreground md:block"
               />
             </div>
+            </Reveal>
           ))}
         </div>
       </div>

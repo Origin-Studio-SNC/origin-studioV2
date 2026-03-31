@@ -3,17 +3,16 @@ import React from 'react'
 import { ServiceOfferActions } from '@/components/services/ServiceOfferActions'
 import { SERVICE_OFFERS } from '@/components/services/serviceOffersData'
 import { ServiceVisual } from '@/components/services/ServiceVisual'
+import { Reveal } from '@/components/motion/Reveal'
 import { cn } from '@/lib/utils'
 
 export function ServicesOffers() {
   return (
     <section className="relative z-10 mb-24 md:mb-32 lg:mb-40">
       <div className="flex flex-col gap-20 md:gap-28 lg:gap-36">
-        {SERVICE_OFFERS.map((offer) => (
-          <article
-            key={offer.title}
-            className="grid grid-cols-1 items-center gap-10 md:gap-14 lg:grid-cols-2 lg:gap-16"
-          >
+        {SERVICE_OFFERS.map((offer, i) => (
+          <Reveal key={offer.title} delay={i * 0.08}>
+          <article className="grid grid-cols-1 items-center gap-10 md:gap-14 lg:grid-cols-2 lg:gap-16">
             <div className={cn('min-w-0', offer.reverse && 'lg:order-2')}>
               <ServiceVisual variant={offer.visual} />
             </div>
@@ -37,6 +36,7 @@ export function ServicesOffers() {
               <ServiceOfferActions offer={offer} />
             </div>
           </article>
+          </Reveal>
         ))}
       </div>
     </section>

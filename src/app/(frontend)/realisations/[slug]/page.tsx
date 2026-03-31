@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 import { RichText } from '@/components/RichText'
+import { Reveal } from '@/components/motion/Reveal'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -61,15 +62,18 @@ export default async function RealisationPage({
       <div className="max-w-7xl text-left">
 
         {/* Back */}
-        <Link
-          href="/realisations"
-          className="mb-12 inline-flex items-center gap-2 text-sm text-foreground/50 transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="size-4" />
-          Nos réalisations
-        </Link>
+        <Reveal>
+          <Link
+            href="/realisations"
+            className="mb-12 inline-flex items-center gap-2 text-sm text-foreground/50 transition-colors hover:text-foreground"
+          >
+            <ArrowLeft className="size-4" />
+            Nos réalisations
+          </Link>
+        </Reveal>
 
         {/* Hero */}
+        <Reveal delay={0.04}>
         <div className="mb-16 grid grid-cols-1 gap-10 min-w-0 sm:gap-12 lg:grid-cols-2 lg:items-end lg:gap-12">
           <div className="min-w-0">
             <p className="section-label mb-6">
@@ -124,9 +128,11 @@ export default async function RealisationPage({
             )}
           </div>
         </div>
+        </Reveal>
 
         {/* Cover image */}
         {thumbnail && (
+          <Reveal>
           <div className="relative mb-20 aspect-video w-full overflow-hidden rounded-sm border border-border">
             <Image
               src={thumbnail.url ?? ''}
@@ -137,10 +143,12 @@ export default async function RealisationPage({
               priority
             />
           </div>
+          </Reveal>
         )}
 
         {/* Challenge / Solution / Results */}
         {(project.challenge || project.solution || project.results) && (
+          <Reveal>
           <div className="mb-20 grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-3">
             {[
               { label: '01 — Le défi', content: project.challenge },
@@ -162,19 +170,23 @@ export default async function RealisationPage({
                 ),
             )}
           </div>
+          </Reveal>
         )}
 
         {/* Content principal */}
         {project.content && (
-          <div className="mb-20 min-w-0 max-w-3xl">
-            <div className="prose prose-invert prose-lg max-w-none wrap-break-words prose-pre:max-w-full prose-pre:overflow-x-auto">
-              <RichText content={project.content} />
+          <Reveal>
+            <div className="mb-20 min-w-0 max-w-3xl">
+              <div className="prose prose-invert prose-lg max-w-none wrap-break-words prose-pre:max-w-full prose-pre:overflow-x-auto">
+                <RichText content={project.content} />
+              </div>
             </div>
-          </div>
+          </Reveal>
         )}
 
         {/* Galerie */}
         {project.gallery && project.gallery.length > 0 && (
+          <Reveal>
           <div className="mb-20">
             <p className="section-label mb-10">Galerie</p>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -206,9 +218,11 @@ export default async function RealisationPage({
               })}
             </div>
           </div>
+          </Reveal>
         )}
 
         {/* CTA bas de page */}
+        <Reveal>
         <div className="border border-border bg-card/40 px-5 py-10 text-center sm:px-8 sm:py-12 md:p-16">
           <p className="section-label mb-4">Projet suivant</p>
           <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
@@ -225,6 +239,7 @@ export default async function RealisationPage({
             <ArrowUpRight className="size-4" />
           </Link>
         </div>
+        </Reveal>
 
       </div>
       </main>

@@ -1,11 +1,15 @@
 'use client'
 
+import { motion, useReducedMotion } from 'motion/react'
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from '@phosphor-icons/react'
 import type { Post } from '@/payload-types'
+import { Reveal } from '@/components/motion/Reveal'
 import { formatDate } from '@/lib/utils'
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 const CATEGORIES = [
   { label: 'Tous', value: 'tous' },
@@ -33,7 +37,13 @@ export function BlogClient({
   currentPage: number
   totalPages: number
 }) {
+  const reduced = useReducedMotion()
   const [active, setActive] = useState('tous')
+
+  const itemHidden = reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }
+  const itemShow = reduced
+    ? { opacity: 1, y: 0, transition: { duration: 0 } }
+    : { opacity: 1, y: 0, transition: { duration: 0.5, ease } }
 
   const filtered =
     active === 'tous'
@@ -47,24 +57,47 @@ export function BlogClient({
     <main className="relative z-10 text-left">
       <div className="max-w-7xl text-left">
         {/* Hero */}
-        <header className="relative z-10 mb-16 md:mb-20 lg:mb-24">
-        <p className="section-label mb-6 max-w-none text-violet-100/50 md:mb-8">
-          RESSOURCES
-        </p>
-        <h1 className="page-hero-title mb-6 max-w-5xl wrap-break-words text-3xl leading-tight sm:text-4xl md:mb-8 md:text-5xl lg:text-6xl xl:text-7xl">
-          Insights pour{' '}
-          <span className="italic text-primary">PME</span>
-          <br />
-          <span className="text-foreground/20">ET STARTUPS</span>{' '}
-          suisses.
-        </h1>
-        <p className="mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg">
-          Stratégies de design, ingénierie produit et culture de
-          l'excellence pour les bâtisseurs de l'écosystème helvétique.
-        </p>
-        </header>
+        <motion.header
+          className="relative z-10 mb-16 md:mb-20 lg:mb-24"
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: reduced ? 0 : 0.1,
+                delayChildren: reduced ? 0 : 0.06,
+              },
+            },
+          }}
+        >
+          <motion.p
+            className="section-label mb-6 max-w-none text-violet-100/50 md:mb-8"
+            variants={{ hidden: itemHidden, show: itemShow }}
+          >
+            RESSOURCES
+          </motion.p>
+          <motion.h1
+            className="page-hero-title mb-6 max-w-5xl wrap-break-words text-3xl leading-tight sm:text-4xl md:mb-8 md:text-5xl lg:text-6xl xl:text-7xl"
+            variants={{ hidden: itemHidden, show: itemShow }}
+          >
+            Insights pour{' '}
+            <span className="italic text-primary">PME</span>
+            <br />
+            <span className="text-foreground/20">ET STARTUPS</span>{' '}
+            suisses.
+          </motion.h1>
+          <motion.p
+            className="mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg"
+            variants={{ hidden: itemHidden, show: itemShow }}
+          >
+            Stratégies de design, ingénierie produit et culture de
+            l&apos;excellence pour les bâtisseurs de l&apos;écosystème helvétique.
+          </motion.p>
+        </motion.header>
 
         {/* Filtres */}
+        <Reveal>
         <div className="mb-12 flex flex-wrap justify-start gap-2 sm:gap-3">
           {CATEGORIES.map((cat) => (
             <button
@@ -81,9 +114,11 @@ export function BlogClient({
             </button>
           ))}
         </div>
+        </Reveal>
 
         {/* Featured article */}
         {featured && (
+          <Reveal>
           <Link
             href={`/blog/${featured.slug}`}
             className="group mb-12 grid grid-cols-1 overflow-hidden rounded-sm border border-border bg-card transition-colors hover:border-primary/50 md:grid-cols-2"
@@ -118,7 +153,7 @@ export function BlogClient({
                   {featured.category}
                 </span>
               </p>
-              <h2 className="mb-4 break-words text-xl font-bold leading-snug transition-colors group-hover:text-primary sm:text-2xl md:text-3xl">
+              <h2 className="mb-4 wrap-break-words text-xl font-bold leading-snug transition-colors group-hover:text-primary sm:text-2xl md:text-3xl">
                 {featured.title}
               </h2>
               <p className="mb-8 line-clamp-3 text-sm text-foreground/55 leading-relaxed">
@@ -130,19 +165,23 @@ export function BlogClient({
               </span>
             </div>
           </Link>
+          </Reveal>
         )}
 
         {/* Grid articles */}
         {rest.length > 0 && (
           <div className="mb-16 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {rest.map((post, i) => (
-              <ArticleCard key={post.id} post={post} index={i + 2} />
+              <Reveal key={post.id} delay={i * 0.07}>
+                <ArticleCard post={post} index={i + 2} />
+              </Reveal>
             ))}
           </div>
         )}
 
         {/* Pagination */}
         {totalPages > 1 && (
+          <Reveal>
           <div className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-y-3">
             <p className="shrink-0 text-xs text-foreground/40 uppercase tracking-widest sm:text-sm">
               Page {String(currentPage).padStart(2, '0')} —{' '}
@@ -170,6 +209,7 @@ export function BlogClient({
               Origin Studio / Journal de bord
             </p>
           </div>
+          </Reveal>
         )}
 
       </div>

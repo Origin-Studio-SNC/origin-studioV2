@@ -1,6 +1,8 @@
 import { Plus } from '@phosphor-icons/react/dist/ssr'
 import React from 'react'
 
+import { Reveal } from '@/components/motion/Reveal'
+
 const FAQ = [
   {
     q: 'Quels sont vos délais de réalisation en moyenne ?',
@@ -27,16 +29,18 @@ const FAQ = [
 export function ServicesFaq() {
   return (
     <section className="relative z-10 mb-16 md:mb-24">
-      <div className="mb-10 md:mb-12">
-        <span className="section-label mb-4 max-w-none text-violet-100/50">FAQ</span>
-        <h2 className="break-words text-2xl font-light tracking-tight sm:text-3xl md:text-4xl">
-          Questions fréquentes
-        </h2>
-      </div>
+      <Reveal>
+        <div className="mb-10 md:mb-12">
+          <span className="section-label mb-4 max-w-none text-violet-100/50">FAQ</span>
+          <h2 className="wrap-break-words text-2xl font-light tracking-tight sm:text-3xl md:text-4xl">
+            Questions fréquentes
+          </h2>
+        </div>
+      </Reveal>
       <div className="mx-auto max-w-3xl border-t border-border">
-        {FAQ.map((item) => (
+        {FAQ.map((item, i) => (
+          <Reveal key={item.q} delay={i * 0.05}>
           <details
-            key={item.q}
             className="group border-b border-border [&_summary::-webkit-details-marker]:hidden"
           >
             <summary className="flex cursor-pointer list-none items-start justify-between gap-3 py-5 text-left text-base font-medium text-foreground transition-colors hover:text-primary sm:items-center sm:gap-4 md:py-6">
@@ -51,6 +55,7 @@ export function ServicesFaq() {
               {item.a}
             </div>
           </details>
+          </Reveal>
         ))}
       </div>
     </section>

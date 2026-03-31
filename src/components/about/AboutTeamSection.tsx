@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
+import { Reveal } from '@/components/motion/Reveal'
+
 const TEAM = [
   {
     name: 'Elio',
@@ -69,17 +71,21 @@ function TeamMemberCard({
 export function AboutTeamSection() {
   return (
     <section className="relative z-10 mb-24 lg:mb-40">
-      <div className="mb-12 md:mb-16">
-        <span className="section-label mb-4 max-w-none text-violet-100/50">
-           L&apos;équipe 
-        </span>
-        <h2 className="wrap-break-words text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl">
-          L&apos;esprit Studio.
-        </h2>
-      </div>
+      <Reveal>
+        <div className="mb-12 md:mb-16">
+          <span className="section-label mb-4 max-w-none text-violet-100/50">
+            L&apos;équipe
+          </span>
+          <h2 className="wrap-break-words text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl">
+            L&apos;esprit Studio.
+          </h2>
+        </div>
+      </Reveal>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        {TEAM.map((member) => (
-          <TeamMemberCard key={member.name} member={member} />
+        {TEAM.map((member, i) => (
+          <Reveal key={member.name} delay={i * 0.08}>
+            <TeamMemberCard member={member} />
+          </Reveal>
         ))}
       </div>
     </section>
