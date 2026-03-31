@@ -2,16 +2,14 @@ import React from 'react'
 
 export function AboutHeroSection() {
   return (
-    <section className="relative z-10 mb-24 lg:mb-40">
-      <div className="flex flex-col gap-8">
-        <span className="section-label mb-2 max-w-none text-violet-100/50">Notre histoire</span>
-        <h1 className="about-hero-title max-w-5xl text-6xl leading-[0.92] tracking-tight md:text-7xl lg:text-8xl">
-          <span className="block font-medium">Deux expertises,</span>
-          <span className="mt-4 block text-[1.05em] font-bold italic text-primary sm:mt-5 md:mt-6">
-            une vision commune.
-          </span>
+    <section className="relative z-10 mb-20 md:mb-28 lg:mb-36">
+      <div className="flex flex-col">
+        <span className="section-label mb-6 max-w-none text-violet-100/50 md:mb-8">Notre histoire</span>
+        <h1 className="page-hero-title max-w-5xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+          <span className="block">Deux expertises,</span>
+          <span className="mt-3 block text-primary sm:mt-4 md:mt-5">une vision commune.</span>
         </h1>
-        <p className="mt-4 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-8 md:text-xl">
+        <p className="mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg">
           Ancrés au cœur de la Suisse, nous redéfinissons les standards numériques pour les PME.
           Notre approche refuse le compromis : nous bâtissons des architectures qui durent et qui
           répondent à vos besoins.

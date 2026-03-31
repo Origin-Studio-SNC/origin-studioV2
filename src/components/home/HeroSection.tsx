@@ -5,19 +5,17 @@ import { Button } from '../ui/button'
 const HeroSection = () => {
   return (
     <section className="hero-glow relative flex min-h-[calc(100dvh-4rem)] flex-col items-center justify-center px-4 pb-24 text-center sm:px-6 md:min-h-[calc(100dvh-5rem)] md:pb-28">
-      <span className="section-label text-violet-100/50 mb-10 max-w-xs justify-center">
+      <span className="section-label mb-6 max-w-xs justify-center text-violet-100/50 md:mb-8">
         Studio digital premium
       </span>
 
-      <h1>
-        Des expériences
+      <h1 className="page-hero-title mx-auto max-w-5xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+        Des expériences digitales
         <br />
-        <span className="uppercase">digitales </span>sur
-        <br />
-        <span className="text-primary">mesure.</span>
+        sur <span className="text-primary">mesure.</span>
       </h1>
 
-      <p className="mt-6 max-w-lg text-sm leading-relaxed text-violet-200">
+      <p className="mt-8 max-w-lg text-base font-light leading-relaxed text-violet-200 md:mt-10 md:max-w-2xl md:text-lg">
         Agence web premium à Genève dédiée à la performance technique et au design minimaliste
         assumé. Nous transformons vos ambitions en expériences, en tout type d&apos;excellence.
       </p>

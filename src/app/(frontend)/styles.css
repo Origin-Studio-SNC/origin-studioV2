@@ -223,31 +223,12 @@ svg {
   }
 }
 
-/* ─── About page hero (override global h1) ─── */
-.about-page h1.about-hero-title {
-  font-weight: 300;
+/* ─── Titres principaux pages vitrine (même graisse, casse, tracking) ─── */
+h1.page-hero-title {
+  font-weight: 500;
   letter-spacing: -0.045em;
-  line-height: 0.92;
-}
-
-/* ─── Contact page hero ─── */
-.contact-page h1.contact-hero-title {
-  font-weight: 300;
-  letter-spacing: -0.045em;
-  line-height: 1.05;
-}
-
-/* ─── Services page hero ─── */
-.services-page h1.services-hero-title {
-  font-weight: 300;
-  letter-spacing: -0.05em;
-  line-height: 0.95;
-}
-
-.services-text-outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px oklch(0.82 0.02 270);
-  paint-order: stroke fill;
+  line-height: 1.08;
+  text-transform: none;
 }
 
 /* ─── Hero glow effect ─── */
