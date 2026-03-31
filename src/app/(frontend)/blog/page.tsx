@@ -21,10 +21,16 @@ export default async function BlogPage({
   })
 
   return (
-    <BlogClient
-      posts={posts}
-      currentPage={currentPage}
-      totalPages={totalPages}
-    />
+    <div className="blog-page relative mx-auto w-full max-w-[1440px] overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
+      <div
+        className="hero-glow pointer-events-none absolute top-0 left-1/2 z-0 h-[min(720px,85vh)] w-full max-w-[1600px] -translate-x-1/2"
+        aria-hidden
+      />
+      <BlogClient
+        posts={posts}
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
+    </div>
   )
 }

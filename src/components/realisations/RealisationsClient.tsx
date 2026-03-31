@@ -40,23 +40,26 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
       : projects.filter((p) => p.category === active)
 
   return (
-    <main className="px-5 py-20 sm:px-6 lg:px-40 lg:py-[130px]">
-      <div className="mx-auto max-w-7xl">
-
+    <main className="relative z-10 text-left">
+      <div className="max-w-7xl text-left">
         {/* Hero */}
-        <p className="section-label mb-6"> NOS PROJETS</p>
-        <h1 className="mb-4 text-5xl font-bold leading-tight md:text-7xl lg:text-8xl">
+        <header className="relative z-10 mb-16 md:mb-20 lg:mb-24">
+        <p className="section-label mb-6 max-w-none text-violet-100/50 md:mb-8">
+          Nos projets
+        </p>
+        <h1 className="page-hero-title mb-4 max-w-5xl text-4xl leading-tight sm:text-5xl md:mb-6 md:text-6xl lg:text-7xl xl:text-8xl">
           Chaque projet,
           <br />
           <span className="text-primary italic">une obsession.</span>
         </h1>
-        <p className="mb-16 max-w-md text-base text-foreground/55">
+        <p className="mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg">
           Sites vitrines, applications, migrations — tous livrés à temps,
           tous hébergés en Suisse.
         </p>
+        </header>
 
         {/* Filtres */}
-        <div className="mb-10 flex flex-wrap gap-3">
+        <div className="mb-10 flex flex-wrap justify-start gap-3">
           {CATEGORIES.map((cat) => {
             const isActive = active === cat.value
             return (

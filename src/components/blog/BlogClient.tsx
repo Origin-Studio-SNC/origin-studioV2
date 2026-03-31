@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from '@phosphor-icons/react'
 import type { Post } from '@/payload-types'
+import { formatDate } from '@/lib/utils'
 
 const CATEGORIES = [
   { label: 'Tous', value: 'tous' },
@@ -43,25 +44,28 @@ export function BlogClient({
   const rest = filtered.slice(1)
 
   return (
-    <main className="px-5 py-20 sm:px-6 lg:px-40 lg:py-[130px]">
-      <div className="mx-auto max-w-7xl">
-
+    <main className="relative z-10 text-left">
+      <div className="max-w-7xl text-left">
         {/* Hero */}
-        <p className="section-label mb-6">01 —— RESSOURCES</p>
-        <h1 className="mb-6 text-5xl font-bold leading-tight md:text-7xl">
+        <header className="relative z-10 mb-16 md:mb-20 lg:mb-24">
+        <p className="section-label mb-6 max-w-none text-violet-100/50 md:mb-8">
+          RESSOURCES
+        </p>
+        <h1 className="page-hero-title mb-6 max-w-5xl text-4xl leading-tight sm:text-5xl md:mb-8 md:text-6xl lg:text-7xl">
           Insights pour{' '}
           <span className="italic text-primary">PME</span>
           <br />
           <span className="text-foreground/20">ET STARTUPS</span>{' '}
           suisses.
         </h1>
-        <p className="mb-16 max-w-lg text-base text-foreground/55">
+        <p className="mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg">
           Stratégies de design, ingénierie produit et culture de
           l'excellence pour les bâtisseurs de l'écosystème helvétique.
         </p>
+        </header>
 
         {/* Filtres */}
-        <div className="mb-12 flex flex-wrap gap-3">
+        <div className="mb-12 flex flex-wrap justify-start gap-3">
           {CATEGORIES.map((cat) => (
             <button
               key={cat.value}
@@ -230,13 +234,4 @@ function ArticleCard({ post, index }: { post: Post; index: number }) {
       </div>
     </Link>
   )
-}
-
-function formatDate(date: string | null | undefined): string {
-  if (!date) return ''
-  return new Date(date).toLocaleDateString('fr-CH', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-  })
 }
