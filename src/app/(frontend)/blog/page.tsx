@@ -1,6 +1,12 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { BlogClient } from '@/components/blog/BlogClient'
+import dynamic from 'next/dynamic'
+
+// Dynamic import pour réduire le bundle initial
+const BlogClient = dynamic(
+  () => import('@/components/blog/BlogClient').then((mod) => mod.BlogClient),
+  { ssr: true }
+)
 
 export default async function BlogPage({
   searchParams,

@@ -1,9 +1,41 @@
 import { withPayload } from '@payloadcms/next/withPayload'
 
+// Headers de sécurité
+const securityHeaders = [
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN',
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '0', // Désactivé car obsolète et peut causer des failles
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'strict-origin-when-cross-origin',
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'geolocation=(), microphone=(), camera=(), payment=()',
+  },
+]
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
   compress: true,
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+    ]
+  },
   images: {
     remotePatterns: [
       {

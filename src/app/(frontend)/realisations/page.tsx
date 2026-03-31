@@ -1,6 +1,12 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { RealisationsClient } from '@/components/realisations/RealisationsClient'
+import dynamic from 'next/dynamic'
+
+// Dynamic import pour réduire le bundle initial
+const RealisationsClient = dynamic(
+  () => import('@/components/realisations/RealisationsClient').then((mod) => mod.RealisationsClient),
+  { ssr: true }
+)
 
 export default async function RealisationsPage() {
   const payload = await getPayload({ config: configPromise })

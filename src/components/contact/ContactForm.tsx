@@ -1,7 +1,6 @@
 'use client'
 
 import { ArrowRight, CaretDown } from '@phosphor-icons/react'
-import { motion, useReducedMotion } from 'motion/react'
 import { useSearchParams } from 'next/navigation'
 import React, { useMemo, useState } from 'react'
 
@@ -75,7 +74,6 @@ function NativeSelect({
 }
 
 export function ContactForm() {
-  const reduced = useReducedMotion()
   const searchParams = useSearchParams()
   const serviceKey = searchParams.get('service') ?? ''
   const presetProjectType = useMemo(() => {
@@ -113,11 +111,9 @@ export function ContactForm() {
   }
 
   return (
-    <motion.div
-      className="relative z-10 overflow-hidden rounded-xl border border-border bg-card/40 p-6 shadow-[0_0_0_1px_oklch(1_0_0/4%)] backdrop-blur-sm md:p-8 lg:p-10"
-      initial={reduced ? false : { opacity: 0, y: 16 }}
-      animate={reduced ? undefined : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.48, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+    <div
+      className="reveal-on-load relative z-10 overflow-hidden rounded-xl border border-border bg-card/40 p-6 shadow-[0_0_0_1px_oklch(1_0_0/4%)] backdrop-blur-sm md:p-8 lg:p-10"
+      style={{ animationDelay: '0.08s' }}
     >
       <span
         className="pointer-events-none absolute top-4 right-4 font-mono text-[clamp(4rem,12vw,7rem)] leading-none font-black text-foreground/6 select-none md:top-6 md:right-8"
@@ -238,6 +234,6 @@ export function ContactForm() {
           </p>
         )}
       </form>
-    </motion.div>
+    </div>
   )
 }

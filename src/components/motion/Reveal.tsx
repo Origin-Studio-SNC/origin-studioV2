@@ -1,9 +1,6 @@
 'use client'
 
-import { motion, useReducedMotion } from 'motion/react'
-import type { ReactNode } from 'react'
-
-const ease = [0.22, 1, 0.36, 1] as const
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 type Props = {
   children: ReactNode
@@ -16,24 +13,43 @@ type Props = {
 
 /**
  * Apparition légère au scroll (opacity + léger translateY).
- * Respecte prefers-reduced-motion.
+ * Utilise Intersection Observer + CSS pour éviter le bundle Motion.
+ * Respecte prefers-reduced-motion via CSS.
  */
-export function Reveal({ children, className, delay = 0, amount = 0.15 }: Props) {
-  const reduced = useReducedMotion()
+export function Reveal({ children, className = '', delay = 0, amount = 0.15 }: Props) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
 
-  if (reduced) {
-    return <div className={className}>{children}</div>
-  }
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+
+    const threshold = amount === 'some' ? 0.1 : amount
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.unobserve(entry.target)
+        }
+      },
+      {
+        threshold,
+        rootMargin: '0px 0px -10% 0px',
+      }
+    )
+
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [amount])
 
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount, margin: '0px 0px -10% 0px' }}
-      transition={{ duration: 0.48, delay, ease }}
+    <div
+      ref={ref}
+      className={`reveal ${isVisible ? 'reveal-visible' : ''} ${className}`}
+      style={{ animationDelay: delay > 0 ? `${delay}s` : undefined }}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }

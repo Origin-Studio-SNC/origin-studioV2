@@ -106,6 +106,7 @@ const Navbar = () => {
             alt="Origin Studio"
             width={120}
             height={120}
+            priority
             className="h-9 w-auto md:h-12"
           />
         </Link>

@@ -66,6 +66,7 @@ const ResourcesSection = async () => {
                       alt={coverImage.alt ?? post.title}
                       width={600}
                       height={340}
+                      sizes="(max-width: 768px) 100vw, 33vw"
                       className={
                         isFeatured
                           ? 'h-full w-full object-cover transition-all duration-700 group-hover:scale-105'

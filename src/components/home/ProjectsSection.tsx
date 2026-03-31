@@ -45,6 +45,8 @@ const ProjectsSection = async () => {
                 src={featured.thumbnail.url ?? ''}
                 alt={featured.thumbnail.alt ?? featured.title}
                 fill
+                priority
+                sizes="(max-width: 768px) 100vw, 60vw"
                 className="object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
               />
             )}
@@ -70,6 +72,7 @@ const ProjectsSection = async () => {
                     src={project.thumbnail.url ?? ''}
                     alt={project.thumbnail.alt ?? project.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 40vw"
                     className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
                   />
                 )}

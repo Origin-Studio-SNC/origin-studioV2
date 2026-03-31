@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '600', '700'],
   display: 'swap',
   adjustFontFallback: true,
   variable: '--font-sans',
@@ -32,7 +32,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <body
         className={cn(
           'dark h-full scroll-smooth antialiased overflow-x-hidden',

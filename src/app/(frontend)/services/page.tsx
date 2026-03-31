@@ -1,10 +1,19 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import React from 'react'
 
-import { ServicesFaq } from '@/components/services/ServicesFaq'
 import { ServicesHero } from '@/components/services/ServicesHero'
 import { ServicesOffers } from '@/components/services/ServicesOffers'
-import { ServicesProcess } from '@/components/services/ServicesProcess'
+
+// Dynamic imports pour les sections below-the-fold
+const ServicesProcess = dynamic(
+  () => import('@/components/services/ServicesProcess').then((mod) => mod.ServicesProcess),
+  { ssr: true }
+)
+const ServicesFaq = dynamic(
+  () => import('@/components/services/ServicesFaq').then((mod) => mod.ServicesFaq),
+  { ssr: true }
+)
 
 export const metadata: Metadata = {
   title: 'Services — Origin Studio',
