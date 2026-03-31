@@ -3,7 +3,8 @@
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { List, X } from '@phosphor-icons/react'
+import { List } from '@phosphor-icons/react/dist/csr/List'
+import { X } from '@phosphor-icons/react/dist/csr/X'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'

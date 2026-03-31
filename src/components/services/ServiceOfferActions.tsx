@@ -71,7 +71,7 @@ export function ServiceOfferActions({ offer }: Props) {
         >
           <div className="flex items-start justify-between gap-4">
             <div>
-              <Dialog.Title className="text-2xl font-light tracking-tight text-foreground md:text-3xl">
+              <Dialog.Title className="wrap-break-words text-xl font-light tracking-tight text-foreground sm:text-2xl md:text-3xl">
                 {offer.title}
               </Dialog.Title>
               <Dialog.Description className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
@@ -89,12 +89,12 @@ export function ServiceOfferActions({ offer }: Props) {
             </Dialog.Close>
           </div>
 
-          <div className="grid gap-4 overflow-visible pt-5 md:grid-cols-3 md:items-stretch">
+          <div className="grid grid-cols-1 gap-4 overflow-visible pt-5 sm:grid-cols-2 md:grid-cols-3 md:items-stretch">
             {offer.tiers.map((tier) => (
               <div
                 key={tier.name}
                 className={cn(
-                  'relative flex min-h-0 flex-1 flex-col overflow-visible rounded-lg border bg-card/60 p-5',
+                  'relative flex min-h-0 min-w-0 flex-1 flex-col overflow-visible rounded-lg border bg-card/60 p-5',
                   tier.featured
                     ? 'border-primary shadow-[0_0_0_1px_oklch(0.56_0.23_272/0.35),0_20px_50px_-24px_oklch(0.56_0.23_272/0.45)]'
                     : 'border-border',
@@ -117,7 +117,7 @@ export function ServiceOfferActions({ offer }: Props) {
                       className="flex justify-between gap-3 border-b border-border/40 py-2.5 text-xs last:border-b-0 md:text-[13px]"
                     >
                       <dt className="text-muted-foreground">{row.label}</dt>
-                      <dd className="max-w-[58%] text-right text-foreground/90">{row.value}</dd>
+                      <dd className="max-w-[58%] wrap-break-words text-right text-foreground/90">{row.value}</dd>
                     </div>
                   ))}
                 </dl>

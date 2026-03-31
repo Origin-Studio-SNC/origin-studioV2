@@ -47,7 +47,7 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
         <p className="section-label mb-6 max-w-none text-violet-100/50 md:mb-8">
           Nos projets
         </p>
-        <h1 className="page-hero-title mb-4 max-w-5xl text-4xl leading-tight sm:text-5xl md:mb-6 md:text-6xl lg:text-7xl xl:text-8xl">
+        <h1 className="page-hero-title mb-4 max-w-5xl wrap-break-words text-3xl leading-tight sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
           Chaque projet,
           <br />
           <span className="text-primary italic">une obsession.</span>
@@ -59,7 +59,7 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
         </header>
 
         {/* Filtres */}
-        <div className="mb-10 flex flex-wrap justify-start gap-3">
+        <div className="mb-10 flex flex-wrap justify-start gap-2 sm:gap-3">
           {CATEGORIES.map((cat) => {
             const isActive = active === cat.value
             return (
@@ -70,7 +70,7 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
                 size="sm"
                 onClick={() => setActive(cat.value)}
                 className={cn(
-                  'h-auto rounded-full px-4 py-1.5 text-sm',
+                  'h-auto shrink-0 rounded-full px-3 py-1.5 text-xs sm:px-4 sm:text-sm',
                   !isActive && 'text-foreground/60 hover:border-foreground/40',
                 )}
               >
@@ -125,10 +125,10 @@ function BentoGrid({ projects }: { projects: Project[] }) {
       {row1.length > 0 && (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-10">
           {row1[0] && (
-            <ProjectCard project={row1[0]} className="md:col-span-6 min-h-[420px]" />
+            <ProjectCard project={row1[0]} className="min-h-[300px] md:col-span-6 md:min-h-[420px]" />
           )}
           {row1[1] && (
-            <ProjectCard project={row1[1]} className="md:col-span-4 min-h-[420px]" />
+            <ProjectCard project={row1[1]} className="min-h-[300px] md:col-span-4 md:min-h-[420px]" />
           )}
         </div>
       )}
@@ -137,10 +137,10 @@ function BentoGrid({ projects }: { projects: Project[] }) {
       {row2.length > 0 && (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-10">
           {row2[0] && (
-            <ProjectCard project={row2[0]} className="md:col-span-4 min-h-[380px]" />
+            <ProjectCard project={row2[0]} className="min-h-[280px] md:col-span-4 md:min-h-[380px]" />
           )}
           {row2[1] && (
-            <ProjectCard project={row2[1]} className="md:col-span-6 min-h-[380px]" />
+            <ProjectCard project={row2[1]} className="min-h-[280px] md:col-span-6 md:min-h-[380px]" />
           )}
         </div>
       )}
@@ -183,6 +183,7 @@ function ProjectCard({
           src={thumbnail.url ?? ''}
           alt={thumbnail.alt ?? project.title}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
           className="object-cover opacity-40 transition-all duration-700 group-hover:scale-105 group-hover:opacity-60"
         />
       )}
@@ -198,7 +199,7 @@ function ProjectCard({
 
       <div className="absolute bottom-5 left-5 right-5">
         <p className="mb-2 text-xs text-foreground/50">{project.client}</p>
-        <h3 className="mb-3 text-xl font-semibold leading-tight md:text-2xl">
+        <h3 className="mb-3 wrap-break-words text-lg font-semibold leading-tight sm:text-xl md:text-2xl">
           {project.title}
         </h3>
         <div className="flex flex-wrap gap-2">

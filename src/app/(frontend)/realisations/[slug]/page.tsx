@@ -70,12 +70,12 @@ export default async function RealisationPage({
         </Link>
 
         {/* Hero */}
-        <div className="mb-16 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-end">
-          <div>
+        <div className="mb-16 grid grid-cols-1 gap-10 min-w-0 sm:gap-12 lg:grid-cols-2 lg:items-end lg:gap-12">
+          <div className="min-w-0">
             <p className="section-label mb-6">
               {project.client} · {project.year}
             </p>
-            <h1 className="mb-6 text-5xl font-bold leading-tight md:text-7xl">
+            <h1 className="mb-6 wrap-break-words text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
               {project.title}
             </h1>
             <p className="mb-8 text-lg text-foreground/60 leading-relaxed">
@@ -99,13 +99,13 @@ export default async function RealisationPage({
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col gap-4 lg:items-end">
+          <div className="flex min-w-0 flex-col gap-3 sm:gap-4 lg:items-end">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-primary bg-primary px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary bg-primary px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:w-auto sm:px-6"
               >
                 Voir le site
                 <ArrowUpRight className="size-4" />
@@ -116,7 +116,7 @@ export default async function RealisationPage({
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm text-foreground/70 transition-colors hover:border-foreground/40"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border px-5 py-3 text-sm text-foreground/70 transition-colors hover:border-foreground/40 sm:w-auto sm:px-6"
               >
                 GitHub
                 <ArrowUpRight className="size-4" />
@@ -132,6 +132,7 @@ export default async function RealisationPage({
               src={thumbnail.url ?? ''}
               alt={thumbnail.alt ?? project.title}
               fill
+              sizes="(max-width: 1024px) 100vw, min(100vw, 1280px)"
               className="object-cover"
               priority
             />
@@ -165,8 +166,8 @@ export default async function RealisationPage({
 
         {/* Content principal */}
         {project.content && (
-          <div className="mb-20 mx-auto max-w-3xl">
-            <div className="prose prose-invert prose-lg max-w-none">
+          <div className="mb-20 min-w-0 max-w-3xl">
+            <div className="prose prose-invert prose-lg max-w-none wrap-break-words prose-pre:max-w-full prose-pre:overflow-x-auto">
               <RichText content={project.content} />
             </div>
           </div>
@@ -192,6 +193,7 @@ export default async function RealisationPage({
                       src={img.url ?? ''}
                       alt={item.caption ?? img.alt ?? ''}
                       fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
                       className="object-cover"
                     />
                     {item.caption && (
@@ -207,17 +209,17 @@ export default async function RealisationPage({
         )}
 
         {/* CTA bas de page */}
-        <div className="border border-border bg-card/40 p-10 md:p-16 text-center">
+        <div className="border border-border bg-card/40 px-5 py-10 text-center sm:px-8 sm:py-12 md:p-16">
           <p className="section-label mb-4">Projet suivant</p>
-          <h2 className="mb-6 text-3xl font-bold md:text-5xl">
+          <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
             Un projet similaire ?
           </h2>
-          <p className="mb-8 text-foreground/55">
+          <p className="mb-8 text-sm text-foreground/55 sm:text-base">
             Parlons-en — réponse sous 24h, devis gratuit.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-full border border-primary bg-primary px-8 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            className="mx-auto inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-full border border-primary bg-primary px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:mx-0 sm:w-auto sm:max-w-none sm:px-8"
           >
             Démarrer un projet
             <ArrowUpRight className="size-4" />

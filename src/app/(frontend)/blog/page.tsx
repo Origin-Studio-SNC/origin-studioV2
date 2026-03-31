@@ -5,10 +5,11 @@ import { BlogClient } from '@/components/blog/BlogClient'
 export default async function BlogPage({
   searchParams,
 }: {
-  searchParams: { page?: string }
+  searchParams: Promise<{ page?: string }>
 }) {
+  const { page } = await searchParams
   const payload = await getPayload({ config: configPromise })
-  const currentPage = Number(searchParams.page ?? 1)
+  const currentPage = Number(page ?? 1)
   const limit = 7 // 1 featured + 3 cards + 3 cards
 
   const { docs: posts, totalPages } = await payload.find({

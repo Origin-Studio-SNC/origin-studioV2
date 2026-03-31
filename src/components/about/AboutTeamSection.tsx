@@ -73,7 +73,9 @@ export function AboutTeamSection() {
         <span className="section-label mb-4 max-w-none text-violet-100/50">
            L&apos;équipe 
         </span>
-        <h2 className="text-3xl font-bold tracking-tighter md:text-5xl">L&apos;esprit Studio.</h2>
+        <h2 className="wrap-break-words text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl">
+          L&apos;esprit Studio.
+        </h2>
       </div>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {TEAM.map((member) => (

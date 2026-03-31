@@ -2,6 +2,8 @@ import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  poweredByHeader: false,
+  compress: true,
   images: {
     remotePatterns: [
       {
@@ -22,6 +24,8 @@ const nextConfig = {
   },
   experimental: {
     typedRoutes: true,
+    // Tree-shake les barrel exports (moins de JS client à parser — TBT)
+    optimizePackageImports: ['@phosphor-icons/react', 'radix-ui'],
   },
 }
 

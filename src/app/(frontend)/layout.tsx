@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils'
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  adjustFontFallback: true,
   variable: '--font-sans',
 })
 
@@ -16,6 +18,8 @@ const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
   weight: ['400', '700'],
   style: ['normal', 'italic'],
+  display: 'swap',
+  adjustFontFallback: true,
   variable: '--font-serif',
 })
 
@@ -31,7 +35,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="fr">
       <body
         className={cn(
-          'dark h-full scroll-smooth antialiased',
+          'dark h-full scroll-smooth antialiased overflow-x-hidden',
           spaceGrotesk.variable,
           playfairDisplay.variable,
           spaceGrotesk.className,

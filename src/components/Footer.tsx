@@ -17,7 +17,7 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border px-5 pb-10 pt-20 sm:px-6 md:pb-12 md:pt-28 lg:px-40 lg:pt-[130px]">
+    <footer className="border-t border-border px-5 pb-10 pt-20 sm:px-6 md:px-12 md:pb-12 md:pt-28 lg:px-20 lg:pt-24 xl:pt-28">
       <div className="mx-auto mb-16 grid max-w-7xl grid-cols-1 gap-10 md:mb-24 md:grid-cols-12 md:gap-x-8 md:gap-y-0 md:gap-12 lg:gap-x-12">
 
         <div className="md:col-span-5">
@@ -58,7 +58,7 @@ const Footer = () => {
           </p>
           <a
             href="mailto:info@origin-studio.ch"
-            className="block text-lg leading-snug text-foreground transition-colors hover:text-primary"
+            className="block wrap-break-words text-lg leading-snug text-foreground transition-colors hover:text-primary"
           >
             info@origin-studio.ch
           </a>

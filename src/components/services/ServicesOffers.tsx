@@ -14,11 +14,11 @@ export function ServicesOffers() {
             key={offer.title}
             className="grid grid-cols-1 items-center gap-10 md:gap-14 lg:grid-cols-2 lg:gap-16"
           >
-            <div className={cn(offer.reverse && 'lg:order-2')}>
+            <div className={cn('min-w-0', offer.reverse && 'lg:order-2')}>
               <ServiceVisual variant={offer.visual} />
             </div>
-            <div className={cn('flex flex-col gap-6', offer.reverse && 'lg:order-1')}>
-              <h2 className="text-3xl font-light tracking-tight text-foreground md:text-4xl">
+            <div className={cn('flex min-w-0 flex-col gap-6', offer.reverse && 'lg:order-1')}>
+              <h2 className="wrap-break-words text-2xl font-light tracking-tight text-foreground sm:text-3xl md:text-4xl">
                 {offer.title}
               </h2>
               <div className="max-w-xl text-base font-light leading-relaxed text-muted-foreground">

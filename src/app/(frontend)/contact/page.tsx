@@ -19,11 +19,15 @@ export default function ContactPage() {
         aria-hidden
       />
       <ContactHero />
-      <div className="relative z-10 grid grid-cols-1 gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20 xl:gap-24">
-        <ContactSidebar />
-        <Suspense fallback={<div className="min-h-[520px] rounded-xl border border-border bg-card/20" />}>
-          <ContactForm />
-        </Suspense>
+      <div className="relative z-10 grid min-w-0 grid-cols-1 gap-12 sm:gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20 xl:gap-24">
+        <div className="min-w-0">
+          <ContactSidebar />
+        </div>
+        <div className="min-w-0">
+          <Suspense fallback={<div className="min-h-[min(520px,70vh)] rounded-xl border border-border bg-card/20" />}>
+            <ContactForm />
+          </Suspense>
+        </div>
       </div>
     </div>
   )

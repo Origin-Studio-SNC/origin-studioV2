@@ -28,7 +28,7 @@ export function ServicesProcess() {
     <section className="relative z-10 mb-24 md:mb-32 lg:mb-40">
       <div className="mb-12 md:mb-16">
         <span className="section-label mb-4 max-w-none text-violet-100/50">Notre méthode</span>
-        <h2 className="max-w-2xl text-3xl font-light tracking-tight md:text-4xl">
+        <h2 className="max-w-2xl wrap-break-words text-2xl font-light tracking-tight sm:text-3xl md:text-4xl">
           4 étapes, <span className="text-primary">zéro surprise.</span>
         </h2>
       </div>

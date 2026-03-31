@@ -33,7 +33,7 @@ export function ContactSidebar() {
         </p>
         <a
           href="mailto:info@origin-studio.ch"
-          className="text-xl text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
+          className="wrap-break-words text-lg text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary sm:text-xl"
         >
           info@origin-studio.ch
         </a>

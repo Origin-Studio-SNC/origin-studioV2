@@ -29,7 +29,9 @@ export function ServicesFaq() {
     <section className="relative z-10 mb-16 md:mb-24">
       <div className="mb-10 md:mb-12">
         <span className="section-label mb-4 max-w-none text-violet-100/50">FAQ</span>
-        <h2 className="text-3xl font-light tracking-tight md:text-4xl">Questions fréquentes</h2>
+        <h2 className="break-words text-2xl font-light tracking-tight sm:text-3xl md:text-4xl">
+          Questions fréquentes
+        </h2>
       </div>
       <div className="mx-auto max-w-3xl border-t border-border">
         {FAQ.map((item) => (
@@ -37,8 +39,8 @@ export function ServicesFaq() {
             key={item.q}
             className="group border-b border-border [&_summary::-webkit-details-marker]:hidden"
           >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-left text-base font-medium text-foreground transition-colors hover:text-primary md:py-6">
-              <span>{item.q}</span>
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-3 py-5 text-left text-base font-medium text-foreground transition-colors hover:text-primary sm:items-center sm:gap-4 md:py-6">
+              <span className="min-w-0 flex-1 pr-2">{item.q}</span>
               <Plus
                 className="size-5 shrink-0 text-primary transition-transform duration-200 group-open:rotate-45"
                 weight="bold"

@@ -51,7 +51,7 @@ export function BlogClient({
         <p className="section-label mb-6 max-w-none text-violet-100/50 md:mb-8">
           RESSOURCES
         </p>
-        <h1 className="page-hero-title mb-6 max-w-5xl text-4xl leading-tight sm:text-5xl md:mb-8 md:text-6xl lg:text-7xl">
+        <h1 className="page-hero-title mb-6 max-w-5xl wrap-break-words text-3xl leading-tight sm:text-4xl md:mb-8 md:text-5xl lg:text-6xl xl:text-7xl">
           Insights pour{' '}
           <span className="italic text-primary">PME</span>
           <br />
@@ -65,12 +65,13 @@ export function BlogClient({
         </header>
 
         {/* Filtres */}
-        <div className="mb-12 flex flex-wrap justify-start gap-3">
+        <div className="mb-12 flex flex-wrap justify-start gap-2 sm:gap-3">
           {CATEGORIES.map((cat) => (
             <button
               key={cat.value}
+              type="button"
               onClick={() => setActive(cat.value)}
-              className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
+              className={`shrink-0 rounded-full border px-3 py-1.5 text-xs transition-colors sm:px-4 sm:text-sm ${
                 active === cat.value
                   ? 'border-primary bg-primary text-white'
                   : 'border-border bg-transparent text-foreground/60 hover:border-foreground/40'
@@ -88,8 +89,8 @@ export function BlogClient({
             className="group mb-12 grid grid-cols-1 overflow-hidden rounded-sm border border-border bg-card transition-colors hover:border-primary/50 md:grid-cols-2"
           >
             {/* Image */}
-            <div className="relative aspect-video overflow-hidden md:aspect-auto md:min-h-[420px]">
-              <span className="absolute left-4 top-4 z-10 rounded-full border border-primary/30 bg-primary/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
+            <div className="relative aspect-video min-h-0 overflow-hidden md:aspect-auto md:min-h-[min(420px,70vh)]">
+              <span className="absolute left-3 top-3 z-10 rounded-full border border-primary/30 bg-primary/20 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-widest text-primary sm:left-4 sm:top-4 sm:px-3 sm:text-[10px]">
                 À la une
               </span>
               {featured.coverImage &&
@@ -98,13 +99,14 @@ export function BlogClient({
                     src={featured.coverImage.url ?? ''}
                     alt={featured.coverImage.alt ?? featured.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
                   />
                 )}
             </div>
 
             {/* Content */}
-            <div className="flex flex-col justify-center p-8 md:p-12">
+            <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
               <p className="mb-4 text-[11px] uppercase tracking-widest text-foreground/40">
                 {formatDate(featured.publishedAt)} /{' '}
                 <span
@@ -116,7 +118,7 @@ export function BlogClient({
                   {featured.category}
                 </span>
               </p>
-              <h2 className="mb-4 text-2xl font-bold leading-snug transition-colors group-hover:text-primary md:text-3xl">
+              <h2 className="mb-4 break-words text-xl font-bold leading-snug transition-colors group-hover:text-primary sm:text-2xl md:text-3xl">
                 {featured.title}
               </h2>
               <p className="mb-8 line-clamp-3 text-sm text-foreground/55 leading-relaxed">
@@ -141,16 +143,16 @@ export function BlogClient({
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-border pt-8">
-            <p className="text-sm text-foreground/40 uppercase tracking-widest">
+          <div className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-y-3">
+            <p className="shrink-0 text-xs text-foreground/40 uppercase tracking-widest sm:text-sm">
               Page {String(currentPage).padStart(2, '0')} —{' '}
               {String(totalPages).padStart(2, '0')}
             </p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-4 sm:gap-6">
               {currentPage > 1 && (
                 <Link
                   href={`/blog?page=${currentPage - 1}`}
-                  className="text-sm uppercase tracking-widest text-foreground/50 transition-colors hover:text-foreground"
+                  className="text-xs uppercase tracking-widest text-foreground/50 transition-colors hover:text-foreground sm:text-sm"
                 >
                   ← Précédent
                 </Link>
@@ -158,13 +160,13 @@ export function BlogClient({
               {currentPage < totalPages && (
                 <Link
                   href={`/blog?page=${currentPage + 1}`}
-                  className="text-sm uppercase tracking-widest text-foreground/50 transition-colors hover:text-foreground"
+                  className="text-xs uppercase tracking-widest text-foreground/50 transition-colors hover:text-foreground sm:text-sm"
                 >
                   Suivant →
                 </Link>
               )}
             </div>
-            <p className="hidden text-sm uppercase tracking-widest text-foreground/30 md:block">
+            <p className="hidden text-xs uppercase tracking-widest text-foreground/30 sm:ml-auto sm:block sm:text-sm">
               Origin Studio / Journal de bord
             </p>
           </div>
@@ -196,6 +198,7 @@ function ArticleCard({ post, index }: { post: Post; index: number }) {
             src={coverImage.url ?? ''}
             alt={coverImage.alt ?? post.title}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
             className="object-cover opacity-60 transition-all duration-700 group-hover:scale-105 group-hover:opacity-80"
           />
         ) : (
@@ -210,7 +213,7 @@ function ArticleCard({ post, index }: { post: Post; index: number }) {
         >
           {post.category}
         </p>
-        <h3 className="mb-3 flex-1 text-base font-bold leading-snug transition-colors group-hover:text-primary">
+        <h3 className="mb-3 min-w-0 flex-1 wrap-break-words text-base font-bold leading-snug transition-colors group-hover:text-primary">
           {post.title}
         </h3>
         <p className="mb-4 line-clamp-2 text-xs text-foreground/50 leading-relaxed">
