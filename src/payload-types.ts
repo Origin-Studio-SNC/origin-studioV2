@@ -191,7 +191,7 @@ export interface Post {
   /**
    * Image de couverture de l'article
    */
-  coverImage: number | Media;
+  coverImage?: (number | null) | Media;
   /**
    * Date de publication
    */
