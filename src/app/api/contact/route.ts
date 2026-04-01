@@ -106,7 +106,7 @@ export async function POST(req: Request) {
         html: `
         <h2>Merci ${safeName},</h2>
         <p>Nous avons bien reçu votre brief et reviendrons vers vous sous 24h.</p>
-        <p>— Elio & Chadi, Origin Studio</p>
+        <p>— Chadi C. &amp; Eric T., Origin Studio</p>
       `,
       })
 
