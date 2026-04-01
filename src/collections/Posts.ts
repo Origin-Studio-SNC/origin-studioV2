@@ -126,13 +126,13 @@ export const Posts: CollectionConfig = {
       },
       hooks: {
         beforeChange: [
-          ({ data }) => {
+          ({ data, value }) => {
             if (data?.content) {
               const wordCount = JSON.stringify(data.content)
                 .split(' ').length
-              data.readingTime = Math.ceil(wordCount / 200)
+              return Math.ceil(wordCount / 200)
             }
-            return data
+            return value
           },
         ],
       },
