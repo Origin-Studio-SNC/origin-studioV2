@@ -19,7 +19,6 @@ const Footer = () => {
   return (
     <footer className="border-t border-border px-5 pb-10 pt-20 sm:px-6 md:px-12 md:pb-12 md:pt-28 lg:px-20 lg:pt-24 xl:pt-28">
       <div className="mx-auto mb-16 grid max-w-7xl grid-cols-1 gap-10 md:mb-24 md:grid-cols-12 md:gap-x-8 md:gap-y-0 md:gap-12 lg:gap-x-12">
-
         <div className="md:col-span-5">
           <Image
             src="/img/logo_origin_full.svg"
@@ -29,15 +28,12 @@ const Footer = () => {
             className="mb-5"
           />
           <p className="max-w-sm text-sm leading-relaxed text-foreground/60">
-            Nous créons des outils numériques pour les entreprises qui exigent la
-            perfection technique et l&apos;élégance visuelle.
+            Nous créons des outils numériques pour les entreprises qui exigent la perfection
+            technique et l&apos;élégance visuelle.
           </p>
         </div>
 
-        <nav
-          className="flex flex-col gap-3 md:col-span-3 md:pt-1"
-          aria-label="Pied de page"
-        >
+        <nav className="flex flex-col gap-3 md:col-span-3 md:pt-1" aria-label="Pied de page">
           <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground/45">
             Menu
           </p>
@@ -70,9 +66,7 @@ const Footer = () => {
               aria-hidden
             />
             <address className="not-italic text-sm leading-relaxed text-foreground/70">
-              Chemin du Bois-Gentil 5
-              <br />
-              1203 Genève, Suisse
+              Genève, Suisse
             </address>
           </div>
         </div>
