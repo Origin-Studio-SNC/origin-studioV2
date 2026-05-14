@@ -3,6 +3,22 @@ import Image from 'next/image'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { Reveal } from '@/components/motion/Reveal'
+import type { Media, Post } from '@/payload-types'
+
+/** Met le dernier article publié au centre (carte mise en avant), aligné avec la page blog. */
+function orderPostsForResourcesGrid(posts: Post[]): Post[] {
+  if (posts.length >= 3) return [posts[1], posts[0], posts[2]]
+  if (posts.length === 2) return [posts[1], posts[0]]
+  return posts
+}
+
+function getCoverMedia(post: Post): Media | null {
+  const cover = post.coverImage
+  if (cover && typeof cover === 'object') return cover
+  const meta = post.metaImage
+  if (meta && typeof meta === 'object') return meta
+  return null
+}
 
 const ResourcesSection = async () => {
   const payload = await getPayload({ config: configPromise })
@@ -19,6 +35,8 @@ const ResourcesSection = async () => {
 
   if (!posts.length) return null
 
+  const displayPosts = orderPostsForResourcesGrid(posts)
+
   return (
     <section
       id="ressources"
@@ -30,12 +48,10 @@ const ResourcesSection = async () => {
         </Reveal>
 
         <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3 md:items-center md:gap-8">
-          {posts.map((post, index) => {
-            const isFeatured = index === 1
-            const coverImage =
-              post.coverImage && typeof post.coverImage === 'object'
-                ? post.coverImage
-                : null
+          {displayPosts.map((post, index) => {
+            const isFeatured =
+              displayPosts.length === 1 ? true : index === 1
+            const coverImage = getCoverMedia(post)
 
             const publishedDate = post.publishedAt
               ? new Date(post.publishedAt).toLocaleDateString('fr-CH', {
