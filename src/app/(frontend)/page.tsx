@@ -5,6 +5,9 @@ import ProjectsSection from '@/components/home/ProjectsSection'
 import ResourcesSection from '@/components/home/ResourcesSection'
 import ServicesSection from '@/components/home/ServicesSection'
 
+/** Payload sur la home : sans ça, Next peut servir la page figée au dernier build statique. */
+export const revalidate = 60
+
 function SectionFallback({ minHeight }: { minHeight: string }) {
   return (
     <div

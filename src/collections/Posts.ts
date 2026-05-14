@@ -1,6 +1,16 @@
 import { formatSlug } from '@/lib/utils'
 import type { CollectionConfig } from 'payload'
 
+async function revalidateBlogListingRoutes() {
+  try {
+    const { revalidatePath } = await import('next/cache')
+    revalidatePath('/')
+    revalidatePath('/blog')
+  } catch {
+    /* next/cache indisponible hors runtime Next (CLI Payload, tests). */
+  }
+}
+
 export const Posts: CollectionConfig = {
   slug: 'posts',
 
@@ -11,6 +21,11 @@ export const Posts: CollectionConfig = {
 
   access: {
     read: () => true,
+  },
+
+  hooks: {
+    afterChange: [async () => revalidateBlogListingRoutes()],
+    afterDelete: [async () => revalidateBlogListingRoutes()],
   },
 
   versions: {
