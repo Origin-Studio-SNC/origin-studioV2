@@ -10,7 +10,7 @@ const stats = [
   { label: 'Projets livrés', value: '20+' },
   { label: 'Note Google', value: '5.0' },
   { label: 'Performance', value: '95+' },
-  { label: 'Cafés bus', value: '∞' },
+  { label: 'Réponse garantie', value: '< 24 h' },
 ] as const
 
 const ProjectsSection = async () => {
