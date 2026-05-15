@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
 
 const stats = [
-  { label: 'Projets livrés', value: '50+' },
+  { label: 'Projets livrés', value: '20+' },
   { label: 'Note Google', value: '5.0' },
   { label: 'Performance', value: '95+' },
   { label: 'Cafés bus', value: '∞' },

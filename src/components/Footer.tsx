@@ -11,7 +11,7 @@ const menuLinks = [
 
 const socialLinks = [
   { href: 'https://www.linkedin.com/company/origin-studio-swiss', label: 'LinkedIn' },
-  { href: 'https://instagram.com', label: 'Instagram' },
+  { href: 'https://www.instagram.com/origin_studio.ch/', label: 'Instagram' },
   { href: '/mentions-legales', label: 'Mentions légales' },
 ] as const
 
