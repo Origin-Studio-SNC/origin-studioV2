@@ -1,7 +1,10 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Reveal } from '@/components/motion/Reveal'
+import { Button } from '@/components/ui/button'
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
 
 const stats = [
   { label: 'Projets livrés', value: '50+' },
@@ -15,7 +18,12 @@ const ProjectsSection = async () => {
 
   const { docs: projects } = await payload.find({
     collection: 'projects',
-    where: { featured: { equals: true } },
+    where: {
+      and: [
+        { featured: { equals: true } },
+        { _status: { equals: 'published' } },
+      ],
+    },
     sort: 'order',
     limit: 3,
     depth: 1,
@@ -39,7 +47,10 @@ const ProjectsSection = async () => {
         <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-10">
           {/* Featured */}
           <Reveal className="min-h-0 md:col-span-6">
-          <article className="group relative aspect-4/3 h-full min-h-[280px] overflow-hidden rounded-sm border border-border bg-card md:aspect-auto md:min-h-[520px]">
+          <Link
+            href={`/realisations/${featured.slug}`}
+            className="group relative block aspect-4/3 h-full min-h-[280px] overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40 md:aspect-auto md:min-h-[520px]"
+          >
             {featured.thumbnail && typeof featured.thumbnail === 'object' && (
               <Image
                 src={featured.thumbnail.url ?? ''}
@@ -57,15 +68,16 @@ const ProjectsSection = async () => {
               </span>
               <h4 className="text-2xl font-light sm:text-3xl">{featured.title}</h4>
             </div>
-          </article>
+          </Link>
           </Reveal>
 
           {/* Secondary stack */}
           <div className="flex min-h-0 flex-col gap-6 md:col-span-4">
             {secondary.map((project, i) => (
               <Reveal key={project.id} delay={0.08 * (i + 1)}>
-              <article
-                className="group relative h-[300px] overflow-hidden rounded-sm border border-border bg-card"
+              <Link
+                href={`/realisations/${project.slug}`}
+                className="group relative block h-[300px] overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40"
               >
                 {project.thumbnail && typeof project.thumbnail === 'object' && (
                   <Image
@@ -83,11 +95,30 @@ const ProjectsSection = async () => {
                   </span>
                   <h4 className="text-xl font-light">{project.title}</h4>
                 </div>
-              </article>
+              </Link>
               </Reveal>
             ))}
           </div>
         </div>
+
+        <Reveal>
+          <div className="mt-10 flex flex-col items-stretch gap-3 sm:mt-12 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm font-light text-foreground/50">
+              Étude de cas, stack et résultats — le détail de chaque livraison.
+            </p>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="h-11 w-full shrink-0 gap-2 rounded-full px-6 sm:h-12 sm:w-auto"
+            >
+              <Link href="/realisations" className="inline-flex items-center gap-2">
+                Découvrir nos réalisations
+                <ArrowRight className="size-4" aria-hidden />
+              </Link>
+            </Button>
+          </div>
+        </Reveal>
 
         {/* Stats */}
         <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:mt-20 md:grid-cols-4">

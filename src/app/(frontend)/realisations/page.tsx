@@ -2,6 +2,9 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import dynamic from 'next/dynamic'
 
+/** Comme la home : évite une page /realisations figée au dernier build (ISR). */
+export const revalidate = 60
+
 // Dynamic import pour réduire le bundle initial
 const RealisationsClient = dynamic(
   () => import('@/components/realisations/RealisationsClient').then((mod) => mod.RealisationsClient),

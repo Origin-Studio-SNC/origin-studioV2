@@ -25,7 +25,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 }
 
 const STATS = [
-  { label: 'Projets', value: '50+' },
+  { label: 'Projets', value: '20+' },
   { label: 'À temps', value: '100%' },
   { label: 'Lighthouse', value: '95+' },
   { label: '', value: '🇨🇭' },
@@ -144,7 +144,7 @@ function BentoGrid({ projects }: { projects: Project[] }) {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-10">
           {row1[0] && (
             <Reveal
-              className="min-h-0 md:col-span-6"
+              className="h-full min-h-0 w-full md:col-span-6"
               delay={nextDelay()}
             >
               <ProjectCard
@@ -155,7 +155,7 @@ function BentoGrid({ projects }: { projects: Project[] }) {
           )}
           {row1[1] && (
             <Reveal
-              className="min-h-0 md:col-span-4"
+              className="h-full min-h-0 w-full md:col-span-4"
               delay={nextDelay()}
             >
               <ProjectCard
@@ -172,7 +172,7 @@ function BentoGrid({ projects }: { projects: Project[] }) {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-10">
           {row2[0] && (
             <Reveal
-              className="min-h-0 md:col-span-4"
+              className="h-full min-h-0 w-full md:col-span-4"
               delay={nextDelay()}
             >
               <ProjectCard
@@ -183,7 +183,7 @@ function BentoGrid({ projects }: { projects: Project[] }) {
           )}
           {row2[1] && (
             <Reveal
-              className="min-h-0 md:col-span-6"
+              className="h-full min-h-0 w-full md:col-span-6"
               delay={nextDelay()}
             >
               <ProjectCard
@@ -199,7 +199,11 @@ function BentoGrid({ projects }: { projects: Project[] }) {
       {row3.length > 0 && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {row3.map((project) => (
-            <Reveal key={project.id} delay={nextDelay()}>
+            <Reveal
+              key={project.id}
+              className="h-full w-full"
+              delay={nextDelay()}
+            >
               <ProjectCard
                 project={project}
                 className="h-full min-h-[300px]"
@@ -231,7 +235,10 @@ function ProjectCard({
   return (
     <Link
       href={`/realisations/${project.slug}`}
-      className={`group relative overflow-hidden rounded-sm border border-border bg-card transition-all duration-300 hover:border-primary/50 ${className}`}
+      className={cn(
+        'group relative isolate block w-full overflow-hidden rounded-sm border border-border bg-card transition-all duration-300 hover:border-primary/50',
+        className,
+      )}
     >
       {thumbnail && (
         <Image

@@ -7,12 +7,15 @@ import { ArrowLeft, ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 import { RichText } from '@/components/RichText'
 import { Reveal } from '@/components/motion/Reveal'
 
+export const revalidate = 60
+
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const { docs } = await payload.find({
     collection: 'projects',
     limit: 100,
     select: { slug: true },
+    where: { _status: { equals: 'published' } },
   })
   return docs.map((doc) => ({ slug: doc.slug }))
 }
@@ -27,7 +30,12 @@ export default async function RealisationPage({
 
   const { docs } = await payload.find({
     collection: 'projects',
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        { _status: { equals: 'published' } },
+      ],
+    },
     depth: 2,
     limit: 1,
   })
