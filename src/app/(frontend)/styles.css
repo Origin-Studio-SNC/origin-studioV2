@@ -133,36 +133,37 @@ svg {
 /* ─── Dark theme ─── */
 /* Brand: #5b6df5 ≈ oklch(0.56 0.23 272) */
 .dark {
-  --background: oklch(0.06 0.02 270);
+  /* Dernier cran “lumineux” tout en gardant le caractère sombre premium */
+  --background: oklch(0.129 0.019 270);
   --foreground: oklch(0.97 0 0);
-  --card: oklch(0.10 0.025 270);
+  --card: oklch(0.148 0.023 270);
   --card-foreground: oklch(0.97 0 0);
-  --popover: oklch(0.10 0.025 270);
+  --popover: oklch(0.148 0.023 270);
   --popover-foreground: oklch(0.97 0 0);
   --primary: oklch(0.56 0.23 272);
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.15 0.02 270);
+  --secondary: oklch(0.196 0.018 270);
   --secondary-foreground: oklch(0.92 0 0);
-  --muted: oklch(0.15 0.015 270);
-  --muted-foreground: oklch(0.72 0.01 280);
+  --muted: oklch(0.193 0.015 270);
+  --muted-foreground: oklch(0.675 0.012 278);
   --accent: oklch(0.56 0.23 272);
   --accent-foreground: oklch(0.97 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 14%);
   --ring: oklch(0.56 0.23 272);
   --chart-1: oklch(0.65 0.20 272);
   --chart-2: oklch(0.56 0.23 272);
   --chart-3: oklch(0.50 0.20 280);
   --chart-4: oklch(0.45 0.18 290);
   --chart-5: oklch(0.40 0.16 300);
-  --sidebar: oklch(0.08 0.02 270);
+  --sidebar: oklch(0.120 0.018 270);
   --sidebar-foreground: oklch(0.97 0 0);
   --sidebar-primary: oklch(0.56 0.23 272);
   --sidebar-primary-foreground: oklch(0.97 0 0);
-  --sidebar-accent: oklch(0.15 0.02 270);
+  --sidebar-accent: oklch(0.196 0.018 270);
   --sidebar-accent-foreground: oklch(0.97 0 0);
-  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-border: oklch(1 0 0 / 11%);
   --sidebar-ring: oklch(0.56 0.23 272);
 }
 
@@ -235,10 +236,10 @@ h1.page-hero-title {
 .hero-glow {
   background:
     radial-gradient(
-      ellipse 70% 60% at 50% 38%,
-      rgba(91, 110, 245, 0.18) 0%,
-      rgba(91, 110, 245, 0.06) 40%,
-      rgba(10, 10, 10, 0) 70%
+      ellipse 72% 62% at 50% 36%,
+      rgba(91, 110, 245, 0.24) 0%,
+      rgba(91, 110, 245, 0.09) 42%,
+      rgba(91, 110, 245, 0) 72%
     );
 }
 

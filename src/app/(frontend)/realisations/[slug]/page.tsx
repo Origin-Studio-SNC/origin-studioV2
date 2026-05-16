@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 import { RichText } from '@/components/RichText'
 import { Reveal } from '@/components/motion/Reveal'
+import { normalizeExternalHref } from '@/lib/utils'
 
 export const revalidate = 60
 
@@ -60,6 +61,9 @@ export default async function RealisationPage({
     CATEGORY_COLORS[project.category ?? ''] ??
     'border-foreground/20 bg-foreground/10 text-foreground/70'
 
+  const liveHref = normalizeExternalHref(project.liveUrl ?? undefined)
+  const githubHref = normalizeExternalHref(project.githubUrl ?? undefined)
+
   return (
     <div className="realisation-detail-page relative mx-auto w-full max-w-[1440px] overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
       <div
@@ -112,26 +116,26 @@ export default async function RealisationPage({
 
           {/* CTAs */}
           <div className="flex min-w-0 flex-col gap-3 sm:gap-4 lg:items-end">
-            {project.liveUrl && (
+            {liveHref && (
               <a
-                href={project.liveUrl}
+                href={liveHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary bg-primary px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:w-auto sm:px-6"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto sm:px-6"
               >
-                Voir le site
-                <ArrowUpRight className="size-4" />
+                Voir en ligne
+                <ArrowUpRight className="size-4" aria-hidden />
               </a>
             )}
-            {project.githubUrl && (
+            {githubHref && (
               <a
-                href={project.githubUrl}
+                href={githubHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border px-5 py-3 text-sm text-foreground/70 transition-colors hover:border-foreground/40 sm:w-auto sm:px-6"
               >
-                GitHub
-                <ArrowUpRight className="size-4" />
+                Code sur GitHub
+                <ArrowUpRight className="size-4" aria-hidden />
               </a>
             )}
           </div>

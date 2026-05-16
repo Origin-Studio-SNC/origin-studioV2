@@ -4,7 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Reveal } from '@/components/motion/Reveal'
 import { Button } from '@/components/ui/button'
-import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
+import { normalizeExternalHref } from '@/lib/utils'
+import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 
 const stats = [
   { label: 'Projets livrés', value: '20+' },
@@ -34,6 +35,8 @@ const ProjectsSection = async () => {
 
   if (!featured) return null
 
+  const featuredLive = normalizeExternalHref(featured.liveUrl ?? undefined)
+
   return (
     <section
       id="realisations"
@@ -47,10 +50,12 @@ const ProjectsSection = async () => {
         <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-10">
           {/* Featured */}
           <Reveal className="min-h-0 md:col-span-6">
-          <Link
-            href={`/realisations/${featured.slug}`}
-            className="group relative block aspect-4/3 h-full min-h-[280px] overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40 md:aspect-auto md:min-h-[520px]"
-          >
+          <article className="group relative isolate block aspect-4/3 h-full min-h-[280px] overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40 md:aspect-auto md:min-h-[520px]">
+            <Link
+              href={`/realisations/${featured.slug}`}
+              className="absolute inset-0 z-10"
+              aria-label={`Voir le projet : ${featured.title}`}
+            />
             {featured.thumbnail && typeof featured.thumbnail === 'object' && (
               <Image
                 src={featured.thumbnail.url ?? ''}
@@ -62,23 +67,42 @@ const ProjectsSection = async () => {
               />
             )}
             <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-5 right-5 sm:bottom-8 sm:left-8 sm:right-8">
+            {featuredLive && (
+              <a
+                href={featuredLive}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Voir le site en ligne"
+                className="pointer-events-auto absolute top-4 right-4 z-30 inline-flex size-10 items-center justify-center rounded-full border border-border bg-background/85 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:size-auto sm:h-auto sm:gap-1.5 sm:px-3 sm:py-1.5"
+              >
+                <span className="sr-only">Voir en ligne</span>
+                <span className="hidden text-[10px] font-semibold uppercase tracking-wide text-foreground/90 sm:inline">
+                  Voir en ligne
+                </span>
+                <ArrowUpRight className="size-4 shrink-0 text-foreground sm:size-3.5" aria-hidden />
+              </a>
+            )}
+            <div className="pointer-events-none absolute bottom-6 left-5 right-5 z-20 sm:bottom-8 sm:left-8 sm:right-8">
               <span className="mb-4 inline-block rounded-full border border-primary/30 bg-primary/20 px-3 py-1 text-[10px] uppercase tracking-widest text-primary">
                 {featured.category}
               </span>
               <h4 className="text-2xl font-light sm:text-3xl">{featured.title}</h4>
             </div>
-          </Link>
+          </article>
           </Reveal>
 
           {/* Secondary stack */}
           <div className="flex min-h-0 flex-col gap-6 md:col-span-4">
-            {secondary.map((project, i) => (
+            {secondary.map((project, i) => {
+              const live = normalizeExternalHref(project.liveUrl ?? undefined)
+              return (
               <Reveal key={project.id} delay={0.08 * (i + 1)}>
-              <Link
-                href={`/realisations/${project.slug}`}
-                className="group relative block h-[300px] overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40"
-              >
+              <article className="group relative isolate block h-[300px] overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40">
+                <Link
+                  href={`/realisations/${project.slug}`}
+                  className="absolute inset-0 z-10"
+                  aria-label={`Voir le projet : ${project.title}`}
+                />
                 {project.thumbnail && typeof project.thumbnail === 'object' && (
                   <Image
                     src={project.thumbnail.url ?? ''}
@@ -89,15 +113,31 @@ const ProjectsSection = async () => {
                   />
                 )}
                 <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
-                <div className="absolute bottom-5 left-5 sm:bottom-6 sm:left-6">
+                {live && (
+                  <a
+                    href={live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Voir le site en ligne"
+                    className="pointer-events-auto absolute top-3 right-3 z-30 inline-flex size-9 items-center justify-center rounded-full border border-border bg-background/85 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:size-auto sm:h-auto sm:gap-1 sm:px-2.5 sm:py-1"
+                  >
+                    <span className="sr-only">Voir en ligne</span>
+                    <span className="hidden text-[10px] font-semibold uppercase tracking-wide text-foreground/90 sm:inline">
+                      En ligne
+                    </span>
+                    <ArrowUpRight className="size-3.5 shrink-0 sm:size-3" aria-hidden />
+                  </a>
+                )}
+                <div className="pointer-events-none absolute bottom-5 left-5 z-20 sm:bottom-6 sm:left-6">
                   <span className="mb-3 inline-block rounded-full border border-foreground/20 bg-foreground/10 px-3 py-1 text-[10px] uppercase tracking-widest text-foreground/70">
                     {project.category}
                   </span>
                   <h4 className="text-xl font-light">{project.title}</h4>
                 </div>
-              </Link>
+              </article>
               </Reveal>
-            ))}
+              )
+            })}
           </div>
         </div>
 

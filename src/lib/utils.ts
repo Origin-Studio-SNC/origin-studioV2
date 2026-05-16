@@ -24,3 +24,11 @@ export function formatDate(date: string | null | undefined): string {
     year: 'numeric',
   })
 }
+
+/** Payload `liveUrl` / liens externes : trim + `https://` si protocole absent */
+export function normalizeExternalHref(raw: string | null | undefined): string | null {
+  const t = typeof raw === 'string' ? raw.trim() : ''
+  if (!t) return null
+  if (/^https?:\/\//i.test(t)) return t
+  return `https://${t}`
+}

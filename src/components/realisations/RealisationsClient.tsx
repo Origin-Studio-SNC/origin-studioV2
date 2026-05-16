@@ -6,7 +6,8 @@ import Image from 'next/image'
 import type { Project } from '@/payload-types'
 import { Reveal } from '@/components/motion/Reveal'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { cn, normalizeExternalHref } from '@/lib/utils'
+import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 
 const CATEGORIES = [
   { label: 'Tous', value: 'tous' },
@@ -228,18 +229,24 @@ function ProjectCard({
       ? project.thumbnail
       : null
 
+  const liveHref = normalizeExternalHref(project.liveUrl ?? undefined)
+
   const categoryColor =
     CATEGORY_COLORS[project.category ?? ''] ??
     'border-foreground/20 bg-foreground/10 text-foreground/70'
 
   return (
-    <Link
-      href={`/realisations/${project.slug}`}
+    <article
       className={cn(
         'group relative isolate block w-full overflow-hidden rounded-sm border border-border bg-card transition-all duration-300 hover:border-primary/50',
         className,
       )}
     >
+      <Link
+        href={`/realisations/${project.slug}`}
+        className="absolute inset-0 z-10"
+        aria-label={`Voir le projet : ${project.title}`}
+      />
       {thumbnail && (
         <Image
           src={thumbnail.url ?? ''}
@@ -251,7 +258,25 @@ function ProjectCard({
       )}
       <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent" />
 
-      <div className="absolute left-4 top-4">
+      {liveHref && (
+        <a
+          href={liveHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Voir le site en ligne"
+          className="pointer-events-auto absolute top-4 right-4 z-30 inline-flex size-10 items-center justify-center rounded-full border border-border bg-background/90 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:h-auto sm:min-h-0 sm:w-auto sm:gap-1 sm:px-2.5 sm:py-1.5"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <span className="sr-only">Voir en ligne</span>
+          <span className="hidden text-[10px] font-semibold uppercase tracking-wide sm:inline">
+            En ligne
+          </span>
+          <ArrowUpRight className="size-4 shrink-0 sm:size-3" aria-hidden />
+        </a>
+      )}
+
+      <div className="pointer-events-none absolute left-4 top-4 z-20 sm:top-4">
         <span
           className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-widest ${categoryColor}`}
         >
@@ -259,7 +284,7 @@ function ProjectCard({
         </span>
       </div>
 
-      <div className="absolute bottom-5 left-5 right-5">
+      <div className="pointer-events-none absolute bottom-5 left-5 right-5 z-20">
         <p className="mb-2 text-xs text-foreground/50">{project.client}</p>
         <h3 className="mb-3 wrap-break-words text-lg font-semibold leading-tight sm:text-xl md:text-2xl">
           {project.title}
@@ -275,6 +300,6 @@ function ProjectCard({
           ))}
         </div>
       </div>
-    </Link>
+    </article>
   )
 }
