@@ -1,5 +1,6 @@
 import React from 'react'
 import './styles.css'
+import { Analytics } from "@vercel/analytics/next"
 
 import { Space_Grotesk, Playfair_Display } from 'next/font/google'
 import Footer from '@/components/Footer'
@@ -45,6 +46,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <Navbar />
         <main className="flex flex-1 flex-col pt-16 md:pt-20">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
