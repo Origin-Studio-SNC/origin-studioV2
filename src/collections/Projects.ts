@@ -37,6 +37,18 @@ export const Projects: CollectionConfig = {
         { label: 'Application', value: 'application' },
         { label: 'Refonte', value: 'refonte' },
         { label: 'E-commerce', value: 'ecommerce' },
+        { label: 'Outil interne', value: 'outil-interne' },
+      ],
+    },
+    {
+      name: 'badge',
+      type: 'select',
+      admin: {
+        position: 'sidebar',
+        description: 'Badge affiché sur la carte projet',
+      },
+      options: [
+        { label: '🔒 Accès anticipé', value: 'acces-anticipe' },
       ],
     },
     {

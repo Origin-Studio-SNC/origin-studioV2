@@ -253,7 +253,8 @@ export interface Project {
    * Nom du projet
    */
   title: string;
-  category: 'vitrine' | 'application' | 'refonte' | 'ecommerce';
+  category: 'vitrine' | 'application' | 'refonte' | 'ecommerce' | 'outil-interne';
+  badge?: 'acces-anticipe' | null;
   confidential?: boolean | null;
   /**
    * URL du projet
@@ -559,6 +560,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         caption?: T;
         id?: T;
       };
+  badge?: T;
   liveUrl?: T;
   githubUrl?: T;
   updatedAt?: T;

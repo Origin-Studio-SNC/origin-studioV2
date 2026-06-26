@@ -55,11 +55,22 @@ export default async function RealisationPage({
     refonte: 'border-orange-500/30 bg-orange-500/20 text-orange-400',
     ecommerce: 'border-purple-500/30 bg-purple-500/20 text-purple-400',
     migration: 'border-yellow-500/30 bg-yellow-500/20 text-yellow-400',
+    'outil-interne': 'border-amber-500/30 bg-amber-500/20 text-amber-400',
+  }
+
+  const CATEGORY_LABELS: Record<string, string> = {
+    vitrine: 'vitrine',
+    application: 'application',
+    refonte: 'refonte',
+    ecommerce: 'e-commerce',
+    'outil-interne': 'outil interne',
   }
 
   const categoryColor =
     CATEGORY_COLORS[project.category ?? ''] ??
     'border-foreground/20 bg-foreground/10 text-foreground/70'
+
+  const categoryLabel = CATEGORY_LABELS[project.category ?? ''] ?? project.category
 
   const liveHref = normalizeExternalHref(project.liveUrl ?? undefined)
   const githubHref = normalizeExternalHref(project.githubUrl ?? undefined)
@@ -101,8 +112,13 @@ export default async function RealisationPage({
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3">
               <span className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-widest ${categoryColor}`}>
-                {project.category}
+                {categoryLabel}
               </span>
+              {project.badge === 'acces-anticipe' && (
+                <span className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-card px-2.5 py-1 text-[10px] font-medium text-foreground/60">
+                  🔒 Accès anticipé
+                </span>
+              )}
               {project.stack?.map((s) => (
                 <span
                   key={s.tech}

@@ -15,6 +15,7 @@ const CATEGORIES = [
   { label: 'Application', value: 'application' },
   { label: 'Refonte', value: 'refonte' },
   { label: 'E-commerce', value: 'ecommerce' },
+  { label: 'Outil interne', value: 'outil-interne' },
 ] as const
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -23,6 +24,15 @@ const CATEGORY_COLORS: Record<string, string> = {
   refonte: 'border-orange-500/30 bg-orange-500/20 text-orange-400',
   ecommerce: 'border-purple-500/30 bg-purple-500/20 text-purple-400',
   migration: 'border-yellow-500/30 bg-yellow-500/20 text-yellow-400',
+  'outil-interne': 'border-amber-500/30 bg-amber-500/20 text-amber-400',
+}
+
+const CATEGORY_LABELS: Record<string, string> = {
+  vitrine: 'vitrine',
+  application: 'application',
+  refonte: 'refonte',
+  ecommerce: 'e-commerce',
+  'outil-interne': 'outil interne',
 }
 
 const STATS = [
@@ -258,29 +268,36 @@ function ProjectCard({
       )}
       <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent" />
 
-      {liveHref && (
-        <a
-          href={liveHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Voir le site en ligne"
-          className="pointer-events-auto absolute top-4 right-4 z-30 inline-flex size-10 items-center justify-center rounded-full border border-border bg-background/90 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:h-auto sm:min-h-0 sm:w-auto sm:gap-1 sm:px-2.5 sm:py-1.5"
-          onPointerDown={(e) => e.stopPropagation()}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <span className="sr-only">Voir en ligne</span>
-          <span className="hidden text-[10px] font-semibold uppercase tracking-wide sm:inline">
-            En ligne
+      <div className="pointer-events-none absolute right-4 top-4 z-30 flex flex-col items-end gap-2">
+        {liveHref && (
+          <a
+            href={liveHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Voir le site en ligne"
+            className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-border bg-background/90 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:h-auto sm:min-h-0 sm:w-auto sm:gap-1 sm:px-2.5 sm:py-1.5"
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="sr-only">Voir en ligne</span>
+            <span className="hidden text-[10px] font-semibold uppercase tracking-wide sm:inline">
+              En ligne
+            </span>
+            <ArrowUpRight className="size-4 shrink-0 sm:size-3" aria-hidden />
+          </a>
+        )}
+        {project.badge === 'acces-anticipe' && (
+          <span className="pointer-events-none inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/80 px-2.5 py-1 text-[10px] font-medium text-foreground/60 backdrop-blur-sm">
+            🔒 Accès anticipé
           </span>
-          <ArrowUpRight className="size-4 shrink-0 sm:size-3" aria-hidden />
-        </a>
-      )}
+        )}
+      </div>
 
       <div className="pointer-events-none absolute left-4 top-4 z-20 sm:top-4">
         <span
           className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-widest ${categoryColor}`}
         >
-          {project.category}
+          {CATEGORY_LABELS[project.category] ?? project.category}
         </span>
       </div>
 
