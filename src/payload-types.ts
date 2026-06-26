@@ -254,6 +254,9 @@ export interface Project {
    */
   title: string;
   category: 'vitrine' | 'application' | 'refonte' | 'ecommerce' | 'outil-interne';
+  /**
+   * Badge affiché sur la carte projet
+   */
   badge?: 'acces-anticipe' | null;
   confidential?: boolean | null;
   /**
@@ -535,6 +538,7 @@ export interface PostsSelect<T extends boolean = true> {
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
   category?: T;
+  badge?: T;
   confidential?: T;
   slug?: T;
   excerpt?: T;
@@ -560,7 +564,6 @@ export interface ProjectsSelect<T extends boolean = true> {
         caption?: T;
         id?: T;
       };
-  badge?: T;
   liveUrl?: T;
   githubUrl?: T;
   updatedAt?: T;
