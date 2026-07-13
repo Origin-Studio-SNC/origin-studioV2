@@ -44,7 +44,7 @@ const ProjectsSection = async () => {
     >
       <div className="mx-auto max-w-7xl">
         <Reveal>
-          <p className="section-label mb-10 md:mb-16">Projets</p>
+          <h2 className="section-label mb-10 md:mb-16">Projets</h2>
         </Reveal>
 
         <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-10">

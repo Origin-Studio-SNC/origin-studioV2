@@ -37,7 +37,7 @@ const ServicesSection = () => {
     >
       <div className="mx-auto max-w-7xl">
         <Reveal>
-          <p className="section-label mb-10 md:mb-16">Nos services</p>
+          <h2 className="section-label mb-10 md:mb-16">Nos services</h2>
         </Reveal>
 
         <div className="flex flex-col border-t border-border">

@@ -26,8 +26,8 @@ const playfairDisplay = Playfair_Display({
 })
 
 export const metadata = {
-  description: 'Origin Studio — Agence web créative',
-  title: 'Origin Studio - Développement web sur mesure - Genève ch ',
+  description: 'Agence web premium à Genève. Développement sur mesure, design minimaliste, infrastructure sécurisée',
+  title: 'Origin Studio - Agence Web Genève, Développement Premium',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {

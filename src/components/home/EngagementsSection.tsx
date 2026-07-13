@@ -29,7 +29,7 @@ const EngagementsSection = () => {
     >
       <div className="mx-auto max-w-7xl">
         <Reveal>
-          <p className="section-label mb-10 md:mb-16">Nos engagements</p>
+          <h2 className="section-label mb-10 md:mb-16">Nos engagements</h2>
         </Reveal>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
