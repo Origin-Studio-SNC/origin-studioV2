@@ -7,11 +7,27 @@ import { Button } from '@/components/ui/button'
 import { normalizeExternalHref } from '@/lib/utils'
 import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 
-const stats = [
-  { label: 'Projets livrés', value: '20+' },
-  { label: 'Note Google', value: '5.0' },
-  { label: 'Performance', value: '95+' },
-  { label: 'Réponse garantie', value: '< 24 h' },
+const processSteps = [
+  {
+    number: '01',
+    title: 'Prise de contact',
+    description: 'On échange sur vos objectifs, vos contraintes et votre budget.',
+  },
+  {
+    number: '02',
+    title: 'Conception',
+    description: 'Architecture technique et design UX/UI pensés sur mesure.',
+  },
+  {
+    number: '03',
+    title: 'Développement',
+    description: 'Construction du projet par jalons, avec des retours réguliers.',
+  },
+  {
+    number: '04',
+    title: 'Déploiement',
+    description: 'Mise en ligne, puis suivi et maintenance dans la durée.',
+  },
 ] as const
 
 const ProjectsSection = async () => {
@@ -160,18 +176,33 @@ const ProjectsSection = async () => {
           </div>
         </Reveal>
 
-        {/* Stats */}
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:mt-20 md:grid-cols-4">
-          {stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.05}>
-            <div className="border border-border bg-card/50 p-4 sm:p-6 md:p-8">
-              <p className="mb-2 text-[10px] uppercase tracking-widest text-foreground/50">
-                {s.label}
-              </p>
-              <p className="text-3xl font-light">{s.value}</p>
-            </div>
-            </Reveal>
-          ))}
+        {/* Process */}
+        <div className="mt-12 md:mt-20">
+          <Reveal>
+            <h3 className="section-label mb-10 md:mb-16">Notre processus</h3>
+          </Reveal>
+
+          <div className="relative grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            <div
+              className="absolute left-0 right-0 top-5 hidden h-px bg-border lg:block"
+              aria-hidden
+            />
+            {processSteps.map((step, i) => (
+              <Reveal key={step.number} delay={i * 0.06}>
+                <div className="group relative cursor-default transition-transform duration-300 hover:-translate-y-1">
+                  <div className="relative z-10 flex size-10 items-center justify-center rounded-full border border-border bg-background text-sm font-medium text-primary transition-all duration-300 group-hover:scale-110 group-hover:border-primary group-hover:bg-primary/10">
+                    {step.number}
+                  </div>
+                  <h4 className="mt-4 text-lg font-medium transition-colors duration-300 group-hover:text-primary">
+                    {step.title}
+                  </h4>
+                  <p className="mt-2 text-sm font-light leading-relaxed text-foreground/60">
+                    {step.description}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

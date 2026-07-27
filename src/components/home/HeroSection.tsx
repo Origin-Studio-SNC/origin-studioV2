@@ -16,7 +16,7 @@ export default function HeroSection() {
           className="reveal-on-load page-hero-title mx-auto max-w-5xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ animationDelay: '0.19s' }}
         >
-          Des expériences digitales
+          Agence web à Genève,
           <br />
           sur <span className="text-primary">mesure.</span>
         </h1>

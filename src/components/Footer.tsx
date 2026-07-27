@@ -13,6 +13,7 @@ const socialLinks = [
   { href: 'https://www.linkedin.com/company/origin-studio-swiss', label: 'LinkedIn' },
   { href: 'https://www.instagram.com/origin_studio.ch/', label: 'Instagram' },
   { href: '/mentions-legales', label: 'Mentions légales' },
+  { href: '/politique-de-confidentialite', label: 'Confidentialité' },
 ] as const
 
 const Footer = () => {
@@ -57,6 +58,13 @@ const Footer = () => {
             className="block wrap-break-words text-lg leading-snug text-foreground transition-colors hover:text-primary"
           >
             info@origin-studio.ch
+          </a>
+
+          <a
+            href="tel:+41791763992"
+            className="mt-2 block wrap-break-words text-lg leading-snug text-foreground transition-colors hover:text-primary"
+          >
+            +41 79 176 39 92
           </a>
 
           <div className="relative mt-6 pl-7">

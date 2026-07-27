@@ -45,6 +45,20 @@ export function ContactSidebar() {
         </div>
       </Reveal>
 
+      <Reveal delay={0.09}>
+        <div>
+          <p className="mb-2 text-[10px] font-semibold tracking-[0.2em] text-primary uppercase">
+            Nous appeler
+          </p>
+          <a
+            href="tel:+41791763992"
+            className="wrap-break-words text-lg text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary sm:text-xl"
+          >
+            +41 79 176 39 92
+          </a>
+        </div>
+      </Reveal>
+
       <Reveal delay={0.12}>
         <div className="flex flex-col gap-12">
           <div className="h-px w-full bg-border" aria-hidden />
