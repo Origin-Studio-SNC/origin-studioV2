@@ -32,14 +32,17 @@ export function ServiceVisual({ variant, className }: Props) {
                 <span className="size-2 rounded-full bg-foreground/15" />
                 <span className="size-2 rounded-full bg-foreground/15" />
               </div>
-              <div className="ml-2 h-2 flex-1 max-w-[55%] rounded-sm border border-dashed border-primary/30 bg-primary/5" />
+              <div
+                className="edit-breathe ml-2 h-2 max-w-[55%] flex-1 rounded-sm border border-dashed border-primary/30 bg-primary/5"
+                style={{ animationDelay: '1.6s' }}
+              />
             </div>
             <div className="grid flex-1 grid-cols-12 gap-2 p-3">
               <div className="col-span-4 flex flex-col gap-2 border-r border-dashed border-foreground/10 pr-2">
                 <div className="h-2 w-3/4 rounded-sm border border-foreground/12" />
                 <div className="h-2 w-full rounded-sm border border-foreground/8" />
                 <div className="h-2 w-5/6 rounded-sm border border-foreground/8" />
-                <div className="mt-auto h-16 rounded-sm border border-dashed border-primary/20 bg-primary/5" />
+                <div className="edit-breathe mt-auto h-16 rounded-sm border border-dashed border-primary/20 bg-primary/5" />
               </div>
               <div className="col-span-8 flex flex-col gap-2">
                 <div className="h-3 w-2/5 rounded-sm border border-foreground/15" />
@@ -73,9 +76,10 @@ export function ServiceVisual({ variant, className }: Props) {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
+              className="flow-path text-primary"
               d="M40 100 H88 M132 100 H178 M222 100 H280 M160 100 V138 M160 158 V172 M96 172 H224"
               stroke="currentColor"
-              strokeWidth="1.25"
+              strokeWidth="1.5"
               strokeLinecap="round"
             />
             <path d="M88 100 L108 72 L132 72" stroke="currentColor" strokeWidth="1" opacity="0.45" />
@@ -87,10 +91,10 @@ export function ServiceVisual({ variant, className }: Props) {
           <div className="absolute right-[14%] top-[18%] size-9 rounded-md border border-foreground/20 bg-foreground/5" />
           <div className="absolute right-[14%] top-[62%] size-9 rounded-md border border-foreground/20 bg-foreground/5" />
           <div className="absolute bottom-[10%] left-1/2 h-8 w-24 -translate-x-1/2 rounded-md border border-primary/35 bg-primary/10" />
-          <div className="pointer-events-none absolute left-[20%] top-[32%] text-[9px] font-mono uppercase tracking-wider text-primary/50">
+          <div className="flow-label-trigger pointer-events-none absolute left-[20%] top-[32%] text-[9px] font-mono uppercase tracking-wider text-primary">
             trigger
           </div>
-          <div className="pointer-events-none absolute left-[42%] top-[40%] text-[9px] font-mono uppercase tracking-wider text-primary/55">
+          <div className="flow-label-run pointer-events-none absolute left-[42%] top-[40%] text-[9px] font-mono uppercase tracking-wider text-primary">
             run
           </div>
         </div>
@@ -109,7 +113,7 @@ export function ServiceVisual({ variant, className }: Props) {
           />
           {/* Tablette / second écran (arrière-plan) */}
           <div
-            className="absolute left-[8%] top-[22%] z-0 w-[48%] rounded-lg border border-foreground/12 bg-neutral-900/60 p-2 shadow-lg"
+            className="float-tablet absolute left-[8%] top-[22%] z-0 w-[48%] rounded-lg border border-foreground/12 bg-neutral-900/60 p-2 shadow-lg"
             style={{ aspectRatio: '4/3', transform: 'rotate(-8deg)' }}
           >
             <div className="flex h-full flex-col gap-2 rounded-md border border-foreground/8 bg-neutral-950/90 p-2">
@@ -127,7 +131,7 @@ export function ServiceVisual({ variant, className }: Props) {
           </div>
           {/* Téléphone (premier plan) */}
           <div
-            className="absolute right-[10%] bottom-[8%] z-10 w-[30%] max-w-35 rounded-[1.65rem] border-2 border-foreground/20 bg-neutral-900 p-1.5 shadow-[0_24px_50px_-12px_oklch(0_0_0/0.65)]"
+            className="float-phone absolute right-[10%] bottom-[8%] z-10 w-[30%] max-w-35 rounded-[1.65rem] border-2 border-foreground/20 bg-neutral-900 p-1.5 shadow-[0_24px_50px_-12px_oklch(0_0_0/0.65)]"
             style={{ aspectRatio: '9/19', transform: 'rotate(6deg)' }}
           >
             <div className="flex h-full flex-col gap-2 overflow-hidden rounded-[1.15rem] bg-neutral-950 px-2.5 pb-3 pt-6">
@@ -160,8 +164,8 @@ export function ServiceVisual({ variant, className }: Props) {
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
-                className="rounded-sm border border-primary/15 bg-linear-to-b from-foreground/6 to-transparent"
-                style={{ aspectRatio: '3/4' }}
+                className="commerce-card rounded-sm border border-primary/15 bg-linear-to-b from-foreground/6 to-transparent"
+                style={{ aspectRatio: '3/4', animationDelay: `${i * 0.5}s` }}
               />
             ))}
           </div>

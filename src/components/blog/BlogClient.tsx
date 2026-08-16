@@ -16,15 +16,6 @@ const CATEGORIES = [
   { label: 'Marketing', value: 'marketing' },
 ] as const
 
-const CATEGORY_COLORS: Record<string, string> = {
-  strategie: 'text-blue-400',
-  design: 'text-purple-400',
-  technique: 'text-green-400',
-  marketing: 'text-orange-400',
-  'cas-clients': 'text-yellow-400',
-  hebergement: 'text-cyan-400',
-}
-
 export function BlogClient({
   posts,
   currentPage,
@@ -60,7 +51,7 @@ export function BlogClient({
             style={{ animationDelay: '0.16s' }}
           >
             Insights pour{' '}
-            <span className="italic text-primary">PME</span>
+            <span className="font-serif italic text-primary">PME</span>
             <br />
             <span className="text-foreground/20">ET STARTUPS</span>{' '}
             suisses.
@@ -122,14 +113,7 @@ export function BlogClient({
             <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
               <p className="mb-4 text-[11px] uppercase tracking-widest text-foreground/40">
                 {formatDate(featured.publishedAt)} /{' '}
-                <span
-                  className={
-                    CATEGORY_COLORS[featured.category ?? ''] ??
-                    'text-foreground/60'
-                  }
-                >
-                  {featured.category}
-                </span>
+                <span className="text-primary">{featured.category}</span>
               </p>
               <h2 className="mb-4 wrap-break-words text-xl font-bold leading-snug transition-colors group-hover:text-primary sm:text-2xl md:text-3xl">
                 {featured.title}
@@ -201,9 +185,6 @@ function ArticleCard({ post, index }: { post: Post; index: number }) {
       ? post.coverImage
       : null
 
-  const categoryColor =
-    CATEGORY_COLORS[post.category ?? ''] ?? 'text-foreground/60'
-
   return (
     <Link
       href={`/blog/${post.slug}`}
@@ -226,9 +207,7 @@ function ArticleCard({ post, index }: { post: Post; index: number }) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-6">
-        <p
-          className={`mb-3 text-[10px] font-semibold uppercase tracking-widest ${categoryColor}`}
-        >
+        <p className="mb-3 text-[10px] font-semibold uppercase tracking-widest text-primary">
           {post.category}
         </p>
         <h3 className="mb-3 min-w-0 flex-1 wrap-break-words text-base font-bold leading-snug transition-colors group-hover:text-primary">

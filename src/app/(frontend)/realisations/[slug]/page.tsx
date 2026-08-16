@@ -49,15 +49,6 @@ export default async function RealisationPage({
       ? project.thumbnail
       : null
 
-  const CATEGORY_COLORS: Record<string, string> = {
-    vitrine: 'border-blue-500/30 bg-blue-500/20 text-blue-400',
-    application: 'border-green-500/30 bg-green-500/20 text-green-400',
-    refonte: 'border-orange-500/30 bg-orange-500/20 text-orange-400',
-    ecommerce: 'border-purple-500/30 bg-purple-500/20 text-purple-400',
-    migration: 'border-yellow-500/30 bg-yellow-500/20 text-yellow-400',
-    'outil-interne': 'border-amber-500/30 bg-amber-500/20 text-amber-400',
-  }
-
   const CATEGORY_LABELS: Record<string, string> = {
     vitrine: 'vitrine',
     application: 'application',
@@ -66,19 +57,15 @@ export default async function RealisationPage({
     'outil-interne': 'outil interne',
   }
 
-  const categoryColor =
-    CATEGORY_COLORS[project.category ?? ''] ??
-    'border-foreground/20 bg-foreground/10 text-foreground/70'
-
   const categoryLabel = CATEGORY_LABELS[project.category ?? ''] ?? project.category
 
   const liveHref = normalizeExternalHref(project.liveUrl ?? undefined)
   const githubHref = normalizeExternalHref(project.githubUrl ?? undefined)
 
   return (
-    <div className="realisation-detail-page relative mx-auto w-full max-w-[1440px] overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
+    <div className="realisation-detail-page relative mx-auto w-full max-w-360 overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
       <div
-        className="hero-glow pointer-events-none absolute top-0 left-1/2 z-0 h-[min(720px,85vh)] w-full max-w-[1600px] -translate-x-1/2"
+        className="hero-glow pointer-events-none absolute top-0 left-1/2 z-0 h-[min(720px,85vh)] w-full max-w-400 -translate-x-1/2"
         aria-hidden
       />
       <main className="relative z-10 text-left">
@@ -111,7 +98,7 @@ export default async function RealisationPage({
 
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3">
-              <span className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-widest ${categoryColor}`}>
+              <span className="rounded-full border border-primary/30 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
                 {categoryLabel}
               </span>
               {project.badge === 'acces-anticipe' && (

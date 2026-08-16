@@ -8,9 +8,17 @@ export function AboutStorySection() {
   const year = new Date().getFullYear()
 
   return (
-    <section className="relative z-10 mb-24 lg:mb-40">
+    <section className="relative z-10 mb-24 overflow-hidden lg:mb-40">
+      {/* Chiffre fantôme : watermark de fond à tous les breakpoints, pas réservé au desktop */}
+      <span
+        className="pointer-events-none absolute -right-2 top-1/2 z-0 -translate-y-1/2 select-none text-[clamp(3.5rem,15vw,10rem)] font-black leading-none text-foreground/[0.07] lg:right-0"
+        aria-hidden
+      >
+        /{year}
+      </span>
+
       <Reveal>
-        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[60%_40%] lg:gap-20">
+        <div className="relative z-10 grid grid-cols-1 items-center gap-16 lg:grid-cols-[60%_40%] lg:gap-20">
           <div className="flex flex-col gap-8">
             <p className="text-lg font-light leading-relaxed text-foreground/80">
               Fondé sur le principe de la précision helvétique, Origin Studio n&apos;est pas une agence
@@ -34,14 +42,7 @@ export function AboutStorySection() {
               </Button>
             </div>
           </div>
-          <div className="hidden justify-end lg:flex">
-            <span
-              className="select-none text-[clamp(5rem,14vw,10rem)] font-black leading-none text-foreground/[0.07]"
-              aria-hidden
-            >
-              /{year}
-            </span>
-          </div>
+          <div className="hidden lg:block" aria-hidden />
         </div>
       </Reveal>
     </section>

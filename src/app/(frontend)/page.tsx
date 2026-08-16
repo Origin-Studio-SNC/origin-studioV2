@@ -4,6 +4,7 @@ import HeroSection from '@/components/home/HeroSection'
 import ProjectsSection from '@/components/home/ProjectsSection'
 import ResourcesSection from '@/components/home/ResourcesSection'
 import ServicesSection from '@/components/home/ServicesSection'
+import { SectionDivider } from '@/components/SectionDivider'
 
 /** Payload sur la home : sans ça, Next peut servir la page figée au dernier build statique. */
 export const revalidate = 60
@@ -26,7 +27,9 @@ export default async function HomePage() {
       <Suspense fallback={<SectionFallback minHeight="min(720px, 85vh)" />}>
         <ProjectsSection />
       </Suspense>
+      <SectionDivider />
       <EngagementsSection />
+      <SectionDivider />
       <Suspense fallback={<SectionFallback minHeight="420px" />}>
         <ResourcesSection />
       </Suspense>

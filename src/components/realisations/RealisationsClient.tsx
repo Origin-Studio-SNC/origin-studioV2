@@ -18,15 +18,6 @@ const CATEGORIES = [
   { label: 'Outil interne', value: 'outil-interne' },
 ] as const
 
-const CATEGORY_COLORS: Record<string, string> = {
-  vitrine: 'border-blue-500/30 bg-blue-500/20 text-blue-400',
-  application: 'border-green-500/30 bg-green-500/20 text-green-400',
-  refonte: 'border-orange-500/30 bg-orange-500/20 text-orange-400',
-  ecommerce: 'border-purple-500/30 bg-purple-500/20 text-purple-400',
-  migration: 'border-yellow-500/30 bg-yellow-500/20 text-yellow-400',
-  'outil-interne': 'border-amber-500/30 bg-amber-500/20 text-amber-400',
-}
-
 const CATEGORY_LABELS: Record<string, string> = {
   vitrine: 'vitrine',
   application: 'application',
@@ -67,7 +58,7 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
           >
             Chaque projet,
             <br />
-            <span className="text-primary italic">une obsession.</span>
+            <span className="font-serif text-primary italic">une obsession.</span>
           </h1>
           <p
             className="reveal-on-load mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg"
@@ -160,7 +151,7 @@ function BentoGrid({ projects }: { projects: Project[] }) {
             >
               <ProjectCard
                 project={row1[0]}
-                className="h-full min-h-[300px] md:min-h-[420px]"
+                className="h-full min-h-75 md:min-h-105"
               />
             </Reveal>
           )}
@@ -171,7 +162,7 @@ function BentoGrid({ projects }: { projects: Project[] }) {
             >
               <ProjectCard
                 project={row1[1]}
-                className="h-full min-h-[300px] md:min-h-[420px]"
+                className="h-full min-h-75 md:min-h-105"
               />
             </Reveal>
           )}
@@ -188,8 +179,8 @@ function BentoGrid({ projects }: { projects: Project[] }) {
             >
               <ProjectCard
                 project={row2[0]}
-                className="h-full min-h-[280px] md:min-h-[380px]"
-              />
+                className="h-full min-h-70 md:min-h-105"
+              />  
             </Reveal>
           )}
           {row2[1] && (
@@ -199,7 +190,7 @@ function BentoGrid({ projects }: { projects: Project[] }) {
             >
               <ProjectCard
                 project={row2[1]}
-                className="h-full min-h-[280px] md:min-h-[380px]"
+                className="h-full min-h-70 md:min-h-105"
               />
             </Reveal>
           )}
@@ -217,7 +208,7 @@ function BentoGrid({ projects }: { projects: Project[] }) {
             >
               <ProjectCard
                 project={project}
-                className="h-full min-h-[300px]"
+                className="h-full min-h-75"
               />
             </Reveal>
           ))}
@@ -240,10 +231,6 @@ function ProjectCard({
       : null
 
   const liveHref = normalizeExternalHref(project.liveUrl ?? undefined)
-
-  const categoryColor =
-    CATEGORY_COLORS[project.category ?? ''] ??
-    'border-foreground/20 bg-foreground/10 text-foreground/70'
 
   return (
     <article
@@ -294,9 +281,7 @@ function ProjectCard({
       </div>
 
       <div className="pointer-events-none absolute left-4 top-4 z-20 sm:top-4">
-        <span
-          className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-widest ${categoryColor}`}
-        >
+        <span className="rounded-full border border-primary/30 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
           {CATEGORY_LABELS[project.category] ?? project.category}
         </span>
       </div>

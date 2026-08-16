@@ -18,22 +18,12 @@ const CATEGORY_LABELS: Record<Post['category'], string> = {
   hebergement: 'Hébergement Suisse',
 }
 
-const CATEGORY_STYLES: Record<string, string> = {
-  strategie: 'border-blue-500/30 bg-blue-500/20 text-blue-400',
-  technique: 'border-green-500/30 bg-green-500/20 text-green-400',
-  'cas-clients': 'border-yellow-500/30 bg-yellow-500/20 text-yellow-400',
-  hebergement: 'border-cyan-500/30 bg-cyan-500/20 text-cyan-400',
-}
-
 const getPublishedPostBySlug = cache(async (slug: string) => {
   const payload = await getPayload({ config: configPromise })
   const { docs } = await payload.find({
     collection: 'posts',
     where: {
-      and: [
-        { slug: { equals: slug } },
-        { _status: { equals: 'published' } },
-      ],
+      and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }],
     },
     depth: 2,
     limit: 1,
@@ -63,12 +53,8 @@ export async function generateMetadata(props: {
 
   const desc = post.metaDescription ?? post.excerpt
   const ogImage =
-    (post.metaImage && typeof post.metaImage === 'object'
-      ? post.metaImage
-      : null) ??
-    (post.coverImage && typeof post.coverImage === 'object'
-      ? post.coverImage
-      : null)
+    (post.metaImage && typeof post.metaImage === 'object' ? post.metaImage : null) ??
+    (post.coverImage && typeof post.coverImage === 'object' ? post.coverImage : null)
 
   const imageUrl =
     ogImage && typeof ogImage.url === 'string' && ogImage.url.startsWith('http')
@@ -86,29 +72,19 @@ export async function generateMetadata(props: {
   }
 }
 
-export default async function BlogPostPage(props: {
-  params: Promise<{ slug: string }>
-}) {
+export default async function BlogPostPage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params
   const post = await getPublishedPostBySlug(slug)
   if (!post) notFound()
 
-  const cover =
-    post.coverImage && typeof post.coverImage === 'object'
-      ? post.coverImage
-      : null
+  const cover = post.coverImage && typeof post.coverImage === 'object' ? post.coverImage : null
 
-  const author =
-    post.author && typeof post.author === 'object' ? post.author : null
-
-  const categoryStyle =
-    CATEGORY_STYLES[post.category] ??
-    'border-foreground/20 bg-foreground/10 text-foreground/70'
+  const author = post.author && typeof post.author === 'object' ? post.author : null
 
   return (
-    <div className="relative mx-auto w-full max-w-[1440px] overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
+    <div className="relative mx-auto w-full max-w-360 overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
       <div
-        className="hero-glow pointer-events-none absolute top-0 left-1/2 z-0 h-[min(720px,85vh)] w-full max-w-[1600px] -translate-x-1/2"
+        className="hero-glow pointer-events-none absolute top-0 left-1/2 z-0 h-[min(720px,85vh)] w-full max-w-400 -translate-x-1/2"
         aria-hidden
       />
       <article className="relative z-10 mx-auto max-w-3xl text-left">
@@ -133,20 +109,12 @@ export default async function BlogPostPage(props: {
             <h1 className="mb-6 wrap-break-words text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
               {post.title}
             </h1>
-            <p className="text-lg text-foreground/60 leading-relaxed">
-              {post.excerpt}
-            </p>
+            <p className="text-lg text-foreground/60 leading-relaxed">{post.excerpt}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <span
-                className={`rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-widest ${categoryStyle}`}
-              >
+              <span className="rounded-full border border-primary/30 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
                 {CATEGORY_LABELS[post.category]}
               </span>
-              {author && (
-                <span className="text-sm text-foreground/50">
-                  Par {author.name}
-                </span>
-              )}
+              {author && <span className="text-sm text-foreground/50">Par {author.name}</span>}
             </div>
             {post.tags && post.tags.length > 0 && (
               <ul className="mt-6 flex flex-wrap gap-2">

@@ -298,6 +298,98 @@ h1.page-hero-title {
   }
 }
 
+/* ─── ServiceVisual : automatisation — le tracé "coule" le long du pipeline ─── */
+.flow-path {
+  stroke-dasharray: 10 14;
+  animation: flow-pulse 1.5s linear infinite;
+}
+
+@keyframes flow-pulse {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+
+.flow-label-trigger,
+.flow-label-run {
+  animation: label-pulse 2.6s ease-in-out infinite;
+}
+
+.flow-label-run {
+  animation-delay: 1.3s;
+}
+
+@keyframes label-pulse {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ─── ServiceVisual : devices — flottement indépendant (profondeur) ─── */
+.float-tablet {
+  animation: float-tablet 7s ease-in-out infinite;
+}
+
+.float-phone {
+  animation: float-phone 8.5s ease-in-out infinite;
+}
+
+@keyframes float-tablet {
+  0%,
+  100% {
+    transform: rotate(-8deg) translateY(0) scale(1);
+  }
+  50% {
+    transform: rotate(-4deg) translateY(-13px) scale(1.02);
+  }
+}
+
+@keyframes float-phone {
+  0%,
+  100% {
+    transform: rotate(6deg) translateY(0) scale(1);
+  }
+  50% {
+    transform: rotate(10deg) translateY(-15px) scale(1.025);
+  }
+}
+
+/* ─── ServiceVisual : commerce — catalogue vivant ─── */
+.commerce-card {
+  animation: card-breathe 3.2s ease-in-out infinite;
+}
+
+@keyframes card-breathe {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.08) translateY(-4px);
+    opacity: 0.55;
+  }
+}
+
+/* ─── ServiceVisual : wireframe — éléments "en cours d'édition" ─── */
+.edit-breathe {
+  animation: edit-breathe 2.4s ease-in-out infinite;
+}
+
+@keyframes edit-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
 /* ─── Signal (pétales radiales) — accent de confirmation ─── */
 .signal-ping-ring {
   position: absolute;
@@ -496,5 +588,22 @@ h1.page-hero-title {
   .signal-ping-ring {
     animation: none;
     display: none;
+  }
+
+  .flow-path {
+    animation: none;
+    stroke-dasharray: none;
+  }
+
+  .flow-label-trigger,
+  .flow-label-run,
+  .commerce-card,
+  .edit-breathe {
+    animation: none;
+  }
+
+  .float-tablet,
+  .float-phone {
+    animation: none;
   }
 }
