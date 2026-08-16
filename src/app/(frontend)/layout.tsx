@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import { Space_Grotesk, Playfair_Display } from 'next/font/google'
+import { ChatWidget } from '@/components/chat/ChatWidget'
 import { CookieBanner } from '@/components/CookieBanner'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
@@ -88,6 +89,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <main className="flex flex-1 flex-col pt-16 md:pt-20">{children}</main>
         <Footer />
         <CookieBanner />
+        <ChatWidget />
         <Analytics />
         <SpeedInsights />
       </body>

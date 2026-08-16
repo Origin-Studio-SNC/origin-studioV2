@@ -32,3 +32,14 @@ export const contactSchema = z.object({
       .max(5000, 'Le message ne peut pas dépasser 5000 caractères'),
     website: z.string().max(0, 'Champ invalide').optional(), // Honeypot
   })
+
+/**
+ * Lead capturé par le parcours guidé du chatbot (`/api/chat/lead`).
+ * Réutilise `contactSchema` (mêmes champs, même vocabulaire de `projectType`/`budget`
+ * que le formulaire humain) et ajoute les champs propres au parcours guidé.
+ */
+export const chatLeadSchema = contactSchema.extend({
+  offerTitle: z.string().min(1).max(120),
+  tierName: z.string().min(1).max(60),
+  delay: z.string().min(1).max(60),
+})

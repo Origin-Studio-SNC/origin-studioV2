@@ -4,19 +4,17 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-
-const STORAGE_KEY = 'origin-studio-cookie-notice-dismissed'
+import { dismissCookieBanner, isCookieBannerDismissed } from '@/lib/cookieBannerState'
 
 export function CookieBanner() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const dismissed = window.localStorage.getItem(STORAGE_KEY)
-    if (!dismissed) setVisible(true)
+    if (!isCookieBannerDismissed()) setVisible(true)
   }, [])
 
   function dismiss() {
-    window.localStorage.setItem(STORAGE_KEY, '1')
+    dismissCookieBanner()
     setVisible(false)
   }
 
