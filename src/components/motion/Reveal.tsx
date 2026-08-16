@@ -7,6 +7,13 @@ type Props = {
   className?: string
   /** Délai après entrée dans le viewport (s) */
   delay?: number
+  /**
+   * `fade` (défaut) : translateY + opacity, pour du contenu linéaire (listes, texte).
+   * `scale` : léger scale-in, pour des éléments de grille (cards) — les distingue
+   * visuellement d'une liste plutôt que de répéter le même tic partout.
+   * `line` : scaleX depuis la gauche, pour un connecteur/trait qui se "dessine".
+   */
+  variant?: 'fade' | 'scale' | 'line'
 }
 
 /**
@@ -18,7 +25,7 @@ type Props = {
  * (ex. corps d’article) peut ne jamais atteindre 15 % visibles sur mobile
  * (ratio max ≈ viewport / hauteur du bloc) et rester invisible.
  */
-export function Reveal({ children, className = '', delay = 0 }: Props) {
+export function Reveal({ children, className = '', delay = 0, variant = 'fade' }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -57,11 +64,17 @@ export function Reveal({ children, className = '', delay = 0 }: Props) {
     return () => observer.disconnect()
   }, [])
 
+  const variantClass = variant === 'fade' ? '' : `reveal-${variant}`
+
   return (
     <div
       ref={ref}
-      className={`reveal ${isVisible ? 'reveal-visible' : ''} ${className}`}
-      style={{ animationDelay: delay > 0 ? `${delay}s` : undefined }}
+      className={`reveal ${variantClass} ${isVisible ? 'reveal-visible' : ''} ${className}`}
+      style={
+        delay > 0
+          ? { animationDelay: `${delay}s`, transitionDelay: `${delay}s` }
+          : undefined
+      }
     >
       {children}
     </div>

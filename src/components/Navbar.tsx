@@ -113,13 +113,13 @@ const Navbar = () => {
 
         <div className="hidden items-center gap-6 lg:gap-8 md:flex">
           {navLinks.map(({ href, label }) => (
-            <a
+            <Link
               key={`${href}-${label}`}
               className={cn('link-nav', navLinkIsActive(href, pathname, hash) && 'link-nav-active')}
               href={href}
             >
               <span className="text-xs font-semibold uppercase tracking-widest">{label}</span>
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -163,7 +163,7 @@ const Navbar = () => {
       >
         <div className="flex flex-col px-4 py-6 pb-10">
           {navLinks.map(({ href, label }) => (
-            <a
+            <Link
               key={`mobile-${href}-${label}`}
               href={href}
               className={cn(
@@ -175,7 +175,7 @@ const Navbar = () => {
               onClick={() => setMenuOpen(false)}
             >
               {label}
-            </a>
+            </Link>
           ))}
           <Link href="/contact" className="mt-6 w-full" onClick={() => setMenuOpen(false)}>
             <Button size="lg" className="w-full rounded-full uppercase tracking-widest">

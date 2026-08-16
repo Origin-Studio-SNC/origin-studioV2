@@ -25,7 +25,7 @@ const EngagementsSection = () => {
   return (
     <section
       id="engagements"
-      className="px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-[130px]"
+      className="px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-32.5"
     >
       <div className="mx-auto max-w-7xl">
         <Reveal>
@@ -34,7 +34,7 @@ const EngagementsSection = () => {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {engagements.map((item, i) => (
-            <Reveal key={item.num} delay={i * 0.08}>
+            <Reveal key={item.num} delay={i * 0.08} variant="scale">
             <div
               className="group relative h-full border border-border bg-card p-6 sm:p-8 md:p-10 lg:p-12"
             >

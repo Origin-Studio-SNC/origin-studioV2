@@ -241,6 +241,85 @@ h1.page-hero-title {
       rgba(91, 110, 245, 0.09) 42%,
       rgba(91, 110, 245, 0) 72%
     );
+  animation: hero-glow-drift 22s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-glow-drift {
+  0%,
+  100% {
+    transform: translate3d(-1.5%, -1%, 0) scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: translate3d(1.5%, 1.5%, 0) scale(1.06);
+    opacity: 1;
+  }
+}
+
+/* ─── Watermark du glyphe (profondeur : couche la plus lointaine du hero) ─── */
+.watermark-drift {
+  opacity: 0.05;
+  animation: watermark-breathe 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes watermark-breathe {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.05;
+  }
+  50% {
+    transform: scale(1.06) rotate(2.4deg);
+    opacity: 0.095;
+  }
+}
+
+/* ─── Signature du logo (moment authored, une fois, hero de la home) ─── */
+.logo-draw path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  fill-opacity: 0;
+  animation:
+    logo-draw-stroke 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    logo-draw-fill 0.4s ease-out 0.6s forwards;
+}
+
+@keyframes logo-draw-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes logo-draw-fill {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+/* ─── Signal (pétales radiales) — accent de confirmation ─── */
+.signal-ping-ring {
+  position: absolute;
+  inset: -20%;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  opacity: 0;
+  animation: signal-ping 1.3s cubic-bezier(0.16, 1, 0.3, 1) 2;
+}
+
+@keyframes signal-ping {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+  70% {
+    opacity: 0.12;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
 }
 
 /* ─── Section label ─── */
@@ -267,27 +346,27 @@ h1.page-hero-title {
   position: relative;
   text-decoration: none;
   color: oklch(0.78 0.01 270);
-  padding-left: 0;
-  transition: color 0.25s ease, padding-left 0.25s ease;
+  transition: color 0.25s ease;
 
   &::before {
     content: '';
     position: absolute;
     left: -12px;
     top: 50%;
-    translate: 0 -50%;
     width: 2px;
-    height: 0;
+    height: 14px;
     background: oklch(0.56 0.23 272);
     border-radius: 1px;
-    transition: height 0.25s ease;
+    transform: translateY(-50%) scaleY(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
   }
 
   &:hover {
     color: oklch(0.95 0 0);
 
     &::before {
-      height: 14px;
+      transform: translateY(-50%) scaleY(1);
     }
   }
 }
@@ -296,7 +375,7 @@ h1.page-hero-title {
   color: var(--primary);
 
   &::before {
-    height: 14px;
+    transform: translateY(-50%) scaleY(1);
   }
 }
 
@@ -357,6 +436,33 @@ h1.page-hero-title {
   animation: reveal 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* ─── Variante scale : cards de grille, se distingue d'une liste ─── */
+.reveal.reveal-scale {
+  transform: scale(0.94);
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.reveal-scale.reveal-visible {
+  animation: none;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Variante line : un connecteur/trait qui se "dessine" depuis la gauche ─── */
+.reveal.reveal-line {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.reveal-line.reveal-visible {
+  animation: none;
+  transform: scaleX(1);
+}
+
 /* Respect prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .reveal,
@@ -368,5 +474,27 @@ h1.page-hero-title {
 
   .reveal-visible {
     animation: none;
+  }
+
+  .reveal.reveal-scale,
+  .reveal.reveal-line {
+    transform: none;
+    transition: none;
+  }
+
+  .hero-glow,
+  .watermark-drift {
+    animation: none;
+  }
+
+  .logo-draw path {
+    animation: none;
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+  }
+
+  .signal-ping-ring {
+    animation: none;
+    display: none;
   }
 }

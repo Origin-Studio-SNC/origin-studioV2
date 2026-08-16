@@ -36,10 +36,7 @@ const ProjectsSection = async () => {
   const { docs: projects } = await payload.find({
     collection: 'projects',
     where: {
-      and: [
-        { featured: { equals: true } },
-        { _status: { equals: 'published' } },
-      ],
+      and: [{ featured: { equals: true } }, { _status: { equals: 'published' } }],
     },
     sort: 'order',
     limit: 3,
@@ -56,7 +53,7 @@ const ProjectsSection = async () => {
   return (
     <section
       id="realisations"
-      className="bg-muted/30 px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-[130px]"
+      className="bg-muted/30 px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-32.5"
     >
       <div className="mx-auto max-w-7xl">
         <Reveal>
@@ -66,45 +63,48 @@ const ProjectsSection = async () => {
         <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-10">
           {/* Featured */}
           <Reveal className="min-h-0 md:col-span-6">
-          <article className="group relative isolate block aspect-4/3 h-full min-h-[280px] overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40 md:aspect-auto md:min-h-[520px]">
-            <Link
-              href={`/realisations/${featured.slug}`}
-              className="absolute inset-0 z-10"
-              aria-label={`Voir le projet : ${featured.title}`}
-            />
-            {featured.thumbnail && typeof featured.thumbnail === 'object' && (
-              <Image
-                src={featured.thumbnail.url ?? ''}
-                alt={featured.thumbnail.alt ?? featured.title}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 60vw"
-                className="object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
+            <article className="group relative isolate block aspect-4/3 h-full min-h-70 overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40 md:aspect-auto md:min-h-130">
+              <Link
+                href={`/realisations/${featured.slug}`}
+                className="absolute inset-0 z-10"
+                aria-label={`Voir le projet : ${featured.title}`}
               />
-            )}
-            <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
-            {featuredLive && (
-              <a
-                href={featuredLive}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Voir le site en ligne"
-                className="pointer-events-auto absolute top-4 right-4 z-30 inline-flex size-10 items-center justify-center rounded-full border border-border bg-background/85 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:size-auto sm:h-auto sm:gap-1.5 sm:px-3 sm:py-1.5"
-              >
-                <span className="sr-only">Voir en ligne</span>
-                <span className="hidden text-[10px] font-semibold uppercase tracking-wide text-foreground/90 sm:inline">
-                  Voir en ligne
+              {featured.thumbnail && typeof featured.thumbnail === 'object' && (
+                <Image
+                  src={featured.thumbnail.url ?? ''}
+                  alt={featured.thumbnail.alt ?? featured.title}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 60vw"
+                  className="object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
+                />
+              )}
+              <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
+              {featuredLive && (
+                <a
+                  href={featuredLive}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Voir le site en ligne"
+                  className="pointer-events-auto absolute top-4 right-4 z-30 inline-flex size-10 items-center justify-center rounded-full border border-border bg-background/85 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:size-auto sm:h-auto sm:gap-1.5 sm:px-3 sm:py-1.5"
+                >
+                  <span className="sr-only">Voir en ligne</span>
+                  <span className="hidden text-[10px] font-semibold uppercase tracking-wide text-foreground/90 sm:inline">
+                    Voir en ligne
+                  </span>
+                  <ArrowUpRight
+                    className="size-4 shrink-0 text-foreground sm:size-3.5"
+                    aria-hidden
+                  />
+                </a>
+              )}
+              <div className="pointer-events-none absolute bottom-6 left-5 right-5 z-20 sm:bottom-8 sm:left-8 sm:right-8">
+                <span className="mb-4 inline-block rounded-full border border-primary/30 bg-primary/20 px-3 py-1 text-[10px] uppercase tracking-widest text-primary">
+                  {featured.category}
                 </span>
-                <ArrowUpRight className="size-4 shrink-0 text-foreground sm:size-3.5" aria-hidden />
-              </a>
-            )}
-            <div className="pointer-events-none absolute bottom-6 left-5 right-5 z-20 sm:bottom-8 sm:left-8 sm:right-8">
-              <span className="mb-4 inline-block rounded-full border border-primary/30 bg-primary/20 px-3 py-1 text-[10px] uppercase tracking-widest text-primary">
-                {featured.category}
-              </span>
-              <h4 className="text-2xl font-light sm:text-3xl">{featured.title}</h4>
-            </div>
-          </article>
+                <h4 className="text-2xl font-light sm:text-3xl">{featured.title}</h4>
+              </div>
+            </article>
           </Reveal>
 
           {/* Secondary stack */}
@@ -112,46 +112,46 @@ const ProjectsSection = async () => {
             {secondary.map((project, i) => {
               const live = normalizeExternalHref(project.liveUrl ?? undefined)
               return (
-              <Reveal key={project.id} delay={0.08 * (i + 1)}>
-              <article className="group relative isolate block h-[300px] overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40">
-                <Link
-                  href={`/realisations/${project.slug}`}
-                  className="absolute inset-0 z-10"
-                  aria-label={`Voir le projet : ${project.title}`}
-                />
-                {project.thumbnail && typeof project.thumbnail === 'object' && (
-                  <Image
-                    src={project.thumbnail.url ?? ''}
-                    alt={project.thumbnail.alt ?? project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 40vw"
-                    className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
-                  />
-                )}
-                <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
-                {live && (
-                  <a
-                    href={live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Voir le site en ligne"
-                    className="pointer-events-auto absolute top-3 right-3 z-30 inline-flex size-9 items-center justify-center rounded-full border border-border bg-background/85 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:size-auto sm:h-auto sm:gap-1 sm:px-2.5 sm:py-1"
-                  >
-                    <span className="sr-only">Voir en ligne</span>
-                    <span className="hidden text-[10px] font-semibold uppercase tracking-wide text-foreground/90 sm:inline">
-                      En ligne
-                    </span>
-                    <ArrowUpRight className="size-3.5 shrink-0 sm:size-3" aria-hidden />
-                  </a>
-                )}
-                <div className="pointer-events-none absolute bottom-5 left-5 z-20 sm:bottom-6 sm:left-6">
-                  <span className="mb-3 inline-block rounded-full border border-foreground/20 bg-foreground/10 px-3 py-1 text-[10px] uppercase tracking-widest text-foreground/70">
-                    {project.category}
-                  </span>
-                  <h4 className="text-xl font-light">{project.title}</h4>
-                </div>
-              </article>
-              </Reveal>
+                <Reveal key={project.id} delay={0.08 * (i + 1)} variant="scale">
+                  <article className="group relative isolate block h-75 overflow-hidden rounded-sm border border-border bg-card transition-colors duration-300 hover:border-primary/40">
+                    <Link
+                      href={`/realisations/${project.slug}`}
+                      className="absolute inset-0 z-10"
+                      aria-label={`Voir le projet : ${project.title}`}
+                    />
+                    {project.thumbnail && typeof project.thumbnail === 'object' && (
+                      <Image
+                        src={project.thumbnail.url ?? ''}
+                        alt={project.thumbnail.alt ?? project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 40vw"
+                        className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
+                    {live && (
+                      <a
+                        href={live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Voir le site en ligne"
+                        className="pointer-events-auto absolute top-3 right-3 z-30 inline-flex size-9 items-center justify-center rounded-full border border-border bg-background/85 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:size-auto sm:h-auto sm:gap-1 sm:px-2.5 sm:py-1"
+                      >
+                        <span className="sr-only">Voir en ligne</span>
+                        <span className="hidden text-[10px] font-semibold uppercase tracking-wide text-foreground/90 sm:inline">
+                          En ligne
+                        </span>
+                        <ArrowUpRight className="size-3.5 shrink-0 sm:size-3" aria-hidden />
+                      </a>
+                    )}
+                    <div className="pointer-events-none absolute bottom-5 left-5 z-20 sm:bottom-6 sm:left-6">
+                      <span className="mb-3 inline-block rounded-full border border-foreground/20 bg-foreground/10 px-3 py-1 text-[10px] uppercase tracking-widest text-foreground/70">
+                        {project.category}
+                      </span>
+                      <h4 className="text-xl font-light">{project.title}</h4>
+                    </div>
+                  </article>
+                </Reveal>
               )
             })}
           </div>
@@ -183,10 +183,12 @@ const ProjectsSection = async () => {
           </Reveal>
 
           <div className="relative grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-            <div
-              className="absolute left-0 right-0 top-5 hidden h-px bg-border lg:block"
-              aria-hidden
-            />
+            <Reveal
+              variant="line"
+              className="absolute left-0 right-0 top-5 hidden h-px bg-primary/40 lg:block"
+            >
+              {null}
+            </Reveal>
             {processSteps.map((step, i) => (
               <Reveal key={step.number} delay={i * 0.06}>
                 <div className="group relative cursor-default transition-transform duration-300 hover:-translate-y-1">

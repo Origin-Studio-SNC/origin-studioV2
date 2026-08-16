@@ -40,7 +40,7 @@ const ResourcesSection = async () => {
   return (
     <section
       id="ressources"
-      className="bg-muted/20 px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-[130px]"
+      className="bg-muted/20 px-5 py-20 sm:px-6 md:py-28 lg:px-40 lg:py-32.5"
     >
       <div className="mx-auto max-w-7xl">
         <Reveal>

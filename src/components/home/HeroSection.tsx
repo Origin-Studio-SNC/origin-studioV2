@@ -1,10 +1,24 @@
 import Link from 'next/link'
 import { Button } from '../ui/button'
+import { LogoMark } from '@/components/LogoMark'
+import { HeroWatermark } from '@/components/home/HeroWatermark'
 
 export default function HeroSection() {
   return (
-    <section className="hero-glow relative flex min-h-[calc(100dvh-4rem)] flex-col items-center justify-center px-4 pb-24 text-center sm:px-6 md:min-h-[calc(100dvh-5rem)] md:pb-28">
-      <div className="flex flex-col items-center">
+    <section className="relative flex min-h-[calc(100dvh-4rem)] flex-col items-center justify-center overflow-hidden px-4 pb-24 text-center sm:px-6 md:min-h-[calc(100dvh-5rem)] md:pb-28">
+      {/* Couche 1 (la plus lointaine) : watermark du glyphe, respiration + suivi souris */}
+      <HeroWatermark />
+
+      {/* Couche 2 : halo dégradé, dérive lente et indépendante */}
+      <div className="hero-glow pointer-events-none absolute inset-0 z-0" aria-hidden />
+
+      {/* Couche 3 : contenu */}
+      <div className="relative z-10 flex flex-col items-center">
+        <LogoMark
+          animateDraw
+          className="mb-5 h-7 w-7 text-primary opacity-90 md:mb-6 md:h-8 md:w-8"
+        />
+
         <span
           className="reveal-on-load section-label mb-6 max-w-xs justify-center text-violet-100/50 md:mb-8"
           style={{ animationDelay: '0.1s' }}
@@ -52,7 +66,7 @@ export default function HeroSection() {
       </div>
 
       <div
-        className="reveal-on-load absolute bottom-8 left-0 w-full px-4 sm:bottom-12 sm:px-6 lg:px-40"
+        className="reveal-on-load absolute bottom-8 left-0 z-10 w-full px-4 sm:bottom-12 sm:px-6 lg:px-40"
         style={{ animationDelay: '0.55s' }}
       >
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 text-[11px] uppercase tracking-[0.2em] text-foreground/30">

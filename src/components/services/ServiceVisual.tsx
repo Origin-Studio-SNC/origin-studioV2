@@ -8,7 +8,7 @@ export function ServiceVisual({ variant, className }: Props) {
   return (
     <div
       className={cn(
-        'relative aspect-4/3 w-full overflow-hidden rounded-sm border border-border bg-card md:min-h-[280px] md:aspect-auto',
+        'relative aspect-4/3 w-full overflow-hidden rounded-sm border border-border bg-card md:min-h-70 md:aspect-auto',
         className,
       )}
       aria-hidden
@@ -44,7 +44,7 @@ export function ServiceVisual({ variant, className }: Props) {
               <div className="col-span-8 flex flex-col gap-2">
                 <div className="h-3 w-2/5 rounded-sm border border-foreground/15" />
                 <div className="h-2 w-full rounded-sm border border-dashed border-foreground/10" />
-                <div className="grid flex-1 grid-cols-2 gap-2 min-h-[72px]">
+                <div className="grid flex-1 grid-cols-2 gap-2 min-h-18">
                   <div className="rounded-sm border border-dashed border-foreground/10 bg-foreground/3" />
                   <div className="rounded-sm border border-dashed border-foreground/10 bg-foreground/3" />
                 </div>
@@ -127,7 +127,7 @@ export function ServiceVisual({ variant, className }: Props) {
           </div>
           {/* Téléphone (premier plan) */}
           <div
-            className="absolute right-[10%] bottom-[8%] z-10 w-[30%] max-w-[140px] rounded-[1.65rem] border-2 border-foreground/20 bg-neutral-900 p-1.5 shadow-[0_24px_50px_-12px_oklch(0_0_0/0.65)]"
+            className="absolute right-[10%] bottom-[8%] z-10 w-[30%] max-w-35 rounded-[1.65rem] border-2 border-foreground/20 bg-neutral-900 p-1.5 shadow-[0_24px_50px_-12px_oklch(0_0_0/0.65)]"
             style={{ aspectRatio: '9/19', transform: 'rotate(6deg)' }}
           >
             <div className="flex h-full flex-col gap-2 overflow-hidden rounded-[1.15rem] bg-neutral-950 px-2.5 pb-3 pt-6">

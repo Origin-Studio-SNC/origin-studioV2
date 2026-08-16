@@ -12,7 +12,10 @@ export function ServicesOffers() {
       <div className="flex flex-col gap-20 md:gap-28 lg:gap-36">
         {SERVICE_OFFERS.map((offer, i) => (
           <Reveal key={offer.title} delay={i * 0.08}>
-          <article className="grid grid-cols-1 items-center gap-10 md:gap-14 lg:grid-cols-2 lg:gap-16">
+          <article
+            id={`offre-${offer.contactService}`}
+            className="grid scroll-mt-24 grid-cols-1 items-center gap-10 md:gap-14 md:scroll-mt-28 lg:grid-cols-2 lg:gap-16"
+          >
             <div className={cn('min-w-0', offer.reverse && 'lg:order-2')}>
               <ServiceVisual variant={offer.visual} />
             </div>

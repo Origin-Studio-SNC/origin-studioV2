@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import React, { useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
+import { SignalBurst } from '@/components/LogoMark'
 import { cn } from '@/lib/utils'
 
 const PROJECT_TYPES = [
@@ -199,7 +200,7 @@ export function ContactForm() {
             required
             rows={5}
             placeholder="Décrivez brièvement vos objectifs…"
-            className={cn(fieldClass, 'min-h-[140px] resize-y')}
+            className={cn(fieldClass, 'min-h-35 resize-y')}
           />
         </div>
 
@@ -224,7 +225,11 @@ export function ContactForm() {
           <ArrowRight className="size-4" weight="bold" aria-hidden />
         </Button>
         {status === 'success' && (
-          <p className="text-center text-sm text-primary" role="status">
+          <p
+            className="flex items-center justify-center gap-2.5 text-center text-sm text-primary"
+            role="status"
+          >
+            <SignalBurst pulse className="size-5 shrink-0" />
             Merci — nous revenons vers vous très vite.
           </p>
         )}
