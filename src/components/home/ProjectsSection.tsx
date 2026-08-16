@@ -70,14 +70,16 @@ const ProjectsSection = async () => {
                 aria-label={`Voir le projet : ${featured.title}`}
               />
               {featured.thumbnail && typeof featured.thumbnail === 'object' && (
-                <Image
-                  src={featured.thumbnail.url ?? ''}
-                  alt={featured.thumbnail.alt ?? featured.title}
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 60vw"
-                  className="object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
-                />
+                <div className="parallax-wrap absolute inset-0">
+                  <Image
+                    src={featured.thumbnail.url ?? ''}
+                    alt={featured.thumbnail.alt ?? featured.title}
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                    className="object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
               )}
               <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
               {featuredLive && (
@@ -120,13 +122,15 @@ const ProjectsSection = async () => {
                       aria-label={`Voir le projet : ${project.title}`}
                     />
                     {project.thumbnail && typeof project.thumbnail === 'object' && (
-                      <Image
-                        src={project.thumbnail.url ?? ''}
-                        alt={project.thumbnail.alt ?? project.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 40vw"
-                        className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
-                      />
+                      <div className="parallax-wrap absolute inset-0">
+                        <Image
+                          src={project.thumbnail.url ?? ''}
+                          alt={project.thumbnail.alt ?? project.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 40vw"
+                          className="object-cover opacity-40 transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </div>
                     )}
                     <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
                     {live && (

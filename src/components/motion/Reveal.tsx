@@ -55,8 +55,13 @@ export function Reveal({ children, className = '', delay = 0, variant = 'fade' }
       },
       {
         threshold: 0,
-        /* Marge basse légère → déclenche un peu avant d’être entièrement dans l’écran */
-        rootMargin: '0px 0px 12% 0px',
+        /*
+         * Marge basse NÉGATIVE : rétrécit la zone de détection vers le haut du
+         * viewport, donc le reveal ne se déclenche qu'une fois l'élément déjà
+         * visible à l'écran (pas 12% AVANT, sous le pli — c'était le bug qui
+         * rendait les animations invisibles en scroll normal).
+         */
+        rootMargin: '0px 0px -10% 0px',
       },
     )
 

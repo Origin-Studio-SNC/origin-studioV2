@@ -3,8 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { Reveal } from '@/components/motion/Reveal'
-
-const PLACEHOLDER = '/img/team-placeholder.png'
+import { TeamAvatar } from '@/components/about/TeamAvatar'
 
 const TEAM = [
   {
@@ -12,7 +11,9 @@ const TEAM = [
     role: 'Front-end & relation client',
     description:
       'Développement des interfaces utilisateur, compréhension des besoins clients et accompagnement humain à chaque étape du projet.',
-    image: PLACEHOLDER,
+    initials: 'CC',
+    /** Renseigner une vraie photo ici quand elle sera disponible. */
+    image: null as string | null,
     imageAlt: 'Portrait de Chadi C.',
   },
   {
@@ -20,7 +21,8 @@ const TEAM = [
     role: 'Back-end & infrastructure',
     description:
       'Architecture serveur, bases de données, organisation et gestion de l’infrastructure technique. Mise en place des environnements, sécurité et fiabilité pour des services stables en production.',
-    image: PLACEHOLDER,
+    initials: 'ET',
+    image: null as string | null,
     imageAlt: 'Portrait d’Eric T.',
   },
 ] as const
@@ -34,13 +36,17 @@ function TeamMemberCard({
     <div className="group relative flex h-full min-h-0 flex-col gap-6 overflow-hidden border border-border bg-card/80 p-6 transition-colors duration-500 hover:bg-card sm:flex-row sm:items-stretch sm:gap-8 md:p-8">
       <div className="absolute top-0 left-0 z-10 h-0 w-1 bg-primary transition-all duration-500 group-hover:h-full" />
       <div className="relative mx-auto size-36 shrink-0 self-start overflow-hidden rounded-2xl border border-border bg-neutral-900 sm:mx-0 sm:size-40">
-        <Image
-          src={member.image}
-          alt={member.imageAlt}
-          width={160}
-          height={160}
-          className="size-full object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100"
-        />
+        {member.image ? (
+          <Image
+            src={member.image}
+            alt={member.imageAlt}
+            width={160}
+            height={160}
+            className="size-full object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100"
+          />
+        ) : (
+          <TeamAvatar initials={member.initials} />
+        )}
       </div>
       <div className="flex min-h-0 min-w-0 flex-1 flex-col text-center sm:text-left">
         <h3 className="mb-1 text-xl font-semibold tracking-tight md:text-2xl">{member.name}</h3>
