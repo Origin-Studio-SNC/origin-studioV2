@@ -2,12 +2,16 @@
 
 import { ArrowLeft, X } from '@phosphor-icons/react'
 
+import { ChatFreeTextInput } from '@/components/chat/ChatFreeTextInput'
 import { ChatLeadForm } from '@/components/chat/ChatLeadForm'
 import { ChatMessageList } from '@/components/chat/ChatMessageList'
 import { ChatStepButtons } from '@/components/chat/ChatStepButtons'
 import { DELAY_OPTIONS, SERVICE_OFFERS } from '@/components/chat/chatFlowConfig'
 import { useChatController } from '@/components/chat/useChatController'
+import { useLlmChat } from '@/components/chat/useLlmChat'
 import { Button } from '@/components/ui/button'
+
+import type { ChatMessage } from '@/components/chat/chatTypes'
 
 type Props = {
   onClose: () => void
@@ -18,6 +22,15 @@ const backButtonClass =
 
 export function ChatGuidedFlow({ onClose }: Props) {
   const chat = useChatController()
+  const llm = useLlmChat()
+
+  // Le fil libre (LLM) s'affiche après le parcours guidé, dans la même liste —
+  // le parcours reste la voie principale, le champ libre un secours toujours ouvert.
+  const messages: ChatMessage[] = [
+    ...chat.transcript,
+    ...llm.messages.map((m) => ({ role: m.role === 'assistant' ? ('bot' as const) : ('user' as const), content: m.content })),
+  ]
+  const isTyping = chat.isTyping || llm.isTyping
 
   return (
     <div className="flex h-full flex-col">
@@ -36,7 +49,7 @@ export function ChatGuidedFlow({ onClose }: Props) {
         </button>
       </div>
 
-      <ChatMessageList messages={chat.transcript} isTyping={chat.isTyping} />
+      <ChatMessageList messages={messages} isTyping={isTyping} />
 
       {chat.step === 'project-type' && !chat.isTyping ? (
         <div className="border-t border-border px-4 py-4">
@@ -95,6 +108,13 @@ export function ChatGuidedFlow({ onClose }: Props) {
             Nouvelle demande
           </Button>
         </div>
+      ) : null}
+
+      <ChatFreeTextInput onSend={llm.sendMessage} disabled={isTyping} />
+      {llm.error ? (
+        <p className="px-4 pb-3 text-center text-xs text-destructive" role="alert">
+          {llm.error}
+        </p>
       ) : null}
     </div>
   )
