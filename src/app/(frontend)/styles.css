@@ -390,6 +390,35 @@ h1.page-hero-title {
   }
 }
 
+/* ─── AboutTechSection : bandeau de logos défilant ─── */
+.tech-marquee {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+.tech-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: tech-marquee-scroll 26s linear infinite;
+}
+
+.tech-marquee:hover .tech-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes tech-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* La piste contient le contenu deux fois : -50% ramène exactement au
+       début de la seconde copie, ce qui rend la boucle imperceptible. */
+    transform: translateX(-50%);
+  }
+}
+
 /* ─── Parallax scroll : images de ProjectsSection (profondeur, même esprit que le hero) ─── */
 .parallax-wrap {
   transform: scale(1.18);
@@ -636,5 +665,23 @@ h1.page-hero-title {
   .float-tablet,
   .float-phone {
     animation: none;
+  }
+
+  /* Défilement coupé : on affiche la liste une seule fois, en clair, plutôt
+     qu'une piste figée à mi-parcours (qui couperait des logos en deux). */
+  .tech-marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+    overflow: visible;
+  }
+
+  .tech-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+
+  .tech-marquee-track > [aria-hidden='true'] {
+    display: none;
   }
 }

@@ -2,29 +2,50 @@ import React from 'react'
 
 import { Reveal } from '@/components/motion/Reveal'
 
-const STACK = [
-  'Next.js',
-  'NestJS',
-  'Tailwind CSS',
-  'TypeScript',
-  'Python',
-  'Payload CMS',
-  'PostgreSQL',
-] as const
+import { TECH_LOGOS } from './techLogos'
+
+function TechRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
+  return (
+    <div className="flex shrink-0 items-center gap-3 pr-3" aria-hidden={ariaHidden || undefined}>
+      {TECH_LOGOS.map((tech) => (
+        <div
+          key={tech.name}
+          className="group flex shrink-0 items-center gap-3 rounded-2xl border border-border/70 bg-white/2 px-5 py-3 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/6"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden
+            className="h-4 w-4 shrink-0 fill-current text-foreground/40 transition-colors duration-300 group-hover:text-primary"
+          >
+            <path d={tech.path} />
+          </svg>
+          <span className="font-mono text-xs font-light tracking-wide whitespace-nowrap text-muted-foreground transition-colors duration-300 group-hover:text-foreground/90">
+            {tech.name}
+          </span>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 export function AboutTechSection() {
   return (
-    <section className="relative z-10 mb-12 md:mb-20">
+    <section className="relative z-10 mb-24 lg:mb-40">
       <Reveal>
-        <div className="flex flex-wrap justify-center gap-3 md:justify-start md:gap-4">
-          {STACK.map((name) => (
-            <div
-              key={name}
-              className="cursor-default rounded-full border border-border px-5 py-2 text-[10px] font-bold tracking-[0.2em] text-foreground/45 uppercase transition-[transform,box-shadow,border-color,background-color,color] duration-300 ease-out hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/8 hover:text-foreground/95 hover:shadow-[0_8px_28px_-8px_oklch(0.56_0.23_272/0.35)]"
-            >
-              {name}
-            </div>
-          ))}
+        <div className="mb-8 flex flex-col gap-3 md:mb-10 md:flex-row md:items-end md:justify-between">
+          <span className="section-label max-w-none text-violet-100/50">Exemples de stack</span>
+          <p className="max-w-md text-sm font-light text-muted-foreground md:text-right">
+            Un aperçu des outils qu&apos;on manie au quotidien — pas une liste fermée. Django,
+            Vue, un autre CMS : on s&apos;adapte à votre existant.
+          </p>
+        </div>
+      </Reveal>
+      <Reveal delay={0.1}>
+        <div className="tech-marquee">
+          <div className="tech-marquee-track">
+            <TechRow />
+            <TechRow ariaHidden />
+          </div>
         </div>
       </Reveal>
     </section>
