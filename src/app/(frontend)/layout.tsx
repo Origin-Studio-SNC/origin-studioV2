@@ -2,6 +2,7 @@ import React from 'react'
 import './styles.css'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import type { Metadata } from 'next'
 
 import { Space_Grotesk, Playfair_Display } from 'next/font/google'
 import { ChatWidget } from '@/components/chat/ChatWidget'
@@ -9,6 +10,7 @@ import { CookieBanner } from '@/components/CookieBanner'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import { cn } from '@/lib/utils'
+import { DEFAULT_OG_IMAGE, SITE_URL } from '@/lib/seo'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -27,9 +29,33 @@ const playfairDisplay = Playfair_Display({
   variable: '--font-serif',
 })
 
-export const metadata = {
-  description: 'Agence web premium à Genève. Développement sur mesure, design minimaliste, infrastructure sécurisée',
-  title: 'Origin Studio - Agence Web Genève, Développement Premium',
+const SITE_TITLE = 'Origin Studio - Agence Web Genève, Développement Premium'
+const SITE_DESCRIPTION =
+  'Agence web premium à Genève. Développement sur mesure, design minimaliste, infrastructure sécurisée'
+
+// Métadonnées par défaut, héritées par toute page qui ne définit pas les
+// siennes (ex. accueil, réalisations). Une page avec son propre `openGraph`
+// (ex. un article de blog) remplace cet objet en entier — pas de fusion
+// champ par champ — d'où le fallback sur DEFAULT_OG_IMAGE côté blog.
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: 'Origin Studio',
+    locale: 'fr_CH',
+    type: 'website',
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE.url],
+  },
 }
 
 const organizationJsonLd = {
