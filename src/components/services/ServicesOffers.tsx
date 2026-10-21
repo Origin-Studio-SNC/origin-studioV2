@@ -30,7 +30,7 @@ export function ServicesOffers() {
                 {offer.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-wider text-primary uppercase"
+                    className=" border border-primary/25 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-wider text-primary uppercase"
                   >
                     {tag}
                   </span>

@@ -104,7 +104,7 @@ export function ChatGuidedFlow({ onClose }: Props) {
 
       {chat.step === 'success' ? (
         <div className="border-t border-border px-4 py-4">
-          <Button variant="outline" size="sm" onClick={chat.restart} className="w-full rounded-full text-xs">
+          <Button variant="outline" size="sm" onClick={chat.restart} className="w-full text-xs">
             Nouvelle demande
           </Button>
         </div>

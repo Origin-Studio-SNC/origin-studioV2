@@ -36,7 +36,7 @@ export function CookieBanner() {
             En savoir plus
           </Link>
         </p>
-        <Button onClick={dismiss} size="sm" className="shrink-0 rounded-full px-6">
+        <Button onClick={dismiss} size="sm" className="shrink-0 px-6">
           J&apos;ai compris
         </Button>
       </div>

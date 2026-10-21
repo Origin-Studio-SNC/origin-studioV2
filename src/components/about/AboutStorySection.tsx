@@ -36,7 +36,7 @@ export function AboutStorySection() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="rounded-full border-border px-6 text-[11px] font-medium uppercase tracking-[0.2em] md:px-8"
+                className=" border-border px-6 text-[11px] font-medium uppercase tracking-[0.2em] md:px-8"
               >
                 <Link href="/services">Découvrir nos services</Link>
               </Button>

@@ -82,7 +82,7 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
                 size="sm"
                 onClick={() => setActive(cat.value)}
                 className={cn(
-                  'h-auto shrink-0 rounded-full px-3 py-1.5 text-xs sm:px-4 sm:text-sm',
+                  'h-auto shrink-0 px-3 py-1.5 text-xs sm:px-4 sm:text-sm',
                   !isActive && 'text-foreground/60 hover:border-foreground/40',
                 )}
               >
@@ -262,7 +262,7 @@ function ProjectCard({
             target="_blank"
             rel="noopener noreferrer"
             title="Voir le site en ligne"
-            className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-border bg-background/90 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:h-auto sm:min-h-0 sm:w-auto sm:gap-1 sm:px-2.5 sm:py-1.5"
+            className="pointer-events-auto inline-flex size-10 items-center justify-center border border-border bg-background/90 shadow-sm backdrop-blur-sm transition-colors hover:border-primary/50 sm:h-auto sm:min-h-0 sm:w-auto sm:gap-1 sm:px-2.5 sm:py-1.5"
             onPointerDown={(e) => e.stopPropagation()}
             onClick={(e) => e.stopPropagation()}
           >
@@ -274,14 +274,14 @@ function ProjectCard({
           </a>
         )}
         {project.badge === 'acces-anticipe' && (
-          <span className="pointer-events-none inline-flex items-center gap-1 rounded-full border border-border/60 bg-background/80 px-2.5 py-1 text-[10px] font-medium text-foreground/60 backdrop-blur-sm">
+          <span className="pointer-events-none inline-flex items-center gap-1 border border-border/60 bg-background/80 px-2.5 py-1 text-[10px] font-medium text-foreground/60 backdrop-blur-sm">
             🔒 Accès anticipé
           </span>
         )}
       </div>
 
       <div className="pointer-events-none absolute left-4 top-4 z-20 sm:top-4">
-        <span className="rounded-full border border-primary/30 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
+        <span className=" border border-primary/30 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
           {CATEGORY_LABELS[project.category] ?? project.category}
         </span>
       </div>
@@ -295,7 +295,7 @@ function ProjectCard({
           {project.stack?.slice(0, 3).map((s) => (
             <span
               key={s.tech}
-              className="rounded-full border border-border bg-background/80 px-2 py-0.5 text-[10px] uppercase tracking-wide text-foreground/70"
+              className=" border border-border bg-background/80 px-2 py-0.5 text-[10px] uppercase tracking-wide text-foreground/70"
             >
               {s.tech}
             </span>

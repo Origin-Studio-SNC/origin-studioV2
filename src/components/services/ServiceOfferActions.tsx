@@ -101,7 +101,7 @@ export function ServiceOfferActions({ offer }: Props) {
                 )}
               >
                 {tier.featured ? (
-                  <span className="absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-primary/80 bg-primary px-3 py-1 text-[10px] font-bold tracking-wider text-primary-foreground uppercase shadow-md">
+                  <span className="absolute left-1/2 top-0 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap border border-primary/80 bg-primary px-3 py-1 text-[10px] font-bold tracking-wider text-primary-foreground uppercase shadow-md">
                     Meilleure offre
                   </span>
                 ) : null}
@@ -125,7 +125,7 @@ export function ServiceOfferActions({ offer }: Props) {
                   <Button
                     variant={tier.featured ? 'gradient' : 'outline'}
                     size="lg"
-                    className="w-full rounded-full text-xs font-semibold tracking-wide uppercase"
+                    className="w-full text-xs font-semibold tracking-wide uppercase"
                     asChild
                   >
                     <Link href={contactHref}>{tier.ctaLabel}</Link>

@@ -81,7 +81,7 @@ export function ChatLeadForm({ offerTitle, tierName, delayLabel, status, errorMe
           variant="gradient"
           size="sm"
           disabled={status === 'loading'}
-          className="flex-1 rounded-full text-xs font-semibold tracking-wide uppercase"
+          className="flex-1 text-xs font-semibold tracking-wide uppercase"
         >
           {status === 'loading' ? 'Envoi…' : 'Envoyer'}
           <PaperPlaneTilt className="size-3.5" weight="bold" aria-hidden />

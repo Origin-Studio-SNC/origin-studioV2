@@ -219,7 +219,7 @@ export function ContactForm() {
           variant="gradient"
           size="xl"
           disabled={status === 'loading'}
-          className="w-full rounded-full text-sm font-semibold tracking-wide uppercase"
+          className="w-full text-sm font-semibold tracking-wide uppercase"
         >
           {status === 'loading' ? 'Envoi…' : 'Envoyer le brief'}
           <ArrowRight className="size-4" weight="bold" aria-hidden />

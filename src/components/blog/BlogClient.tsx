@@ -73,7 +73,7 @@ export function BlogClient({
               key={cat.value}
               type="button"
               onClick={() => setActive(cat.value)}
-              className={`shrink-0 rounded-full border px-3 py-1.5 text-xs transition-colors sm:px-4 sm:text-sm ${
+              className={`shrink-0 border px-3 py-1.5 text-xs transition-colors sm:px-4 sm:text-sm ${
                 active === cat.value
                   ? 'border-primary bg-primary text-primary-foreground'
                   : 'border-border bg-transparent text-foreground/60 hover:border-foreground/40'
@@ -94,7 +94,7 @@ export function BlogClient({
           >
             {/* Image */}
             <div className="relative aspect-video min-h-0 overflow-hidden md:aspect-auto md:min-h-[min(420px,70vh)]">
-              <span className="absolute left-3 top-3 z-10 rounded-full border border-primary/30 bg-primary/20 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-widest text-primary sm:left-4 sm:top-4 sm:px-3 sm:text-[10px]">
+              <span className="absolute left-3 top-3 z-10 border border-primary/30 bg-primary/20 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-widest text-primary sm:left-4 sm:top-4 sm:px-3 sm:text-[10px]">
                 À la une
               </span>
               {featured.coverImage &&
@@ -221,7 +221,7 @@ function ArticleCard({ post, index }: { post: Post; index: number }) {
             {post.tags?.slice(0, 2).map((t) => (
               <span
                 key={t.tag}
-                className="rounded-full border border-border px-2 py-0.5 text-[9px] uppercase tracking-wide text-foreground/50"
+                className=" border border-border px-2 py-0.5 text-[9px] uppercase tracking-wide text-foreground/50"
               >
                 {t.tag}
               </span>
