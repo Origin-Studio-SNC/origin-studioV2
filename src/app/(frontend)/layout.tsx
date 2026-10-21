@@ -7,8 +7,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Archivo, JetBrains_Mono, Space_Grotesk, Playfair_Display } from 'next/font/google'
 import { ChatWidget } from '@/components/chat/ChatWidget'
 import { CookieBanner } from '@/components/CookieBanner'
-import Footer from '@/components/Footer'
-import Navbar from '@/components/Navbar'
+import { SiteFooter } from '@/components/site/SiteFooter'
+import { SiteHeader } from '@/components/site/SiteHeader'
 import { cn } from '@/lib/utils'
 import { DEFAULT_OG_IMAGE, SITE_URL } from '@/lib/seo'
 
@@ -130,9 +130,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <Navbar />
-        <main className="flex flex-1 flex-col pt-16 md:pt-20">{children}</main>
-        <Footer />
+        {/* Refonte 3D : les anciens Navbar/Footer sont débranchés, pas supprimés. */}
+        <SiteHeader />
+        <main className="flex flex-1 flex-col">{children}</main>
+        <SiteFooter />
         <CookieBanner />
         <ChatWidget />
         <Analytics />
