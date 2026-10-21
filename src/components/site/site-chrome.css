@@ -123,6 +123,85 @@ body::before {
   text-align: right;
 }
 
+.os-hend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* menu des pages hors accueil, sous 1180 px */
+.os-menu-btn {
+  display: none;
+  font-size: 11px;
+  background: none;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  min-height: 40px;
+  padding: 0 14px;
+  cursor: pointer;
+  flex: none;
+}
+
+.os-menu-btn[aria-expanded='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.os-menu {
+  position: fixed;
+  top: calc(72px + env(safe-area-inset-top, 0px));
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  overflow-y: auto;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 8px max(24px, env(safe-area-inset-right, 0px)) 24px max(24px, env(safe-area-inset-left, 0px));
+}
+
+.os-menu[hidden] {
+  display: none;
+}
+
+.os-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.os-menu li {
+  border-bottom: 1px solid var(--line);
+}
+
+.os-menu a {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 16px 0;
+  text-decoration: none;
+  font-family: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+  font-variation-settings: 'wdth' 108;
+  font-weight: 600;
+  font-size: 21px;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.os-menu a span {
+  font-family: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mute);
+  min-width: 12px;
+}
+
+.os-menu a.on span {
+  color: var(--red);
+}
+
 /* pied de page simple, hors accueil */
 .os-footer {
   border-top: 1px solid var(--line);
@@ -148,10 +227,29 @@ body::before {
   .os-nav {
     display: none;
   }
+
+  .os-menu-btn {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* Au-dessus de 1180 px, la navigation est visible : le menu ne s'affiche jamais. */
+@media (min-width: 1181px) {
+  .os-menu {
+    display: none;
+  }
 }
 
 @media (max-width: 860px) {
   .os-readout {
     min-width: 0;
+  }
+}
+
+/* Petit écran hors accueil : le bouton Menu prend la place du plan affiché. */
+@media (max-width: 600px) {
+  .os-hend:has(.os-menu-btn) .os-readout {
+    display: none;
   }
 }

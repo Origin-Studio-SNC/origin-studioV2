@@ -3,6 +3,7 @@
 import type { Route } from 'next'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 import { PLAN_NAMES, useActivePlan } from '@/components/home3d/sceneStore'
 import { cn } from '@/lib/utils'
@@ -36,6 +37,32 @@ export function SiteHeader() {
   const isHome = pathname === '/'
   const plan = useActivePlan()
   const active = isHome ? plan : sectionForPath(pathname)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  // Menu mobile : fermé à chaque changement de page, Échap pour fermer, page figée dessous.
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    // Fenêtre élargie au-delà de 1180 px : la navigation réapparaît, on ferme le menu.
+    const wide = window.matchMedia('(min-width: 1181px)')
+    const onWide = () => {
+      if (wide.matches) setMenuOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    wide.addEventListener('change', onWide)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      wide.removeEventListener('change', onWide)
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
 
   return (
     <>
@@ -53,7 +80,6 @@ export function SiteHeader() {
           <nav className="os-nav" aria-label={isHome ? 'Sections' : 'Principale'}>
             {SECTIONS.map((s, i) => {
               const className = cn(i === active && 'on')
-              const current = i === active ? ('location' as const) : undefined
               const content = (
                 <>
                   <span>{s.letter}</span>
@@ -61,7 +87,12 @@ export function SiteHeader() {
                 </>
               )
               return isHome ? (
-                <a key={s.letter} href={s.anchor} className={className} aria-current={current}>
+                <a
+                  key={s.letter}
+                  href={s.anchor}
+                  className={className}
+                  aria-current={i === active ? 'location' : undefined}
+                >
                   {content}
                 </a>
               ) : (
@@ -76,12 +107,57 @@ export function SiteHeader() {
               )
             })}
           </nav>
-          <span className="os-mono os-readout" aria-live="off">
-            {active >= 0 ? PLAN_NAMES[active] : ''}
-          </span>
+          <div className="os-hend">
+            <span className="os-mono os-readout" aria-live="off">
+              {active >= 0 ? PLAN_NAMES[active] : ''}
+            </span>
+            {/* Hors accueil, sous 1180 px, la navigation passe dans ce menu (l'accueil se parcourt au scroll). */}
+            {!isHome && (
+              <button
+                type="button"
+                className="os-menu-btn os-mono"
+                aria-expanded={menuOpen}
+                aria-controls="os-menu"
+                onClick={() => setMenuOpen((open) => !open)}
+              >
+                {menuOpen ? 'Fermer' : 'Menu'}
+              </button>
+            )}
+          </div>
         </div>
       </header>
-      {!isHome && <div className="os-header-spacer" aria-hidden="true" />}
+      {!isHome && (
+        <>
+          <div className="os-header-spacer" aria-hidden="true" />
+          <nav id="os-menu" className="os-menu" aria-label="Menu" hidden={!menuOpen}>
+            <ul>
+              {SECTIONS.map((s, i) => (
+                <li key={s.letter}>
+                  <Link
+                    href={s.page as Route}
+                    className={cn(i === active && 'on')}
+                    aria-current={i === active ? 'page' : undefined}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <span>{s.letter}</span>
+                    {s.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href="/about"
+                  className={cn(pathname === '/about' && 'on')}
+                  aria-current={pathname === '/about' ? 'page' : undefined}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span aria-hidden="true">·</span>À propos
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </>
+      )}
     </>
   )
 }
