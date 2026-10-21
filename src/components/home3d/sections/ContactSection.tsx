@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { CopyButton } from './CopyButton'
+import { SceneContactForm } from './SceneContactForm'
 import { SceneSection } from './SceneSection'
 
 export function ContactSection() {
@@ -12,7 +13,7 @@ export function ContactSection() {
         Décrivez votre projet en quelques lignes. Nous revenons vers vous avec des questions
         précises, puis une proposition claire, sans coûts cachés.
       </p>
-      {/* Formulaire de contact : étape 4 du brief. */}
+      <SceneContactForm />
       <div className="contact">
         <div className="cline">
           <span className="v" id="mail">
