@@ -47,7 +47,7 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
         {/* Hero */}
         <header className="relative z-10 mb-16 md:mb-20 lg:mb-24">
           <p
-            className="reveal-on-load section-label mb-6 max-w-none text-violet-100/50 md:mb-8"
+            className="reveal-on-load section-label mb-6 max-w-none text-mute md:mb-8"
             style={{ animationDelay: '0.06s' }}
           >
             Nos projets
@@ -58,10 +58,10 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
           >
             Chaque projet,
             <br />
-            <span className="font-serif text-primary italic">une obsession.</span>
+            <span className="text-primary">une obsession.</span>
           </h1>
           <p
-            className="reveal-on-load mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg"
+            className="reveal-on-load mt-8 max-w-2xl text-base font-light leading-relaxed text-mute md:mt-10 md:text-lg"
             style={{ animationDelay: '0.26s' }}
           >
             Sites vitrines, applications, migrations — tous livrés à temps,
@@ -253,7 +253,7 @@ function ProjectCard({
           className="object-cover opacity-40 transition-all duration-700 group-hover:scale-105 group-hover:opacity-60"
         />
       )}
-      <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent" />
+      <div className="absolute inset-0 bg-background/30" />
 
       <div className="pointer-events-none absolute right-4 top-4 z-30 flex flex-col items-end gap-2">
         {liveHref && (

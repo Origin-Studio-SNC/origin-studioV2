@@ -3,7 +3,7 @@ export function AboutHeroSection() {
     <section className="relative z-10 mb-20 md:mb-28 lg:mb-36">
       <div className="flex flex-col">
         <span
-          className="reveal-on-load section-label mb-6 block max-w-none text-violet-100/50 md:mb-8"
+          className="reveal-on-load section-label mb-6 block max-w-none text-mute md:mb-8"
           style={{ animationDelay: '0.06s' }}
         >
           Notre histoire
@@ -16,7 +16,7 @@ export function AboutHeroSection() {
           <span className="mt-3 block text-primary sm:mt-4 md:mt-5">une vision commune.</span>
         </h1>
         <p
-          className="reveal-on-load mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg"
+          className="reveal-on-load mt-8 max-w-2xl text-base font-light leading-relaxed text-mute md:mt-10 md:text-lg"
           style={{ animationDelay: '0.26s' }}
         >
           Ancrés au cœur de la Suisse, nous redéfinissons les standards numériques pour les PME.

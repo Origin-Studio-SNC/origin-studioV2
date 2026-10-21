@@ -9,7 +9,7 @@ export function ServicesFaq() {
     <section className="relative z-10 mb-16 md:mb-24">
       <Reveal>
         <div className="mb-10 md:mb-12">
-          <span className="section-label mb-4 max-w-none text-violet-100/50">FAQ</span>
+          <span className="section-label mb-4 max-w-none text-mute">FAQ</span>
           <h2 className="wrap-break-words text-2xl font-light tracking-tight sm:text-3xl md:text-4xl">
             Questions fréquentes
           </h2>

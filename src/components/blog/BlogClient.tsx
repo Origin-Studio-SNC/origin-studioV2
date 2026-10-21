@@ -41,7 +41,7 @@ export function BlogClient({
         {/* Hero */}
         <header className="relative z-10 mb-16 md:mb-20 lg:mb-24">
           <p
-            className="reveal-on-load section-label mb-6 max-w-none text-violet-100/50 md:mb-8"
+            className="reveal-on-load section-label mb-6 max-w-none text-mute md:mb-8"
             style={{ animationDelay: '0.06s' }}
           >
             RESSOURCES
@@ -51,13 +51,13 @@ export function BlogClient({
             style={{ animationDelay: '0.16s' }}
           >
             Insights pour{' '}
-            <span className="font-serif italic text-primary">PME</span>
+            <span className="text-primary">PME</span>
             <br />
             <span className="text-foreground/20">ET STARTUPS</span>{' '}
             suisses.
           </h1>
           <p
-            className="reveal-on-load mt-8 max-w-2xl text-base font-light leading-relaxed text-violet-200 md:mt-10 md:text-lg"
+            className="reveal-on-load mt-8 max-w-2xl text-base font-light leading-relaxed text-mute md:mt-10 md:text-lg"
             style={{ animationDelay: '0.26s' }}
           >
             Stratégies de design, ingénierie produit et culture de
@@ -75,7 +75,7 @@ export function BlogClient({
               onClick={() => setActive(cat.value)}
               className={`shrink-0 rounded-full border px-3 py-1.5 text-xs transition-colors sm:px-4 sm:text-sm ${
                 active === cat.value
-                  ? 'border-primary bg-primary text-white'
+                  ? 'border-primary bg-primary text-primary-foreground'
                   : 'border-border bg-transparent text-foreground/60 hover:border-foreground/40'
               }`}
             >
@@ -122,7 +122,7 @@ export function BlogClient({
                 {featured.excerpt}
               </p>
               <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-foreground transition-colors group-hover:text-primary">
-                Lire l'article
+                Lire l&apos;article
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </span>
             </div>

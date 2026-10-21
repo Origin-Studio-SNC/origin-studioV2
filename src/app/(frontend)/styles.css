@@ -5,43 +5,6 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  color-scheme: dark;
-  --font-sans: 'Space Grotesk', system-ui, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.55 0.25 265);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-
   /* ─── Refonte 3D : tokens de la maquette (docs/refonte-3d/maquette.html) ─── */
   --paper: #f1efea;
   --ink: #161513;
@@ -49,6 +12,49 @@
   --line: #d5d1c8;
   --red: #c8281c;
   --panel: rgba(241, 239, 234, 0.88);
+
+  /* Teintes intermédiaires, reprises de la palette des boîtes de la scène 3D. */
+  --paper-2: #eceae4;
+  --paper-3: #d8d3c9;
+
+  color-scheme: light;
+  /* --font-archivo est posée sur <html> par next/font (layout). */
+  --font-sans: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+
+  /* Tokens shadcn remappés sur la DA : papier, encre, un seul accent rouge. */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: var(--paper-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-2);
+  --muted-foreground: var(--mute);
+  --accent: var(--paper-2);
+  --accent-foreground: var(--ink);
+  --destructive: var(--red);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--red);
+  --chart-1: var(--ink);
+  --chart-2: var(--mute);
+  --chart-3: var(--paper-3);
+  --chart-4: var(--line);
+  --chart-5: var(--red);
+  --radius: 0rem;
+  --sidebar: var(--paper);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: var(--paper);
+  --sidebar-accent: var(--paper-2);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--red);
 }
 
 * {
@@ -138,43 +144,6 @@ svg {
   vertical-align: middle;
 }
 
-/* ─── Dark theme ─── */
-/* Brand: #5b6df5 ≈ oklch(0.56 0.23 272) */
-.dark {
-  /* Dernier cran “lumineux” tout en gardant le caractère sombre premium */
-  --background: oklch(0.129 0.019 270);
-  --foreground: oklch(0.97 0 0);
-  --card: oklch(0.148 0.023 270);
-  --card-foreground: oklch(0.97 0 0);
-  --popover: oklch(0.148 0.023 270);
-  --popover-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.56 0.23 272);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.196 0.018 270);
-  --secondary-foreground: oklch(0.92 0 0);
-  --muted: oklch(0.193 0.015 270);
-  --muted-foreground: oklch(0.675 0.012 278);
-  --accent: oklch(0.56 0.23 272);
-  --accent-foreground: oklch(0.97 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 11%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.56 0.23 272);
-  --chart-1: oklch(0.65 0.20 272);
-  --chart-2: oklch(0.56 0.23 272);
-  --chart-3: oklch(0.50 0.20 280);
-  --chart-4: oklch(0.45 0.18 290);
-  --chart-5: oklch(0.40 0.16 300);
-  --sidebar: oklch(0.120 0.018 270);
-  --sidebar-foreground: oklch(0.97 0 0);
-  --sidebar-primary: oklch(0.56 0.23 272);
-  --sidebar-primary-foreground: oklch(0.97 0 0);
-  --sidebar-accent: oklch(0.196 0.018 270);
-  --sidebar-accent-foreground: oklch(0.97 0 0);
-  --sidebar-border: oklch(1 0 0 / 11%);
-  --sidebar-ring: oklch(0.56 0.23 272);
-}
-
 @theme inline {
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
@@ -248,17 +217,10 @@ h1.page-hero-title {
   text-transform: none;
 }
 
-/* ─── Hero glow effect ─── */
+/* ─── Hero glow ─── */
+/* Refonte 3D : pas de dégradé dans la DA, le halo des héros est retiré. */
 .hero-glow {
-  background:
-    radial-gradient(
-      ellipse 72% 62% at 50% 36%,
-      rgba(91, 110, 245, 0.24) 0%,
-      rgba(91, 110, 245, 0.09) 42%,
-      rgba(91, 110, 245, 0) 72%
-    );
-  animation: hero-glow-drift 22s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-  will-change: transform, opacity;
+  display: none;
 }
 
 @keyframes hero-glow-drift {
@@ -505,7 +467,7 @@ h1.page-hero-title {
     content: '';
     width: 24px;
     height: 1px;
-    background: oklch(1 0 0 / 15%);
+    background: var(--line);
   }
 }
 
@@ -564,7 +526,7 @@ h1.page-hero-title {
 .stat-card {
   text-align: center;
   padding: 24px;
-  border-right: 1px solid oklch(1 0 0 / 8%);
+  border-right: 1px solid var(--line);
 
   &:last-child {
     border-right: none;
@@ -573,7 +535,7 @@ h1.page-hero-title {
 
 /* ─── Subtle code/mono shadow ─── */
 .code-shadow {
-  box-shadow: 0 1px 0 0 oklch(1 0 0 / 5%);
+  box-shadow: 0 1px 0 0 var(--line);
 }
 
 /* ─── Reveal animation (remplace Motion) ─── */

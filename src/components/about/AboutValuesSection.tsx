@@ -25,7 +25,7 @@ export function AboutValuesSection() {
     <section className="relative z-10 mb-24 lg:mb-40">
       <Reveal>
         <div className="mb-12 md:mb-16">
-          <span className="section-label mb-4 max-w-none text-violet-100/50"> Nos valeurs </span>
+          <span className="section-label mb-4 max-w-none text-mute"> Nos valeurs </span>
         </div>
       </Reveal>
       <div className="flex flex-col">

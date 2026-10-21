@@ -35,7 +35,7 @@ function TeamMemberCard({
   return (
     <div className="group relative flex h-full min-h-0 flex-col gap-6 overflow-hidden border border-border bg-card/80 p-6 transition-colors duration-500 hover:bg-card sm:flex-row sm:items-stretch sm:gap-8 md:p-8">
       <div className="absolute top-0 left-0 z-10 h-0 w-1 bg-primary transition-all duration-500 group-hover:h-full" />
-      <div className="relative mx-auto size-36 shrink-0 self-start overflow-hidden rounded-2xl border border-border bg-neutral-900 sm:mx-0 sm:size-40">
+      <div className="relative mx-auto size-36 shrink-0 self-start overflow-hidden rounded-2xl border border-border bg-muted sm:mx-0 sm:size-40">
         {member.image ? (
           <Image
             src={member.image}
@@ -50,7 +50,7 @@ function TeamMemberCard({
       </div>
       <div className="flex min-h-0 min-w-0 flex-1 flex-col text-center sm:text-left">
         <h3 className="mb-1 text-xl font-semibold tracking-tight md:text-2xl">{member.name}</h3>
-        <p className="mb-4 text-sm italic text-muted-foreground">{member.role}</p>
+        <p className="mb-4 text-sm text-muted-foreground">{member.role}</p>
         <p className="text-sm leading-relaxed text-foreground/80">{member.description}</p>
         <p className="mt-auto pt-5 text-xs text-foreground/45">
           <Link href="/contact" className="underline-offset-4 transition-colors hover:text-primary hover:underline">
@@ -76,7 +76,7 @@ export function AboutTeamSection() {
     <section className="relative z-10 mb-24 lg:mb-40">
       <Reveal>
         <div className="mb-12 md:mb-16">
-          <span className="section-label mb-4 max-w-none text-violet-100/50">
+          <span className="section-label mb-4 max-w-none text-mute">
             L&apos;équipe
           </span>
           <h2 className="wrap-break-words text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl lg:text-5xl">

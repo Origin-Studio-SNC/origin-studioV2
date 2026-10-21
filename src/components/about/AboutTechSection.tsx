@@ -10,7 +10,7 @@ function TechRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
       {TECH_LOGOS.map((tech) => (
         <div
           key={tech.name}
-          className="group flex shrink-0 items-center gap-3 rounded-2xl border border-border/70 bg-white/2 px-5 py-3 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/6"
+          className="group flex shrink-0 items-center gap-3 rounded-2xl border border-border/70 bg-foreground/2 px-5 py-3 transition-colors duration-300 hover:border-primary/40 hover:bg-primary/6"
         >
           <svg
             viewBox="0 0 24 24"
@@ -33,7 +33,7 @@ export function AboutTechSection() {
     <section className="relative z-10 mb-24 lg:mb-40">
       <Reveal>
         <div className="mb-8 flex flex-col gap-3 md:mb-10 md:flex-row md:items-end md:justify-between">
-          <span className="section-label max-w-none text-violet-100/50">Exemples de stack</span>
+          <span className="section-label max-w-none text-mute">Exemples de stack</span>
           <p className="max-w-md text-sm font-light text-muted-foreground md:text-right">
             Un aperçu des outils qu&apos;on manie au quotidien — pas une liste fermée. Django,
             Vue, un autre CMS : on s&apos;adapte à votre existant.

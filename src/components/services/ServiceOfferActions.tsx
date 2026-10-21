@@ -61,7 +61,7 @@ export function ServiceOfferActions({ offer }: Props) {
       </div>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/75 backdrop-blur-[2px] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-foreground/40 backdrop-blur-[2px] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
         <Dialog.Content
           className={cn(
             'fixed left-1/2 top-1/2 z-50 flex max-h-[min(90vh,920px)] w-[calc(100vw-1.5rem)] max-w-5xl -translate-x-1/2 -translate-y-1/2 flex-col gap-6 overflow-y-auto rounded-xl border border-border bg-card p-5 shadow-2xl md:p-8',
@@ -96,7 +96,7 @@ export function ServiceOfferActions({ offer }: Props) {
                 className={cn(
                   'relative flex min-h-0 min-w-0 flex-1 flex-col overflow-visible rounded-lg border bg-card/60 p-5',
                   tier.featured
-                    ? 'border-primary shadow-[0_0_0_1px_oklch(0.56_0.23_272/0.35),0_20px_50px_-24px_oklch(0.56_0.23_272/0.45)]'
+                    ? 'border-primary'
                     : 'border-border',
                 )}
               >

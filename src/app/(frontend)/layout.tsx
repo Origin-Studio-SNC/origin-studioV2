@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
-import { Archivo, JetBrains_Mono, Space_Grotesk, Playfair_Display } from 'next/font/google'
+import { Archivo, JetBrains_Mono } from 'next/font/google'
 import { ChatWidget } from '@/components/chat/ChatWidget'
 import { CookieBanner } from '@/components/CookieBanner'
 import { SiteFooter } from '@/components/site/SiteFooter'
@@ -12,24 +12,7 @@ import { SiteHeader } from '@/components/site/SiteHeader'
 import { cn } from '@/lib/utils'
 import { DEFAULT_OG_IMAGE, SITE_URL } from '@/lib/seo'
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['400', '600', '700'],
-  display: 'swap',
-  adjustFontFallback: true,
-  variable: '--font-sans',
-})
-
-const playfairDisplay = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-  adjustFontFallback: true,
-  variable: '--font-serif',
-})
-
-// Refonte 3D : Archivo variable (graisse + largeur) et JetBrains Mono.
+// Refonte 3D : Archivo variable (graisse + largeur) et JetBrains Mono, sur tout le site.
 const archivo = Archivo({
   subsets: ['latin'],
   axes: ['wdth'],
@@ -114,16 +97,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="fr" suppressHydrationWarning>
+    // Variables de police sur <html> : les tokens de :root (--font-sans, --font-serif)
+    // peuvent ainsi s'appuyer sur --font-archivo.
+    <html lang="fr" className={cn(archivo.variable, jetbrainsMono.variable)} suppressHydrationWarning>
       <body
-        className={cn(
-          'dark h-full scroll-smooth antialiased overflow-x-hidden',
-          spaceGrotesk.variable,
-          playfairDisplay.variable,
-          archivo.variable,
-          jetbrainsMono.variable,
-          spaceGrotesk.className,
-        )}
+        className={cn('h-full scroll-smooth antialiased overflow-x-hidden', archivo.className)}
         suppressHydrationWarning
       >
         <script

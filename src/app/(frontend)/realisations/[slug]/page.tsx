@@ -248,7 +248,7 @@ export default async function RealisationPage({
           </p>
           <Link
             href="/contact"
-            className="mx-auto inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-full border border-primary bg-primary px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 sm:mx-0 sm:w-auto sm:max-w-none sm:px-8"
+            className="mx-auto inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-full border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:mx-0 sm:w-auto sm:max-w-none sm:px-8"
           >
             Démarrer un projet
             <ArrowUpRight className="size-4" />

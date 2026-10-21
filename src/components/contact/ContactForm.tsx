@@ -113,7 +113,7 @@ export function ContactForm() {
 
   return (
     <div
-      className="reveal-on-load relative z-10 overflow-hidden rounded-xl border border-border bg-card/40 p-6 shadow-[0_0_0_1px_oklch(1_0_0/4%)] backdrop-blur-sm md:p-8 lg:p-10"
+      className="reveal-on-load relative z-10 overflow-hidden rounded-xl border border-border bg-card/40 p-6 backdrop-blur-sm md:p-8 lg:p-10"
       style={{ animationDelay: '0.08s' }}
     >
       <span

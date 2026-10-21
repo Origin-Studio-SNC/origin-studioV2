@@ -21,7 +21,7 @@ const buttonVariants = cva(
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30",
         link: "text-primary underline-offset-4 hover:underline",
         gradient:
-          "border-transparent bg-linear-to-r from-primary via-[oklch(0.58_0.2_280)] to-[oklch(0.52_0.2_250)] text-primary-foreground shadow-[0_12px_40px_-12px_oklch(0.56_0.23_272/0.55)] hover:brightness-110",
+          "border-transparent bg-primary text-primary-foreground hover:bg-red",
       },
       size: {
         default: "h-9 gap-2 px-4",
