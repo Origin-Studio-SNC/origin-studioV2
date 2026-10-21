@@ -262,8 +262,9 @@ export function AssemblyScene() {
       qTmp = new Quaternion(),
       sTmp = new Vector3(),
       col = new Color()
-    const t0 = performance.now()
+    let t0 = 0
     let raf = 0
+    let disposed = false
 
     const frame = (now: number) => {
       const intro = reduce ? 1 : clamp((now - t0 - 250) / 3400)
@@ -349,9 +350,18 @@ export function AssemblyScene() {
     window.addEventListener('pointermove', onPointerMove, { passive: true })
     resize()
     F = targetF
-    raf = requestAnimationFrame(frame)
+
+    // Shaders compilés en arrière-plan (KHR_parallel_shader_compile quand il existe) :
+    // la première image ne bloque pas le thread principal. L'intro part ensuite.
+    const start = () => {
+      if (disposed) return
+      t0 = performance.now()
+      raf = requestAnimationFrame(frame)
+    }
+    renderer.compileAsync(scene, camera).then(start, start)
 
     return () => {
+      disposed = true
       cancelAnimationFrame(raf)
       window.removeEventListener('scroll', readScroll)
       window.removeEventListener('resize', resize)
