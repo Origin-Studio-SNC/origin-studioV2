@@ -194,6 +194,7 @@ export function AssemblyScene() {
     let targetF = 0,
       F = 0
     const readScroll = () => {
+      if (sections.length < configs.length) collectSections()
       if (!sections.length) return
       const y = window.scrollY + window.innerHeight * 0.5,
         w = window.innerHeight * 0.42

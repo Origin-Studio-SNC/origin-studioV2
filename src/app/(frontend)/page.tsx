@@ -1,38 +1,35 @@
-import React, { Suspense } from 'react'
-import EngagementsSection from '@/components/home/EngagementsSection'
-import HeroSection from '@/components/home/HeroSection'
-import ProjectsSection from '@/components/home/ProjectsSection'
-import ResourcesSection from '@/components/home/ResourcesSection'
-import ServicesSection from '@/components/home/ServicesSection'
-import { SectionDivider } from '@/components/SectionDivider'
+import React from 'react'
+
+import '@/components/home3d/home3d.css'
+import { HomeScene } from '@/components/home3d/HomeScene'
+import { AccueilSection } from '@/components/home3d/sections/AccueilSection'
+import { ContactSection } from '@/components/home3d/sections/ContactSection'
+import { EngagementsSection } from '@/components/home3d/sections/EngagementsSection'
+import { JournalSection } from '@/components/home3d/sections/JournalSection'
+import { MethodeSection } from '@/components/home3d/sections/MethodeSection'
+import { RealisationsSection } from '@/components/home3d/sections/RealisationsSection'
+import { ServicesSection } from '@/components/home3d/sections/ServicesSection'
 
 /** Payload sur la home : sans ça, Next peut servir la page figée au dernier build statique. */
 export const revalidate = 60
 
-function SectionFallback({ minHeight }: { minHeight: string }) {
-  return (
-    <div
-      className="bg-muted/10"
-      style={{ minHeight }}
-      aria-hidden
-    />
-  )
-}
-
+// Refonte 3D (docs/refonte-3d/BRIEF.md). Les anciennes sections `@/components/home/*`
+// sont débranchées, pas supprimées : on nettoie à la fin de la refonte.
+// Pas de Suspense ici : la scène a besoin des 7 sections `data-scene` dans le DOM
+// dès son montage pour calculer la progression du scroll.
 export default async function HomePage() {
   return (
-    <>
-      <HeroSection />
-      <ServicesSection />
-      <Suspense fallback={<SectionFallback minHeight="min(720px, 85vh)" />}>
-        <ProjectsSection />
-      </Suspense>
-      <SectionDivider />
-      <EngagementsSection />
-      <SectionDivider />
-      <Suspense fallback={<SectionFallback minHeight="420px" />}>
-        <ResourcesSection />
-      </Suspense>
-    </>
+    <div className="home3d">
+      <HomeScene />
+      <div className="h3-main">
+        <AccueilSection />
+        <ServicesSection />
+        <EngagementsSection />
+        <RealisationsSection />
+        <MethodeSection />
+        <JournalSection />
+        <ContactSection />
+      </div>
+    </div>
   )
 }

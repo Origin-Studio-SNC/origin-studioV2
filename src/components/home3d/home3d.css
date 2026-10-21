@@ -1,0 +1,411 @@
+/*
+ * Page d'accueil 3D, styles repris de docs/refonte-3d/maquette.html.
+ * Tout est limité à `.home3d` pour ne pas toucher aux autres pages ni aux
+ * règles globales de styles.css (h1, h2, p, a:focus…).
+ * Les polices viennent de next/font (--font-archivo, --font-jetbrains-mono).
+ */
+
+.home3d {
+  --display: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+  --body: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+  --mono: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+  color-scheme: light;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.home3d a {
+  color: inherit;
+}
+
+.home3d a:focus,
+.home3d a:active {
+  opacity: 1;
+}
+
+.home3d :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.home3d .mono {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* sections */
+.home3d .h3-main {
+  position: relative;
+  z-index: 10;
+}
+
+.home3d .sec {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-left: max(24px, env(safe-area-inset-left, 0px));
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+  padding-block: 120px 80px;
+}
+
+.home3d .col {
+  width: min(520px, 44vw);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.home3d .lbl {
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.home3d .lbl::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--ink);
+}
+
+.home3d h1,
+.home3d h2 {
+  font-family: var(--display);
+  margin: 0;
+  text-wrap: balance;
+  font-variation-settings: 'wdth' 118;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.home3d h1 {
+  font-size: clamp(48px, 6.4vw, 104px);
+  font-weight: 720;
+}
+
+.home3d h2 {
+  font-size: clamp(38px, 4.4vw, 68px);
+  font-weight: 700;
+}
+
+.home3d .lead {
+  font-size: 19px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 34em;
+}
+
+.home3d .cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.home3d .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 48px;
+  padding: 0 22px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  border: 1px solid var(--ink);
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+
+.home3d .btn.dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.home3d .btn.dark:hover {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.home3d .btn.ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.home3d .hint {
+  color: var(--mute);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.home3d .hint b {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+}
+
+/* listes */
+.home3d .rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.home3d .rows li {
+  border-bottom: 1px solid var(--line);
+}
+
+.home3d .row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 18px;
+  align-items: baseline;
+  padding: 16px 0;
+  text-decoration: none;
+  width: 100%;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: default;
+}
+
+.home3d a.row {
+  cursor: pointer;
+}
+
+.home3d .row strong {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 108;
+  font-weight: 600;
+  font-size: 21px;
+  letter-spacing: -0.015em;
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.7, 0, 1),
+    color 0.3s;
+}
+
+.home3d .row small {
+  grid-column: 1 / -1;
+  color: var(--mute);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.home3d .row em {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.home3d .row:hover strong,
+.home3d .row:focus-visible strong,
+.home3d .row.hl strong {
+  transform: translateX(10px);
+  color: var(--red);
+}
+
+.home3d .steps {
+  counter-reset: s;
+}
+
+.home3d .steps .row strong::before {
+  counter-increment: s;
+  content: counter(s);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--mute);
+  margin-right: 14px;
+  vertical-align: 3px;
+  letter-spacing: 0;
+}
+
+/* contact */
+.home3d .contact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-top: 1px solid var(--ink);
+}
+
+.home3d .cline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.home3d .cline .v {
+  font-family: var(--display);
+  font-variation-settings: 'wdth' 110;
+  font-weight: 600;
+  font-size: clamp(20px, 2vw, 26px);
+  letter-spacing: -0.015em;
+  user-select: all;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.home3d .copy {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  min-height: 40px;
+  padding: 0 14px;
+  cursor: pointer;
+  flex: none;
+}
+
+.home3d .copy:hover {
+  border-color: var(--ink);
+}
+
+.home3d footer {
+  color: var(--mute);
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* formulaire */
+.home3d .form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 24px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+}
+
+.home3d .f2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.home3d .fld {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.home3d .fld .mono {
+  color: var(--mute);
+  font-size: 11px;
+}
+
+.home3d .fld input,
+.home3d .fld select,
+.home3d .fld textarea {
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  border-radius: 0;
+  padding: 8px 0 10px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.25s;
+}
+
+.home3d .fld textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.home3d .fld input:focus,
+.home3d .fld select:focus,
+.home3d .fld textarea:focus {
+  border-bottom-color: var(--red);
+}
+
+.home3d .fld[data-err] input,
+.home3d .fld[data-err] textarea {
+  border-bottom: 2px solid var(--red);
+}
+
+.home3d .fld[data-err] .mono {
+  color: var(--red);
+}
+
+.home3d .fsend {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.home3d .fstat {
+  margin: 0;
+  color: var(--mute);
+  font-size: 11px;
+  line-height: 1.5;
+  max-width: 30em;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.home3d .fstat.ok {
+  color: var(--ink);
+}
+
+.home3d .fstat.ok::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+  margin-right: 10px;
+}
+
+@media (max-width: 520px) {
+  .home3d .f2 {
+    grid-template-columns: 1fr;
+  }
+
+  .home3d .form {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 860px) {
+  .home3d .sec {
+    align-items: flex-end;
+    padding-block: 100px 40px;
+  }
+
+  .home3d .col {
+    width: 100%;
+    background: var(--panel);
+    padding: 24px 20px;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--line);
+  }
+
+  .home3d .lead {
+    font-size: 17px;
+  }
+}
