@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
-import { Space_Grotesk, Playfair_Display } from 'next/font/google'
+import { Archivo, JetBrains_Mono, Space_Grotesk, Playfair_Display } from 'next/font/google'
 import { ChatWidget } from '@/components/chat/ChatWidget'
 import { CookieBanner } from '@/components/CookieBanner'
 import Footer from '@/components/Footer'
@@ -27,6 +27,23 @@ const playfairDisplay = Playfair_Display({
   display: 'swap',
   adjustFontFallback: true,
   variable: '--font-serif',
+})
+
+// Refonte 3D : Archivo variable (graisse + largeur) et JetBrains Mono.
+const archivo = Archivo({
+  subsets: ['latin'],
+  axes: ['wdth'],
+  display: 'swap',
+  adjustFontFallback: true,
+  variable: '--font-archivo',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+  adjustFontFallback: true,
+  variable: '--font-jetbrains-mono',
 })
 
 const SITE_TITLE = 'Origin Studio - Agence Web Genève, Développement Premium'
@@ -103,6 +120,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           'dark h-full scroll-smooth antialiased overflow-x-hidden',
           spaceGrotesk.variable,
           playfairDisplay.variable,
+          archivo.variable,
+          jetbrainsMono.variable,
           spaceGrotesk.className,
         )}
         suppressHydrationWarning

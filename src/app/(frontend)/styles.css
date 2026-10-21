@@ -41,6 +41,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* ─── Refonte 3D : tokens de la maquette (docs/refonte-3d/maquette.html) ─── */
+  --paper: #f1efea;
+  --ink: #161513;
+  --mute: #5f5b53;
+  --line: #d5d1c8;
+  --red: #c8281c;
+  --panel: rgba(241, 239, 234, 0.88);
 }
 
 * {
@@ -170,6 +178,14 @@ svg {
 @theme inline {
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
+  --font-display: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-red: var(--red);
+  --color-panel: var(--panel);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
