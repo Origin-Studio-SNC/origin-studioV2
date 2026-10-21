@@ -1,0 +1,698 @@
+<title>Origin Studio Assemblage</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a fixed isometric 3D scene fills the window; five text sections scroll over it on the left,
+   and each section boundary makes the architecture fly apart and reassemble into a new configuration. */
+:root{
+  --paper:#F1EFEA;
+  --ink:#161513;
+  --mute:#5F5B53;
+  --line:#D5D1C8;
+  --red:#C8281C;
+  --panel:rgba(241,239,234,.88);
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --body:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+
+/* header */
+header{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:20;
+  padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.hbar{display:flex;align-items:center;justify-content:space-between;gap:24px;height:72px;border-bottom:1px solid var(--line);background:var(--paper)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:700;font-variation-settings:"wdth" 112;font-size:17px;letter-spacing:-.01em}
+.brand i{width:12px;height:12px;background:var(--ink);display:inline-block;position:relative}
+.brand i::after{content:"";position:absolute;right:-4px;bottom:-4px;width:6px;height:6px;background:var(--red)}
+nav{display:flex;gap:4px}
+nav a{text-decoration:none;font-size:14px;padding:10px 12px;color:var(--mute);display:flex;gap:8px;align-items:center}
+nav a span{font-family:var(--mono);font-size:11px;color:var(--line);transition:color .3s}
+nav a:hover{color:var(--ink)}
+nav a.on{color:var(--ink)}
+nav a.on span{color:var(--red)}
+.readout{color:var(--mute);min-width:150px;text-align:right}
+
+/* sections */
+main{position:relative;z-index:10}
+.sec{min-height:100svh;display:flex;align-items:center;
+  padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));padding-block:120px 80px}
+.col{width:min(520px,44vw);display:flex;flex-direction:column;gap:28px}
+.lbl{color:var(--mute);display:flex;align-items:center;gap:12px}
+.lbl::before{content:"";width:28px;height:1px;background:var(--ink)}
+h1,h2{font-family:var(--display);margin:0;text-wrap:balance;font-variation-settings:"wdth" 118;letter-spacing:-.035em;line-height:.95}
+h1{font-size:clamp(48px,6.4vw,104px);font-weight:720}
+h2{font-size:clamp(38px,4.4vw,68px);font-weight:700}
+.lead{font-size:19px;line-height:1.5;margin:0;max-width:34em}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:14px;min-height:48px;padding:0 22px;text-decoration:none;font-weight:600;font-size:15px;border:1px solid var(--ink);transition:background .25s,color .25s}
+.btn.dark{background:var(--ink);color:var(--paper)}
+.btn.dark:hover{background:var(--red);border-color:var(--red)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.hint{color:var(--mute);display:flex;gap:10px;align-items:center}
+.hint b{display:inline-block;width:8px;height:8px;background:var(--red)}
+
+/* lists */
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.rows li{border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:1fr auto;gap:6px 18px;align-items:baseline;padding:16px 0;text-decoration:none;width:100%;background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:default}
+a.row{cursor:pointer}
+.row strong{font-family:var(--display);font-variation-settings:"wdth" 108;font-weight:600;font-size:21px;letter-spacing:-.015em;transition:transform .45s cubic-bezier(.2,.7,0,1),color .3s}
+.row small{grid-column:1 / -1;color:var(--mute);font-size:15px;line-height:1.45}
+.row em{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.row:hover strong,.row:focus-visible strong,.row.hl strong{transform:translateX(10px);color:var(--red)}
+
+.steps{counter-reset:s}
+.steps .row strong::before{counter-increment:s;content:counter(s);font-family:var(--mono);font-size:12px;color:var(--mute);margin-right:14px;vertical-align:3px;letter-spacing:0}
+
+.contact{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--ink)}
+.cline{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.cline .v{font-family:var(--display);font-variation-settings:"wdth" 110;font-weight:600;font-size:clamp(20px,2vw,26px);letter-spacing:-.015em;user-select:all;min-width:0;overflow-wrap:anywhere}
+.copy{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:none;border:1px solid var(--line);color:var(--ink);min-height:40px;padding:0 14px;cursor:pointer;flex:none}
+.copy:hover{border-color:var(--ink)}
+footer{color:var(--mute);display:flex;gap:18px;flex-wrap:wrap}
+.form{display:flex;flex-direction:column;gap:22px;padding:24px;background:var(--paper);border:1px solid var(--ink)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld .mono{color:var(--mute);font-size:11px}
+.fld input,.fld select,.fld textarea{font:inherit;font-size:16px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--ink);border-radius:0;padding:8px 0 10px;width:100%;outline:none;transition:border-color .25s}
+.fld textarea{resize:vertical;min-height:96px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-bottom-color:var(--red)}
+.fld[data-err] input,.fld[data-err] textarea{border-bottom:2px solid var(--red)}
+.fld[data-err] .mono{color:var(--red)}
+.fsend{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.fstat{margin:0;color:var(--mute);font-size:11px;line-height:1.5;max-width:30em;text-transform:none;letter-spacing:.02em}
+.fstat.ok{color:var(--ink)}
+.fstat.ok::before{content:"";display:inline-block;width:8px;height:8px;background:var(--red);margin-right:10px}
+@media (max-width:1180px){nav{display:none}}
+@media (max-width:520px){.f2{grid-template-columns:1fr}.form{padding:18px}}
+
+.nogl #scene{display:none}
+
+@media (max-width:860px){
+  nav{display:none}
+  .readout{min-width:0}
+  .sec{align-items:flex-end;padding-block:100px 40px}
+  .col{width:100%;background:var(--panel);padding:24px 20px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid var(--line)}
+  .lead{font-size:17px}
+}
+</style>
+
+<canvas id="scene" aria-hidden="true"></canvas>
+
+<header>
+  <div class="hbar">
+    <a class="brand" href="#accueil" aria-label="Origin Studio, accueil"><i aria-hidden="true"></i>Origin Studio</a>
+    <nav aria-label="Sections">
+      <a href="#accueil" data-i="0"><span>A</span>Accueil</a>
+      <a href="#services" data-i="1"><span>B</span>Services</a>
+      <a href="#engagements" data-i="2"><span>C</span>Engagements</a>
+      <a href="#travaux" data-i="3"><span>D</span>Réalisations</a>
+      <a href="#methode" data-i="4"><span>E</span>Méthode</a>
+      <a href="#journal" data-i="5"><span>F</span>Journal</a>
+      <a href="#contact" data-i="6"><span>G</span>Contact</a>
+    </nav>
+    <span class="mono readout" id="readout">Plan A · Le palais</span>
+  </div>
+</header>
+
+<main>
+  <section class="sec" id="accueil" data-scene="0">
+    <div class="col">
+      <span class="mono lbl">Agence web · Genève</span>
+      <h1>Chaque pièce trouve sa place.</h1>
+      <p class="lead">Nous concevons et développons des sites et des applications sur mesure. Chaque élément est pensé, taillé, puis assemblé avec précision, pour les PME, les commerces et les professions libérales de Suisse romande.</p>
+      <div class="cta">
+        <a class="btn dark" href="#contact">Démarrer un projet <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="#travaux">Nos réalisations</a>
+      </div>
+      <span class="mono hint"><b aria-hidden="true"></b>Faites défiler, l'espace se reconfigure</span>
+    </div>
+  </section>
+
+  <section class="sec" id="services" data-scene="1">
+    <div class="col">
+      <span class="mono lbl">Plan B · La tour</span>
+      <h2>Cinq métiers, un seul plan.</h2>
+      <ul class="rows" data-hl="1">
+        <li><button class="row" type="button" data-g="4"><strong>Développement web sur mesure</strong><em>Étage 5</em><small>Applications web performantes et évolutives, construites selon vos besoins précis.</small></button></li>
+        <li><button class="row" type="button" data-g="3"><strong>Design et expérience utilisateur</strong><em>Étage 4</em><small>Des interfaces claires qui guident vos visiteurs sans effort.</small></button></li>
+        <li><button class="row" type="button" data-g="2"><strong>E-commerce</strong><em>Étage 3</em><small>Catalogue, paiements, commandes et back-office pour vendre en ligne sereinement.</small></button></li>
+        <li><button class="row" type="button" data-g="1"><strong>IA et automatisation</strong><em>Étage 2</em><small>Automatiser les tâches répétitives et intégrer l'IA là où elle fait gagner du temps.</small></button></li>
+        <li><button class="row" type="button" data-g="0"><strong>Infrastructure et sécurité</strong><em>Étage 1</em><small>Hébergement suisse, maintenance et protection des données.</small></button></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="engagements" data-scene="2">
+    <div class="col">
+      <span class="mono lbl">Plan C · Les trois piliers</span>
+      <h2>Trois engagements, sans exception.</h2>
+      <ul class="rows" data-hl="2">
+        <li><button class="row" type="button" data-g="0"><strong>Qualité suisse</strong><em>Le bloc</em><small>Une rigueur obsessionnelle dans chaque ligne de code et chaque pixel dessiné.</small></button></li>
+        <li><button class="row" type="button" data-g="1"><strong>Éco-conception</strong><em>Le porte-à-faux</em><small>Des sites légers et rapides, à l'empreinte carbone réduite, sans rien sacrifier au design.</small></button></li>
+        <li><button class="row" type="button" data-g="2"><strong>Transparence</strong><em>Le cadre ouvert</em><small>Pas de coûts cachés, pas de jargon technique inutile. Vous comprenez ce que vous payez.</small></button></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="travaux" data-scene="3">
+    <div class="col">
+      <span class="mono lbl">Plan D · Trois pièces</span>
+      <h2>Trois projets, trois espaces.</h2>
+      <ul class="rows" data-hl="3">
+        <li><a class="row" href="https://larc-website.vercel.app" data-g="0"><strong>L'ARC</strong><em>Refonte ↗</em><small>Nouveau site d'une école spécialisée genevoise, avec un CMS sur mesure.</small></a></li>
+        <li><a class="row" href="https://stream-line-web-five.vercel.app" data-g="1"><strong>StreamLine</strong><em>Outil interne ↗</em><small>Portail client et suivi de projets.</small></a></li>
+        <li><a class="row" href="https://even-tease-three.vercel.app" data-g="2"><strong>EvenTease</strong><em>Application ↗</em><small>Application et page de lancement, avec étude de cas.</small></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="methode" data-scene="4">
+    <div class="col">
+      <span class="mono lbl">Plan E · L'escalier</span>
+      <h2>Une marche après l'autre.</h2>
+      <ol class="rows steps" data-hl="4">
+        <li><button class="row" type="button" data-g="0"><strong>Prise de contact</strong><small>Un échange pour comprendre vos objectifs, vos contraintes et votre budget.</small></button></li>
+        <li><button class="row" type="button" data-g="1"><strong>Conception</strong><small>Architecture technique, parcours et maquettes, validés avec vous avant le code.</small></button></li>
+        <li><button class="row" type="button" data-g="2"><strong>Développement</strong><small>Le site prend forme par jalons, avec des points réguliers pour ajuster.</small></button></li>
+        <li><button class="row" type="button" data-g="3"><strong>Mise en ligne</strong><small>Lancement, suivi et maintenance. Nous restons là après le jour J.</small></button></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="journal" data-scene="5">
+    <div class="col">
+      <span class="mono lbl">Plan F · La bibliothèque</span>
+      <h2>Ce que nous apprenons, nous l'écrivons.</h2>
+      <ul class="rows" data-hl="5">
+        <li><a class="row" href="#journal" data-g="0"><strong>L'impact du local : pourquoi l'hébergement en Suisse aide votre référencement</strong><em>14.05.2026</em><small>SEO · Hébergement</small></a></li>
+        <li><a class="row" href="#journal" data-g="1"><strong>Content first : la fin des sites vitrines statiques</strong><em>27.04.2026</em><small>Stratégie · Contenu</small></a></li>
+        <li><a class="row" href="#journal" data-g="2"><strong>WordPress ou CMS sur mesure : comment choisir pour votre entreprise ?</strong><em>01.04.2026</em><small>Technique · CMS</small></a></li>
+      </ul>
+      <a class="btn ghost" href="#journal" style="align-self:flex-start">Tous les articles</a>
+    </div>
+  </section>
+
+  <section class="sec" id="contact" data-scene="6">
+    <div class="col">
+      <span class="mono lbl">Plan G · Le seuil</span>
+      <h2>La porte est ouverte.</h2>
+      <p class="lead">Décrivez votre projet en quelques lignes. Nous revenons vers vous avec des questions précises, puis une proposition claire, sans coûts cachés.</p>
+      <form id="form" class="form" novalidate>
+        <div class="f2">
+          <label class="fld" for="f-nom"><span class="mono">Nom *</span><input id="f-nom" name="nom" type="text" autocomplete="name" required></label>
+          <label class="fld" for="f-ent"><span class="mono">Entreprise</span><input id="f-ent" name="entreprise" type="text" autocomplete="organization"></label>
+        </div>
+        <label class="fld" for="f-mail"><span class="mono">E-mail *</span><input id="f-mail" name="email" type="email" autocomplete="email" required></label>
+        <div class="f2">
+          <label class="fld" for="f-type"><span class="mono">Type de projet</span>
+            <select id="f-type" name="type">
+              <option>Site vitrine</option>
+              <option>Refonte d'un site existant</option>
+              <option>Boutique en ligne</option>
+              <option>Application ou outil interne</option>
+              <option>Automatisation ou IA</option>
+              <option>Autre</option>
+            </select>
+          </label>
+          <label class="fld" for="f-del"><span class="mono">Échéance</span>
+            <select id="f-del" name="echeance">
+              <option>Pas encore définie</option>
+              <option>Moins de 3 mois</option>
+              <option>3 à 6 mois</option>
+              <option>Plus de 6 mois</option>
+            </select>
+          </label>
+        </div>
+        <label class="fld" for="f-msg"><span class="mono">Votre projet *</span><textarea id="f-msg" name="message" rows="4" required></textarea></label>
+        <div class="fsend">
+          <button class="btn dark" type="submit">Envoyer la demande <span aria-hidden="true">→</span></button>
+          <p class="mono fstat" id="fstat" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <div class="contact">
+        <div class="cline"><span class="v" id="mail">info@origin-studio.ch</span><button class="copy" type="button" data-copy="mail">Copier</button></div>
+        <div class="cline"><span class="v" id="tel">+41 79 176 39 92</span><button class="copy" type="button" data-copy="tel">Copier</button></div>
+      </div>
+      <footer class="mono"><span>© 2026 Origin Studio</span><span>Genève, Suisse</span><a href="#accueil">Mentions légales</a></footer>
+    </div>
+  </section>
+</main>
+
+<script>
+/* copy buttons, independent of WebGL */
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var el=document.getElementById(b.dataset.copy), txt=el.textContent.trim();
+    function sel(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Sélectionné';}
+    try{navigator.clipboard.writeText(txt).then(function(){b.textContent='Copié';setTimeout(function(){b.textContent='Copier'},1600)},sel);}catch(e){sel();}
+  });
+});
+
+/* form: validates in the page; sending gets wired to the mail service at build time */
+(function(){
+  var f=document.getElementById('form'), st=document.getElementById('fstat');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var bad=[];
+    ['f-nom','f-mail','f-msg'].forEach(function(id){
+      var el=document.getElementById(id), lab=el.closest('.fld');
+      var ok=el.value.trim()!=='' && (el.type!=='email' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim()));
+      if(ok) lab.removeAttribute('data-err'); else { lab.setAttribute('data-err',''); bad.push(el); }
+    });
+    if(bad.length){ st.className='mono fstat'; st.textContent='Il manque votre nom, une adresse e-mail valide ou la description du projet.'; bad[0].focus(); return; }
+    st.className='mono fstat ok';
+    st.textContent='Merci '+document.getElementById('f-nom').value.trim().split(' ')[0]+'. Votre demande est prête, la porte s\'allume.';
+    window.dispatchEvent(new CustomEvent('os-sent'));
+  });
+})();
+</script>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canvas = document.getElementById('scene');
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+} catch (e) { document.documentElement.classList.add('nogl'); throw e; }
+const mobile = innerWidth < 860;
+renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.5 : 1.75));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#F1EFEA');
+
+/* light: soft sky + one low sun for long architectural shadows */
+scene.add(new THREE.HemisphereLight('#ffffff', '#c9c3b6', 1.55));
+const sun = new THREE.DirectionalLight('#fff6ea', 2.1);
+sun.castShadow = true;
+sun.shadow.mapSize.set(mobile ? 1024 : 2048, mobile ? 1024 : 2048);
+const sc = sun.shadow.camera; sc.left = -24; sc.right = 24; sc.top = 24; sc.bottom = -24; sc.near = 1; sc.far = 90;
+sun.shadow.bias = -0.0006; sun.shadow.normalBias = 0.02;
+scene.add(sun, sun.target);
+
+const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 400);
+
+/* ---------- seeded random ---------- */
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+/* ---------- builder ---------- */
+const V = THREE.Vector3, Q = THREE.Quaternion, E = THREE.Euler, M = THREE.Matrix4;
+const C = { light: 0, mid: 1, dark: 2, red: 3 };
+function builder(){
+  const list = []; const stack = [new M()]; let tag = -1;
+  const top = () => stack[stack.length - 1];
+  const b = {
+    list,
+    tag(g){ tag = g; },
+    group(x, y, z, rx, ry, rz, fn){
+      const m = new M().compose(new V(x, y, z), new Q().setFromEuler(new E(rx, ry, rz)), new V(1, 1, 1));
+      stack.push(top().clone().multiply(m)); fn(); stack.pop();
+    },
+    box(x, y, z, w, h, d, c = 0){
+      const m = new M().compose(new V(x, y, z), new Q(), new V(w, h, d));
+      list.push({ m: top().clone().multiply(m), c, g: tag });
+    },
+  };
+  b.slab = (x, y, z, w, d, c = 0, t = 0.32) => b.box(x, y - t / 2, z, w, t, d, c);
+  b.col = (x, y, z, h, c = 0, s = 0.42) => b.box(x, y + h / 2, z, s, h, s, c);
+  b.stairs = (x, y, z, n, rise, run, width, axis = 'x', c = 1) => {
+    for (let i = 0; i < n; i++) {
+      const h = rise * (i + 1);
+      if (axis === 'x') b.box(x + run * i + run / 2, y + h / 2, z, run, h, width, c);
+      else b.box(x, y + h / 2, z + run * i + run / 2, width, h, run, c);
+    }
+  };
+  b.frame = (x, y, z, w, h, ry = 0, c = 0, t = 0.38) => b.group(x, y, z, 0, ry, 0, () => {
+    b.box(-w / 2, h / 2, 0, t, h, t, c); b.box(w / 2, h / 2, 0, t, h, t, c); b.box(0, h + t / 2, 0, w + t, t, t, c);
+  });
+  b.floaters = (n, seed, rMin, rMax, cy = 2) => {
+    const r = rng(seed);
+    for (let i = 0; i < n; i++) {
+      const th = r() * Math.PI * 2, ph = (r() - 0.5) * 1.6, rad = rMin + r() * (rMax - rMin);
+      const s = 0.3 + r() * 0.9;
+      b.box(Math.cos(th) * Math.cos(ph) * rad, cy + Math.sin(ph) * rad * 0.8, Math.sin(th) * Math.cos(ph) * rad, s, s * (r() < 0.3 ? 2.4 : 1), s, i === 3 ? C.red : (r() < 0.5 ? C.light : C.mid));
+    }
+  };
+  return b;
+}
+
+/* ---------- the five configurations ---------- */
+const configs = [];
+
+/* A · Le palais: floors at every angle, an inverted wing, an endless corridor */
+configs.push((() => {
+  const b = builder();
+  b.slab(0, 0, 0, 6, 6, C.light);
+  [[-2.5,-2.5],[2.5,-2.5],[-2.5,2.5]].forEach(([x,z]) => b.col(x, 0, z, 3, C.light));
+  b.slab(-1, 3.3, -0.6, 4, 4.8, C.mid);
+  b.stairs(-2.6, 0, 2.1, 8, 0.41, 0.5, 1.3, 'x', C.mid);
+  b.frame(1.8, 0, -1, 1.8, 2.4, Math.PI / 2, C.red);
+  b.slab(5.6, 5.2, -3.2, 3.6, 3.6, C.light);
+  b.stairs(1.0, 3.3, -2.2, 7, 0.27, 0.55, 1.1, 'x', C.light);
+  b.col(6.8, 5.2, -4.4, 2.6, C.mid); b.col(4.4, 5.2, -4.4, 2.6, C.mid);
+  b.frame(5.6, 5.2, -2.0, 2, 2.6, 0, C.light);
+  // inverted wing hanging from the sky
+  b.group(-3.4, 12.2, -3, Math.PI, 0, 0, () => {
+    b.slab(0, 0, 0, 5.2, 5.2, C.light);
+    [[-2.2,-2.2],[2.2,-2.2],[-2.2,2.2],[2.2,2.2]].forEach(([x,z]) => b.col(x, 0, z, 2.6, C.mid));
+    b.stairs(-2, 0, 0, 6, 0.42, 0.55, 1.2, 'x', C.light);
+    b.frame(1.2, 0, 1.2, 1.6, 2.3, 0, C.mid);
+  });
+  // a wall that is also a floor
+  b.group(-7.6, 4.2, 1.8, 0, 0, -Math.PI / 2, () => {
+    b.slab(0, 0, 0, 6.4, 4, C.mid);
+    b.stairs(-2.8, 0, 0, 6, 0.32, 0.6, 1.2, 'x', C.light);
+    b.col(1.8, 0, 1.2, 2.2, C.light);
+    b.frame(2, 0, -1, 1.4, 2, Math.PI / 2, C.light);
+  });
+  // lower corridor of door frames
+  b.slab(4.4, -3.4, 4.6, 3, 10, C.mid);
+  for (let i = 0; i < 6; i++) b.frame(4.4, -3.4, 0.6 + i * 1.6, 2.2, 2.7, 0, i === 5 ? C.dark : C.light);
+  b.group(2.6, -3.4, 0.2, 0, Math.PI / 2, 0, () => b.stairs(0, 0, 0, 7, 0.486, 0.42, 1.2, 'x', C.light));
+  b.floaters(18, 11, 9, 15, 2);
+  return { list: b.list, cam: { c: [0.6, 3.2, 0], size: 29, shift: 0.2 }, name: 'Plan A · Le palais' };
+})());
+
+/* B · La tour: five floors, one per service */
+configs.push((() => {
+  const b = builder();
+  for (let i = 0; i < 5; i++) {
+    b.tag(i);
+    const y = i * 2.6, ox = (i % 2 ? 0.7 : -0.7), oz = (i % 2 ? -0.5 : 0.5);
+    b.slab(ox, y, oz, 5, 5, i % 2 ? C.mid : C.light);
+    [[-2.1,-2.1],[2.1,-2.1],[-2.1,2.1],[2.1,2.1]].forEach(([x,z]) => b.col(ox + x, y, oz + z, 2.28, C.light, 0.38));
+    b.frame(ox + 0.6, y, oz + 2.1, 1.5, 1.9, 0, C.light, 0.28);
+    b.box(ox - 0.9, y + 0.35, oz - 0.8, 1.4, 0.7, 0.9, C.dark);
+    if (i < 4) {
+      if (i % 2 === 0) b.stairs(ox + 2.6, y, oz - 1.8, 7, 0.37, 0.48, 1, 'z', C.mid);
+      else b.group(ox - 2.6, y, oz + 1.8, 0, Math.PI, 0, () => b.stairs(0, 0, 0, 7, 0.37, 0.48, 1, 'z', C.mid));
+    }
+  }
+  b.tag(-1);
+  b.slab(0.7, 13.3, -0.5, 5.4, 5.4, C.light, 0.5);
+  b.slab(0, -1.4, 0, 9, 9, C.mid, 0.6);
+  b.floaters(14, 23, 8, 13, 6);
+  return { list: b.list, cam: { c: [0, 6, 0], size: 25, shift: 0.22 }, name: 'Plan B · La tour' };
+})());
+
+/* C · Les trois piliers: a solid block, a light cantilever, an open frame */
+configs.push((() => {
+  const b = builder();
+  b.tag(0);
+  for (let x = 0; x < 3; x++) for (let y = 0; y < 3; y++) for (let z = 0; z < 3; z++)
+    b.box(-6 + x * 1.02, 0.47 + y * 1.02, -1 + z * 1.02, 0.98, 0.98, 0.98, (x + y + z) % 2 ? C.light : C.mid);
+  b.tag(1);
+  b.col(0, 0, 0, 6.4, C.light, 0.32);
+  for (let k = 0; k < 4; k++) b.group(0, 1.4 + k * 1.5, 0, 0, k * Math.PI / 2, 0, () => b.slab(1.2, 0, 0, 3, 0.9, C.light, 0.16));
+  b.box(0, 0.25, 0, 1, 0.5, 1, C.mid);
+  b.tag(2);
+  const e = 3.2, t = 0.2, ox = 5.6, oy = 0.1, oz = 0;
+  for (const sy of [0, e]) { b.box(ox, oy + sy, oz - e / 2, e, t, t, C.light); b.box(ox, oy + sy, oz + e / 2, e, t, t, C.light); b.box(ox - e / 2, oy + sy, oz, t, t, e, C.light); b.box(ox + e / 2, oy + sy, oz, t, t, e, C.light); }
+  for (const [dx, dz] of [[-1,-1],[1,-1],[-1,1],[1,1]]) b.box(ox + dx * e / 2, oy + e / 2, oz + dz * e / 2, t, e, t, C.light);
+  b.box(ox, oy + 1.1, oz, 1, 1, 1, C.dark);
+  b.tag(-1);
+  b.slab(0, 0, 0.2, 17, 6, C.mid, 0.5);
+  b.floaters(16, 79, 9, 14, 2);
+  return { list: b.list, cam: { c: [0, 2, 0], size: 21, shift: 0.22 }, name: 'Plan C · Les trois piliers' };
+})());
+
+/* D · Trois pièces: one open room per project */
+configs.push((() => {
+  const b = builder();
+  const room = (g, x, y, z, ry, accent) => {
+    b.tag(g);
+    b.group(x, y, z, 0, ry, 0, () => {
+      b.slab(0, 0, 0, 4.4, 4.4, C.light);
+      b.box(0, 1.6, -2.05, 4.4, 3.2, 0.3, C.mid);
+      b.box(-2.05, 1.6, 0.15, 0.3, 3.2, 4.1, C.light);
+      b.slab(-0.5, 3.5, -0.5, 3.4, 3.4, C.light, 0.28);
+      b.box(0.4, 0.42, -0.2, 1.8, 0.84, 0.9, C.dark);
+      b.box(0.3, 1.9, -1.85, 1.8, 1.0, 0.08, accent ? C.red : C.dark);
+      b.col(2, 0, 2, 3.2, C.light, 0.32);
+      b.frame(-2.05, 0, 0.9, 1.2, 2.1, Math.PI / 2, C.light, 0.24);
+    });
+  };
+  room(0, -6, 0, 0, 0, true);
+  room(1, 0, 3, -2.5, 0, false);
+  room(2, 6, -1.6, 1.5, 0, false);
+  b.tag(-1);
+  b.stairs(-3.6, 0, -1.2, 8, 0.375, 0.42, 1, 'x', C.mid);
+  b.slab(3.4, 3, -2, 1.6, 1.4, C.mid);
+  b.group(2.6, -1.6, -1.3, 0, 0, 0, () => { for (let i = 0; i < 6; i++) b.box(0.25 + i * 0.25, 4.3 - i * 0.77 - 0.385 , 0, 0.25, 0.77, 1, C.mid); });
+  b.floaters(20, 37, 10, 15, 1.5);
+  return { list: b.list, cam: { c: [0, 1.5, -0.5], size: 25, shift: 0.22 }, name: 'Plan D · Trois pièces' };
+})());
+
+/* E · L'escalier: four landings, one per step of the method */
+configs.push((() => {
+  const b = builder();
+  for (let i = 0; i < 4; i++) {
+    b.tag(i);
+    const x = -6 + i * 4, y = -3 + i * 2.4, z = 2 - i * 1.3;
+    b.slab(x, y, z, 2.4, 2.4, i === 3 ? C.light : C.light, 0.4);
+    b.box(x, y - 0.4 - (y + 9) / 2, z, 1.1, y + 9, 1.1, C.mid);
+    b.frame(x + 0.3, y, z - 0.6, 1.3, 2.1, 0, i === 3 ? C.red : C.light, 0.3);
+    if (i < 3) {
+      for (let s = 0; s < 6; s++) {
+        const t = (s + 1) / 7;
+        b.box(x + 1.2 + t * 1.6, y + 0.2 + t * 2.4 - 0.2, z - t * 1.3, 0.3, 0.4, 1.1, C.mid);
+      }
+    }
+  }
+  b.tag(-1);
+  b.slab(-1, -9.4, 0, 18, 7, C.mid, 0.5);
+  b.floaters(18, 51, 9, 14, 0);
+  return { list: b.list, cam: { c: [0, -0.5, 0], size: 25, shift: 0.22 }, name: "Plan E · L'escalier" };
+})());
+
+/* F · La bibliothèque: one lectern and its stack of pages per article, a shelf wall behind */
+configs.push((() => {
+  const b = builder();
+  const r = rng(88);
+  [[-5.2, 0], [0, 1.2], [5.2, -0.4]].forEach(([x, z], k) => {
+    b.tag(k);
+    const h = 1.6 + k * 0.5;
+    b.box(x, h / 2, z, 1.4, h, 1.4, C.mid);
+    for (let i = 0; i < 9; i++) b.group(x, h + 0.07 + i * 0.13, z, 0, (r() - 0.5) * 0.5, 0, () => b.box(0, 0, 0, 2.3, 0.1, 3, i === 8 ? C.light : (i % 2 ? C.light : C.mid)));
+  });
+  b.tag(-1);
+  b.box(0, 3, -4, 17, 6.4, 0.4, C.light);
+  for (let row = 0; row < 3; row++) {
+    b.box(0, 1.2 + row * 1.9, -3.5, 17, 0.14, 0.7, C.mid);
+    let x = -8.2;
+    while (x < 8) { const w = 0.18 + r() * 0.22, hh = 0.9 + r() * 0.6; if (r() > 0.2) b.box(x + w / 2, 1.27 + row * 1.9 + hh / 2, -3.5, w, hh, 0.55, r() < 0.06 ? C.red : (r() < 0.5 ? C.light : C.dark)); x += w + 0.06 + (r() < 0.1 ? 0.8 : 0); if (x > 8) break; }
+  }
+  b.slab(0, 0, -0.5, 17, 8, C.light, 0.5);
+  b.floaters(10, 91, 10, 14, 3);
+  return { list: b.list, cam: { c: [0, 2.4, -0.8], size: 21, shift: 0.22 }, name: 'Plan F · La bibliothèque' };
+})());
+
+/* G · Le seuil: a colonnade leading to one door, frames receding behind it */
+configs.push((() => {
+  const b = builder();
+  b.slab(0, 0, 3, 9, 16, C.light, 0.5);
+  b.tag(0);
+  b.box(-1.65, 3.6, -3, 0.7, 7.2, 0.7, C.light);
+  b.box(1.65, 3.6, -3, 0.7, 7.2, 0.7, C.light);
+  b.box(0, 7.55, -3, 4.0, 0.7, 0.7, C.light);
+  b.box(0, 0.1, -3, 2.6, 0.2, 0.9, C.red);
+  b.tag(-1);
+  for (let i = 1; i <= 5; i++) b.frame(0, 0, -3 - i * 1.7, 3.3, 7.2, 0, i % 2 ? C.mid : C.light, 0.5);
+  b.slab(0, 0, -7.5, 4.6, 8, C.mid, 0.3);
+  for (let i = 0; i < 6; i++) { b.col(-3.6, 0, -1 + i * 2.1, 5.4, C.light, 0.55); b.col(3.6, 0, -1 + i * 2.1, 5.4, C.light, 0.55); }
+  for (let s = 0; s < 6; s++) b.box(0, -0.25 - s * 0.4, 11.1 + s * 0.5, 4.5, 0.4, 0.5, C.mid);
+  b.floaters(16, 67, 10, 15, 3);
+  return { list: b.list, cam: { c: [0, 2.2, 0.5], size: 26, shift: 0.22 }, name: 'Plan G · Le seuil' };
+})());
+
+/* ---------- pool & per-config targets ---------- */
+const N = Math.max(...configs.map(c => c.list.length)) + 8;
+const R = rng(2026);
+const cardinal = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+const boxDir = [], boxDelay = [], boxDist = [];
+for (let i = 0; i < N; i++) { boxDir.push(cardinal[Math.floor(R() * 6)]); boxDelay.push(R() * 0.42); boxDist.push(5 + R() * 9); }
+
+const palette = [new THREE.Color('#ECEAE4'), new THREE.Color('#D8D3C9'), new THREE.Color('#B9B2A5'), new THREE.Color('#C8281C')];
+const RED = palette[3];
+
+function shuffle(arr, seed){ const r = rng(seed); for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
+
+const targets = configs.map((cfg, ci) => {
+  const slots = shuffle([...Array(N).keys()], 100 + ci);
+  const T = new Array(N);
+  for (let k = 0; k < N; k++) {
+    const i = slots[k];
+    if (k < cfg.list.length) {
+      const p = new V(), q = new Q(), s = new V();
+      cfg.list[k].m.decompose(p, q, s);
+      T[i] = { p, q, s, c: palette[cfg.list[k].c], g: cfg.list[k].g, on: true };
+    } else {
+      const d = boxDir[i];
+      T[i] = { p: new V(d[0] * 48, d[1] * 48 + 2, d[2] * 48), q: new Q(), s: new V(0.001, 0.001, 0.001), c: palette[0], g: -1, on: false };
+    }
+  }
+  return T;
+});
+
+/* intro: every piece of plan A starts far out along one axis, turned by a quarter */
+const scatter = targets[0].map((t, i) => {
+  const d = boxDir[i], k = 26 + boxDist[i] * 1.5;
+  const turn = new Q().setFromEuler(new E((i % 3 === 0) * Math.PI / 2, (i % 3 === 1) * Math.PI / 2, (i % 3 === 2) * Math.PI / 2));
+  return { p: t.p.clone().add(new V(d[0] * k, d[1] * k, d[2] * k)), q: t.q.clone().multiply(turn), s: t.s.clone(), c: t.c, g: -1, on: t.on };
+});
+
+/* ---------- instanced mesh ---------- */
+const geo = new THREE.BoxGeometry(1, 1, 1);
+const mat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.86, metalness: 0 });
+const mesh = new THREE.InstancedMesh(geo, mat, N);
+mesh.castShadow = true; mesh.receiveShadow = true;
+mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+mesh.frustumCulled = false;
+for (let i = 0; i < N; i++) mesh.setColorAt(i, palette[0]);
+scene.add(mesh);
+
+/* ---------- easing ---------- */
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const eio = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const eout = t => 1 - Math.pow(1 - t, 4);
+const smooth = t => t * t * (3 - 2 * t);
+
+/* ---------- scroll → configuration ---------- */
+const sections = [...document.querySelectorAll('.sec')];
+const navLinks = [...document.querySelectorAll('nav a')];
+const readout = document.getElementById('readout');
+let targetF = 0, F = 0;
+function readScroll(){
+  const y = scrollY + innerHeight * 0.5, w = innerHeight * 0.42;
+  const tops = sections.map(s => s.offsetTop);
+  let f = 0;
+  for (let k = sections.length - 1; k >= 0; k--) if (y >= tops[k]) { f = k; break; }
+  for (let k = 1; k < sections.length; k++) {
+    const d = y - tops[k];
+    if (Math.abs(d) < w) { f = k - 1 + (d + w) / (2 * w); break; }
+  }
+  targetF = reduce ? Math.round(f) : f;
+}
+addEventListener('scroll', readScroll, { passive: true });
+
+/* ---------- hover highlight: text rows light up their part of the building ---------- */
+let hl = { scene: -1, g: -1 };
+document.querySelectorAll('[data-hl]').forEach(list => {
+  const sceneI = +list.dataset.hl;
+  list.querySelectorAll('[data-g]').forEach(row => {
+    const on = () => { hl = { scene: sceneI, g: +row.dataset.g }; };
+    const off = () => { hl = { scene: -1, g: -1 }; };
+    row.addEventListener('pointerenter', on); row.addEventListener('focus', on);
+    row.addEventListener('pointerleave', off); row.addEventListener('blur', off);
+  });
+});
+const hlAmt = new Float32Array(N);
+let sent = false;
+addEventListener('os-sent', () => { sent = true; });
+
+/* ---------- camera ---------- */
+let mx = 0, my = 0, smx = 0, smy = 0;
+addEventListener('pointermove', e => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; }, { passive: true });
+const camC = new V(), camTmp = new V();
+function placeCamera(cA, cB, u, time){
+  const narrow = innerWidth < 860;
+  const size = THREE.MathUtils.lerp(cA.size, cB.size, u) * (narrow ? 1.25 : 1);
+  const shift = narrow ? 0 : THREE.MathUtils.lerp(cA.shift, cB.shift, u);
+  camC.set(...cA.c).lerp(camTmp.set(...cB.c), u);
+  if (narrow) camC.y -= 3;
+  const aspect = innerWidth / innerHeight, hh = size / 2, hw = hh * aspect, off = shift * 2 * hw;
+  camera.left = -hw - off; camera.right = hw - off; camera.top = hh; camera.bottom = -hh;
+  camera.updateProjectionMatrix();
+  const az = Math.PI / 4 + (reduce ? 0 : Math.sin(time * 0.00012) * 0.12 + smx * 0.22);
+  const el = 0.6 + (reduce ? 0 : smy * 0.1);
+  camera.position.set(camC.x + Math.cos(az) * Math.cos(el) * 80, camC.y + Math.sin(el) * 80, camC.z + Math.sin(az) * Math.cos(el) * 80);
+  camera.lookAt(camC);
+  sun.position.set(camC.x + 14, camC.y + 26, camC.z + 6);
+  sun.target.position.copy(camC);
+}
+
+/* ---------- render loop ---------- */
+const dummy = new THREE.Object3D(), pTmp = new V(), qTmp = new Q(), sTmp = new V(), col = new THREE.Color();
+const t0 = performance.now();
+let lastIdx = -1;
+function frame(now){
+  const intro = reduce ? 1 : clamp((now - t0 - 250) / 3400);
+  F += (targetF - F) * (reduce ? 1 : 0.075);
+  if (Math.abs(targetF - F) < 0.0005) F = targetF;
+  smx += (mx - smx) * 0.04; smy += (my - smy) * 0.04;
+
+  let a = Math.floor(F), t = F - a;
+  if (a >= configs.length - 1) { a = configs.length - 2; t = 1; }
+  let A = targets[a], B = targets[a + 1];
+  let gt = t;
+  if (intro < 1 && F < 0.02) { A = scatter; B = targets[0]; gt = intro; }
+
+  const settled = (gt < 0.004 || gt > 0.996) && intro >= 1;
+  const cur = gt > 0.5 ? (A === scatter ? 0 : a + 1) : a;
+
+  for (let i = 0; i < N; i++) {
+    const ta = A[i], tb = B[i];
+    const lt = clamp((gt - boxDelay[i]) / 0.58);
+    const d = boxDir[i], dist = boxDist[i];
+    if (lt < 0.62) {
+      const u = eio(lt / 0.62);
+      pTmp.set(tb.p.x + d[0] * dist, tb.p.y + d[1] * dist, tb.p.z + d[2] * dist);
+      pTmp.lerpVectors(ta.p, pTmp, u);
+      qTmp.slerpQuaternions(ta.q, tb.q, u);
+      sTmp.lerpVectors(ta.s, tb.s, Math.min(1, u * 1.3));
+    } else {
+      const u = eout((lt - 0.62) / 0.38);
+      pTmp.set(tb.p.x + d[0] * dist, tb.p.y + d[1] * dist, tb.p.z + d[2] * dist).lerp(tb.p, u);
+      qTmp.copy(tb.q); sTmp.copy(tb.s);
+    }
+    dummy.position.copy(pTmp); dummy.quaternion.copy(qTmp); dummy.scale.copy(sTmp);
+    dummy.updateMatrix();
+    mesh.setMatrixAt(i, dummy.matrix);
+
+    const tgtCfg = cur === a ? A : B;
+    const hs = sent && cur === configs.length - 1 ? { scene: cur, g: 0 } : hl;
+    const want = (settled && hs.scene === cur && tgtCfg[i].g === hs.g && hs.g >= 0) ? 1 : 0;
+    hlAmt[i] += (want - hlAmt[i]) * 0.12;
+    col.copy(ta.c).lerp(tb.c, clamp(lt * 1.5));
+    if (hlAmt[i] > 0.002) col.lerp(RED, hlAmt[i] * 0.85);
+    mesh.setColorAt(i, col);
+  }
+  mesh.instanceMatrix.needsUpdate = true;
+  mesh.instanceColor.needsUpdate = true;
+
+  placeCamera(configs[a].cam, configs[Math.min(a + 1, configs.length - 1)].cam, smooth(A === scatter ? 0 : t), now);
+  renderer.render(scene, camera);
+
+  const idx = Math.round(F);
+  if (idx !== lastIdx) {
+    lastIdx = idx;
+    navLinks.forEach((l, k) => l.classList.toggle('on', k === idx));
+    readout.textContent = configs[idx].name;
+  }
+  requestAnimationFrame(frame);
+}
+
+function resize(){ renderer.setSize(innerWidth, innerHeight, false); readScroll(); }
+addEventListener('resize', resize);
+resize();
+F = targetF;
+requestAnimationFrame(frame);
+</script>
