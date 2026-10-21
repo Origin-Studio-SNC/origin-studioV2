@@ -64,10 +64,6 @@ export default async function RealisationPage({
 
   return (
     <div className="realisation-detail-page relative mx-auto w-full max-w-360 overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
-      <div
-        className="hero-glow pointer-events-none absolute top-0 left-1/2 z-0 h-[min(720px,85vh)] w-full max-w-400 -translate-x-1/2"
-        aria-hidden
-      />
       <main className="relative z-10 text-left">
       <div className="max-w-7xl text-left">
 
@@ -98,18 +94,18 @@ export default async function RealisationPage({
 
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3">
-              <span className="rounded-full border border-primary/30 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
+              <span className=" border border-primary/30 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
                 {categoryLabel}
               </span>
               {project.badge === 'acces-anticipe' && (
-                <span className="inline-flex items-center gap-1 rounded-full border border-border/60 bg-card px-2.5 py-1 text-[10px] font-medium text-foreground/60">
+                <span className="inline-flex items-center gap-1 border border-border/60 bg-card px-2.5 py-1 text-[10px] font-medium text-foreground/60">
                   🔒 Accès anticipé
                 </span>
               )}
               {project.stack?.map((s) => (
                 <span
                   key={s.tech}
-                  className="rounded-full border border-border bg-card px-3 py-1 text-[10px] uppercase tracking-wide text-foreground/70"
+                  className=" border border-border bg-card px-3 py-1 text-[10px] uppercase tracking-wide text-foreground/70"
                 >
                   {s.tech}
                 </span>
@@ -124,7 +120,7 @@ export default async function RealisationPage({
                 href={liveHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto sm:px-6"
+                className="inline-flex w-full items-center justify-center gap-2 border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto sm:px-6"
               >
                 Voir en ligne
                 <ArrowUpRight className="size-4" aria-hidden />
@@ -135,7 +131,7 @@ export default async function RealisationPage({
                 href={githubHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border px-5 py-3 text-sm text-foreground/70 transition-colors hover:border-foreground/40 sm:w-auto sm:px-6"
+                className="inline-flex w-full items-center justify-center gap-2 border border-border px-5 py-3 text-sm text-foreground/70 transition-colors hover:border-foreground/40 sm:w-auto sm:px-6"
               >
                 Code sur GitHub
                 <ArrowUpRight className="size-4" aria-hidden />
@@ -248,7 +244,7 @@ export default async function RealisationPage({
           </p>
           <Link
             href="/contact"
-            className="mx-auto inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-full border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:mx-0 sm:w-auto sm:max-w-none sm:px-8"
+            className="mx-auto inline-flex w-full max-w-xs items-center justify-center gap-2 border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:mx-0 sm:w-auto sm:max-w-none sm:px-8"
           >
             Démarrer un projet
             <ArrowUpRight className="size-4" />

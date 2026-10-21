@@ -88,10 +88,6 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
 
   return (
     <div className="relative mx-auto w-full max-w-360 overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
-      <div
-        className="hero-glow pointer-events-none absolute top-0 left-1/2 z-0 h-[min(720px,85vh)] w-full max-w-400 -translate-x-1/2"
-        aria-hidden
-      />
       <article className="relative z-10 mx-auto max-w-3xl text-left">
         <Reveal>
           <Link
@@ -116,7 +112,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
             </h1>
             <p className="text-lg text-foreground/60 leading-relaxed">{post.excerpt}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <span className="rounded-full border border-primary/30 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
+              <span className=" border border-primary/30 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-primary">
                 {CATEGORY_LABELS[post.category]}
               </span>
               {author && <span className="text-sm text-foreground/50">Par {author.name}</span>}
@@ -125,7 +121,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
               <ul className="mt-6 flex flex-wrap gap-2">
                 {post.tags.map((t) => (
                   <li key={t.id ?? t.tag}>
-                    <span className="rounded-full border border-border bg-card/60 px-2.5 py-0.5 text-xs text-foreground/60">
+                    <span className=" border border-border bg-card/60 px-2.5 py-0.5 text-xs text-foreground/60">
                       {t.tag}
                     </span>
                   </li>

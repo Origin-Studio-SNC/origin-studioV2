@@ -16,10 +16,6 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="about-page relative mx-auto max-w-360 overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
-      <div
-        className="hero-glow pointer-events-none absolute top-0 left-1/2 z-0 h-[min(800px,90vh)] w-full max-w-400 -translate-x-1/2"
-        aria-hidden
-      />
       <AboutHeroSection />
       <AboutStorySection />
       <AboutTeamSection />

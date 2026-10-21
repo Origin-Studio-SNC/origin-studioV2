@@ -14,10 +14,6 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="contact-page relative mx-auto max-w-360 overflow-hidden px-5 pb-24 pt-12 md:px-12 md:pb-32 md:pt-16 lg:px-20 lg:pb-40 lg:pt-20">
-      <div
-        className="hero-glow pointer-events-none absolute top-0 left-1/2 z-0 h-[min(720px,85vh)] w-full max-w-400 -translate-x-1/2"
-        aria-hidden
-      />
       <ContactHero />
       <div className="relative z-10 grid min-w-0 grid-cols-1 gap-12 sm:gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20 xl:gap-24">
         <div className="min-w-0">

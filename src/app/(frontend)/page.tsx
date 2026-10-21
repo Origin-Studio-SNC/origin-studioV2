@@ -13,8 +13,7 @@ import { ServicesSection } from '@/components/home3d/sections/ServicesSection'
 /** Payload sur la home : sans ça, Next peut servir la page figée au dernier build statique. */
 export const revalidate = 60
 
-// Refonte 3D (docs/refonte-3d/BRIEF.md). Les anciennes sections `@/components/home/*`
-// sont débranchées, pas supprimées : on nettoie à la fin de la refonte.
+// Refonte 3D (docs/refonte-3d/BRIEF.md).
 // Pas de Suspense ici : la scène a besoin des 7 sections `data-scene` dans le DOM
 // dès son montage pour calculer la progression du scroll.
 export default async function HomePage() {
