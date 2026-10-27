@@ -2,11 +2,12 @@
 
 import type { Route } from 'next'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { PLAN_NAMES, useActivePlan } from '@/components/home3d/sceneStore'
 import { cn } from '@/lib/utils'
+
+import { useSitePath } from './useSitePath'
 
 import './site-chrome.css'
 
@@ -33,7 +34,7 @@ function sectionForPath(pathname: string) {
 }
 
 export function SiteHeader() {
-  const pathname = usePathname()
+  const pathname = useSitePath()
   const isHome = pathname === '/'
   const plan = useActivePlan()
   const active = isHome ? plan : sectionForPath(pathname)

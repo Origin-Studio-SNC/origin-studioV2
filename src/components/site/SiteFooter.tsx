@@ -1,14 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+
+import { useSitePath } from './useSitePath'
 
 /**
  * Pied de page simple des pages hors accueil. Sur l'accueil, c'est la ligne
  * de la section Contact qui en tient lieu.
  */
 export function SiteFooter() {
-  const pathname = usePathname()
+  const pathname = useSitePath()
   if (pathname === '/') return null
 
   return (
