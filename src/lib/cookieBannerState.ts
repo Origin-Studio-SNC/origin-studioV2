@@ -1,11 +1,10 @@
 /**
- * État de visibilité de `CookieBanner`, exposé pour que d'autres widgets flottants
- * (ex. `ChatWidget`) puissent se décaler tant que le bandeau est affiché, sans
- * dupliquer la logique `localStorage` ni introduire un contexte React global.
+ * État de fermeture de `CookieBanner`, persisté dans `localStorage`.
+ * Les widgets flottants (ex. `ChatWidget`) n'en dépendent pas : ils se décalent via la
+ * variable CSS `--cookie-banner-h` que le bandeau expose tant qu'il est affiché.
  */
 
 const STORAGE_KEY = 'origin-studio-cookie-notice-dismissed'
-const DISMISS_EVENT = 'origin-studio:cookie-banner-dismissed'
 
 export function isCookieBannerDismissed(): boolean {
   if (typeof window === 'undefined') return true
@@ -22,11 +21,4 @@ export function dismissCookieBanner(): void {
   } catch {
     /* localStorage indisponible (mode privé, quota) — pas bloquant */
   }
-  window.dispatchEvent(new Event(DISMISS_EVENT))
-}
-
-/** S'abonne à la fermeture du bandeau ; retourne la fonction de désabonnement. */
-export function onCookieBannerDismissed(callback: () => void): () => void {
-  window.addEventListener(DISMISS_EVENT, callback)
-  return () => window.removeEventListener(DISMISS_EVENT, callback)
 }

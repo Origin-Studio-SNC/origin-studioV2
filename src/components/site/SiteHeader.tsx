@@ -128,53 +128,66 @@ export function SiteHeader() {
             <span className="os-mono os-readout" aria-live="off">
               {active >= 0 ? PLAN_NAMES[active] : ''}
             </span>
-            {/* Hors accueil, sous 1180 px, la navigation passe dans ce menu (l'accueil se parcourt au scroll). */}
-            {!isHome && (
-              <button
-                type="button"
-                className="os-menu-btn os-mono"
-                aria-expanded={menuOpen}
-                aria-controls="os-menu"
-                onClick={() => setMenuOpen((open) => !open)}
-              >
-                {menuOpen ? 'Fermer' : 'Menu'}
-              </button>
-            )}
+            {/* Sous 1180 px, la navigation passe dans ce menu, sur l'accueil comme sur les autres pages. */}
+            <button
+              type="button"
+              className="os-menu-btn os-mono"
+              aria-expanded={menuOpen}
+              aria-controls="os-menu"
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? 'Fermer' : 'Menu'}
+            </button>
           </div>
         </div>
       </header>
-      {!isHome && (
-        <>
-          <div className="os-header-spacer" aria-hidden="true" />
-          <nav id="os-menu" className="os-menu" aria-label="Menu" hidden={!menuOpen}>
-            <ul>
-              {SECTIONS.map((s, i) => (
-                <li key={s.letter}>
+      {!isHome && <div className="os-header-spacer" aria-hidden="true" />}
+      <nav id="os-menu" className="os-menu" aria-label="Menu" hidden={!menuOpen}>
+        <ul>
+          {SECTIONS.map((s, i) => {
+            const className = cn(i === active && 'on')
+            const content = (
+              <>
+                <span>{s.letter}</span>
+                {s.label}
+              </>
+            )
+            return (
+              <li key={s.letter}>
+                {isHome ? (
+                  <a
+                    href={s.anchor}
+                    className={className}
+                    aria-current={i === active ? 'location' : undefined}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {content}
+                  </a>
+                ) : (
                   <Link
                     href={s.page as Route}
-                    className={cn(i === active && 'on')}
+                    className={className}
                     aria-current={i === active ? 'page' : undefined}
                     onClick={() => setMenuOpen(false)}
                   >
-                    <span>{s.letter}</span>
-                    {s.label}
+                    {content}
                   </Link>
-                </li>
-              ))}
-              <li>
-                <Link
-                  href="/about"
-                  className={cn(pathname === '/about' && 'on')}
-                  aria-current={pathname === '/about' ? 'page' : undefined}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <span aria-hidden="true">·</span>À propos
-                </Link>
+                )}
               </li>
-            </ul>
-          </nav>
-        </>
-      )}
+            )
+          })}
+          <li>
+            <Link
+              href="/about"
+              className={cn(pathname === '/about' && 'on')}
+              aria-current={pathname === '/about' ? 'page' : undefined}
+              onClick={() => setMenuOpen(false)}
+            >
+              <span aria-hidden="true">·</span>À propos
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </>
   )
 }
