@@ -1,6 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.08 10.08">
-  <g id="Calque_1-2" data-name="Calque 1">
-    <path fill="white" d="M4.8,0H.46C.2,0,0,.2,0,.46v4.34c0,2.89,2.33,5.38,5.22,5.28,2.64-.09,4.76-2.22,4.85-4.86C10.18,2.33,7.69,0,4.8,0ZM5.04,6.99c-1.08,0-1.95-.87-1.95-1.95s.87-1.95,1.95-1.95,1.95.87,1.95,1.95-.87,1.95-1.95,1.95Z"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-labelledby="title"><title id="title">Origin Studio — Origin-Studio-favicon.svg</title><g transform="translate(12 12)"><g fill="#171714"><path d="M0 0H144V60H60V156H0Z"/><path d="M156 72H216V216H60V156H156Z"/></g><rect x="156" y="0" width="60" height="60" fill="#DA291C"/><path d="M180 10H192V24H206V36H192V50H180V36H166V24H180Z" fill="#FFFFFF"/></g></svg>

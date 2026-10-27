@@ -123,7 +123,7 @@ export function AssemblyScene() {
       boxDist.push(5 + R() * 9)
     }
 
-    const palette = [new Color('#ECEAE4'), new Color('#D8D3C9'), new Color('#B9B2A5'), new Color('#C8281C')]
+    const palette = [new Color('#ECEAE4'), new Color('#D8D3C9'), new Color('#B9B2A5'), new Color('#DA291C')]
     const RED = palette[3]
 
     const targets: Target[][] = configs.map((cfg, ci) => {

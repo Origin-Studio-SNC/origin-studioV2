@@ -6,7 +6,7 @@
  */
 export const SITE_URL = 'https://www.origin-studio.ch'
 
-export const DEFAULT_OG_IMAGE_PATH = '/img/og-image-origin-studio.png'
+export const DEFAULT_OG_IMAGE_PATH = '/img/og-origin-studio.png'
 
 export const DEFAULT_OG_IMAGE = {
   url: DEFAULT_OG_IMAGE_PATH,

@@ -1,0 +1,11 @@
+Origin Studio — fichiers vectoriels finaux
+
+Tous les caractères sont vectorisés en courbes. Aucune police ni image incorporée.
+Origin-Studio.svg : logo noir sur fond transparent.
+Versions fond clair et fond noir : fond incorporé.
+Version blanc-transparent : pour intégration sur fond sombre.
+Favicon : symbole seul, noir sur fond transparent ; variante sur fond noir incluse.
+
+Palette : noir #171714, ivoire #F1F0EA, rouge #DA291C, croix #FFFFFF.
+Construction du symbole : grille 216 × 216 ; module 60 ; espaces 12 ; drapeau carré 60 × 60 ; croix centrée.
+Le lettrage reprend les contours de la proposition validée ; le symbole est redessiné géométriquement.

@@ -7,10 +7,10 @@
 :root {
   /* ─── Refonte 3D : tokens de la maquette (docs/refonte-3d/maquette.html) ─── */
   --paper: #f1efea;
-  --ink: #161513;
+  --ink: #171714;
   --mute: #5f5b53;
   --line: #d5d1c8;
-  --red: #c8281c;
+  --red: #da291c;
   --panel: rgba(241, 239, 234, 0.88);
 
   /* Teintes intermédiaires, reprises de la palette des boîtes de la scène 3D. */
@@ -217,28 +217,6 @@ h1.page-hero-title {
   text-transform: none;
 }
 
-/* ─── Signature du logo (moment authored, une fois, hero de la home) ─── */
-.logo-draw path {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  fill-opacity: 0;
-  animation:
-    logo-draw-stroke 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-    logo-draw-fill 0.4s ease-out 0.6s forwards;
-}
-
-@keyframes logo-draw-stroke {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes logo-draw-fill {
-  to {
-    fill-opacity: 1;
-  }
-}
-
 /* ─── ServiceVisual : automatisation — le tracé "coule" le long du pipeline ─── */
 .flow-path {
   stroke-dasharray: 10 14;
@@ -364,7 +342,6 @@ h1.page-hero-title {
 .signal-ping-ring {
   position: absolute;
   inset: -20%;
-  border-radius: 999px;
   border: 1px solid currentColor;
   opacity: 0;
   animation: signal-ping 1.3s cubic-bezier(0.16, 1, 0.3, 1) 2;
@@ -475,12 +452,6 @@ h1.page-hero-title {
   .reveal.reveal-line {
     transform: none;
     transition: none;
-  }
-
-  .logo-draw path {
-    animation: none;
-    stroke-dashoffset: 0;
-    fill-opacity: 1;
   }
 
   .signal-ping-ring {

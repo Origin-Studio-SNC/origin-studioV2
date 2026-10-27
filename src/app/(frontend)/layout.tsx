@@ -63,7 +63,8 @@ const organizationJsonLd = {
   '@type': 'ProfessionalService',
   name: 'Origin Studio',
   url: 'https://www.origin-studio.ch/',
-  image: 'https://www.origin-studio.ch/img/logo_origin_full.svg',
+  image: 'https://www.origin-studio.ch/img/origin-studio-logo.png',
+  logo: 'https://www.origin-studio.ch/img/origin-studio-logo.png',
   email: 'info@origin-studio.ch',
   telephone: '+41791763992',
   areaServed: [

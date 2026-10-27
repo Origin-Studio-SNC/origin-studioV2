@@ -1,6 +1,7 @@
 'use client'
 
 import type { Route } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -30,6 +31,21 @@ const SECTIONS = [
 function sectionForPath(pathname: string) {
   return SECTIONS.findIndex(
     (s) => s.page !== '/' && !s.page.startsWith('/#') && (pathname === s.page || pathname.startsWith(`${s.page}/`)),
+  )
+}
+
+/** Logo complet (docs/refonte-3d/logo) ; le nom accessible est porté par le lien. */
+function BrandLogo() {
+  return (
+    <Image
+      src="/img/origin-studio-logo.svg"
+      alt=""
+      width={121}
+      height={24}
+      priority
+      unoptimized
+      className="os-brand-logo"
+    />
   )
 }
 
@@ -71,11 +87,11 @@ export function SiteHeader() {
         <div className="os-hbar">
           {isHome ? (
             <a className="os-brand" href="#accueil" aria-label="Origin Studio, accueil">
-              <i aria-hidden="true"></i>Origin Studio
+              <BrandLogo />
             </a>
           ) : (
             <Link className="os-brand" href="/" aria-label="Origin Studio, accueil">
-              <i aria-hidden="true"></i>Origin Studio
+              <BrandLogo />
             </Link>
           )}
           <nav className="os-nav" aria-label={isHome ? 'Sections' : 'Principale'}>
