@@ -2,6 +2,8 @@
 
 import Link from 'next/link'
 
+import { EMAIL } from '@/lib/contact'
+
 import { useSitePath } from './useSitePath'
 
 /**
@@ -16,7 +18,9 @@ export function SiteFooter() {
     <footer className="os-footer os-mono">
       <span>© {new Date().getFullYear()} Origin Studio</span>
       <span>Genève, Suisse</span>
-      <a href="mailto:info@origin-studio.ch">info@origin-studio.ch</a>
+      <Link href="/services">Services &amp; tarifs</Link>
+      <Link href="/about">À propos</Link>
+      <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
       <a href="https://www.linkedin.com/company/origin-studio-swiss" target="_blank" rel="noopener noreferrer">
         LinkedIn
       </a>

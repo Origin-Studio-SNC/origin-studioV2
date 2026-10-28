@@ -2,6 +2,7 @@ import { CheckCircle } from '@phosphor-icons/react/ssr'
 import React from 'react'
 
 import { Reveal } from '@/components/motion/Reveal'
+import { PHONE_DISPLAY, PHONE_HREF, whatsappMessageFor, whatsappUrl } from '@/lib/contact'
 
 const PROPS = [
   {
@@ -51,10 +52,18 @@ export function ContactSidebar() {
             Nous appeler
           </p>
           <a
-            href="tel:+41791763992"
+            href={PHONE_HREF}
             className="wrap-break-words text-lg text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary sm:text-xl"
           >
-            +41 79 176 39 92
+            {PHONE_DISPLAY}
+          </a>
+          <a
+            href={whatsappUrl(whatsappMessageFor())}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 block text-sm text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
+          >
+            ou écrivez-nous sur WhatsApp
           </a>
         </div>
       </Reveal>
@@ -63,23 +72,23 @@ export function ContactSidebar() {
         <div className="flex flex-col gap-12">
           <div className="h-px w-full bg-border" aria-hidden />
           <ul className="m-0 w-full list-none space-y-8 p-0">
-        {PROPS.map((item) => (
-          <li key={item.title} className="flex w-full gap-3 text-left">
-            <CheckCircle
-              className="mt-0.5 size-5 shrink-0 text-primary"
-              weight="fill"
-              aria-hidden
-            />
-            <div className="min-w-0 flex-1">
-              <div className="text-[11px] font-semibold tracking-[0.15em] text-foreground uppercase">
-                {item.title}
-              </div>
-              <div className="mt-1 text-sm font-light leading-relaxed text-muted-foreground">
-                {item.body}
-              </div>
-            </div>
-          </li>
-        ))}
+            {PROPS.map((item) => (
+              <li key={item.title} className="flex w-full gap-3 text-left">
+                <CheckCircle
+                  className="mt-0.5 size-5 shrink-0 text-primary"
+                  weight="fill"
+                  aria-hidden
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="text-[11px] font-semibold tracking-[0.15em] text-foreground uppercase">
+                    {item.title}
+                  </div>
+                  <div className="mt-1 text-sm font-light leading-relaxed text-muted-foreground">
+                    {item.body}
+                  </div>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       </Reveal>

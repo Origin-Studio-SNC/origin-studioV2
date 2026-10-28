@@ -5,10 +5,12 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import { Archivo, JetBrains_Mono } from 'next/font/google'
-import { ChatWidget } from '@/components/chat/ChatWidget'
+import { ContactLauncher } from '@/components/chat/ContactLauncher'
 import { CookieBanner } from '@/components/CookieBanner'
 import { SiteFooter } from '@/components/site/SiteFooter'
+import { ScrollRail } from '@/components/site/ScrollRail'
 import { SiteHeader } from '@/components/site/SiteHeader'
+import { EMAIL, PHONE_E164 } from '@/lib/contact'
 import { cn } from '@/lib/utils'
 import { DEFAULT_OG_IMAGE, SITE_URL } from '@/lib/seo'
 
@@ -65,8 +67,8 @@ const organizationJsonLd = {
   url: 'https://www.origin-studio.ch/',
   image: 'https://www.origin-studio.ch/img/origin-studio-logo.png',
   logo: 'https://www.origin-studio.ch/img/origin-studio-logo.png',
-  email: 'info@origin-studio.ch',
-  telephone: '+41791763992',
+  email: EMAIL,
+  telephone: PHONE_E164,
   areaServed: [
     'Genève',
     'Meyrin',
@@ -100,9 +102,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     // Variables de police sur <html> : les tokens de :root (--font-sans, --font-serif)
     // peuvent ainsi s'appuyer sur --font-archivo.
-    <html lang="fr" className={cn(archivo.variable, jetbrainsMono.variable)} suppressHydrationWarning>
+    <html lang="fr" className={cn(archivo.variable, jetbrainsMono.variable, 'motion-safe:scroll-smooth')} suppressHydrationWarning>
       <body
-        className={cn('h-full scroll-smooth antialiased overflow-x-hidden', archivo.className)}
+        className={cn('h-full antialiased overflow-x-hidden', archivo.className)}
         suppressHydrationWarning
       >
         <script
@@ -113,8 +115,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <SiteHeader />
         <main className="flex flex-1 flex-col">{children}</main>
         <SiteFooter />
+        <ScrollRail />
         <CookieBanner />
-        <ChatWidget />
+        <ContactLauncher />
         <Analytics />
         <SpeedInsights />
       </body>

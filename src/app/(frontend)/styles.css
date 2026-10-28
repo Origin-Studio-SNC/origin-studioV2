@@ -126,17 +126,21 @@ p {
   }
 }
 
-a {
-  color: currentColor;
+/* Dans @layer base : une règle hors layer bat toutes les utilitaires Tailwind
+   (`text-primary-foreground`…), ce qui donnait des boutons noir sur noir. */
+@layer base {
+  a {
+    color: currentColor;
 
-  &:focus {
-    opacity: 0.8;
-    outline: none;
-  }
+    &:focus {
+      opacity: 0.8;
+      outline: none;
+    }
 
-  &:active {
-    opacity: 0.7;
-    outline: none;
+    &:active {
+      opacity: 0.7;
+      outline: none;
+    }
   }
 }
 
@@ -380,6 +384,204 @@ h1.page-hero-title {
   }
 }
 
+/* ─── Fiche réalisation ─── */
+.case-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 1px solid var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+
+.case-btn--dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.case-btn--dark:hover {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.case-btn--ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.case-btn--ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.case-block {
+  position: relative;
+  height: 100%;
+  padding: 32px 0 40px;
+
+  @media (min-width: 768px) {
+    padding: 36px 28px 44px;
+    border-left: 1px solid var(--line);
+  }
+
+  /* Filet qui se dessine quand le wrapper `Reveal` devient visible */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  }
+}
+
+.reveal-visible .case-block::before {
+  transform: scaleX(1);
+}
+
+/* Chaque .case-block est l'enfant unique de son wrapper Reveal : on cible le 1er item de la grille */
+.case-grid > :first-child .case-block {
+  @media (min-width: 768px) {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+.case-block--result {
+  background: var(--paper-2);
+  border-left: 0;
+
+  &::before {
+    background: var(--red);
+  }
+}
+
+.case-block__idx {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute);
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--red);
+  }
+}
+
+.case-block__title {
+  margin: 18px 0 24px;
+  font-family: var(--font-archivo), 'Helvetica Neue', Arial, sans-serif;
+  font-variation-settings: 'wdth' 114;
+  font-weight: 700;
+  font-size: clamp(30px, 2.8vw, 42px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+/* Rendu du texte riche Payload (le plugin typography n'est pas installé) */
+.case-prose {
+  color: var(--mute);
+  font-size: 16px;
+  line-height: 1.6;
+  /* Une longue chaîne sans espace ne doit pas élargir la colonne de la grille */
+  overflow-wrap: anywhere;
+
+  p {
+    margin: 0 0 14px;
+  }
+
+  h2,
+  h3,
+  h4 {
+    margin: 22px 0 8px;
+    font-size: 17px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  ul,
+  ol {
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    padding: 6px 0 6px 20px;
+    border-top: 1px solid var(--line);
+  }
+
+  ul > li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 6px;
+    height: 6px;
+    background: var(--red);
+  }
+
+  ol {
+    counter-reset: case-step;
+  }
+
+  ol > li {
+    counter-increment: case-step;
+  }
+
+  ol > li::before {
+    content: counter(case-step, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 9px;
+    font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--red);
+  }
+
+  ol > li {
+    padding-left: 30px;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
 /* ─── Reveal animation (remplace Motion) ─── */
 @keyframes reveal {
   from {
@@ -451,6 +653,12 @@ h1.page-hero-title {
   .reveal.reveal-scale,
   .reveal.reveal-line {
     transform: none;
+    transition: none;
+  }
+
+  /* Filet des blocs de fiche réalisation : affiché d'emblée, sans se dessiner */
+  .case-block::before {
+    transform: scaleX(1);
     transition: none;
   }
 
