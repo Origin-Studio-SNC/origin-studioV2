@@ -296,3 +296,108 @@ body::before {
   background: var(--red);
   border-color: var(--red);
 }
+
+/* ─── Lanceur de contact (WhatsApp + assistant) ─── */
+.os-launch {
+  position: fixed;
+  right: 20px;
+  bottom: calc(var(--cookie-banner-h, 0px) + 20px);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+@media (min-width: 768px) {
+  .os-launch {
+    right: 32px;
+    bottom: calc(var(--cookie-banner-h, 0px) + 32px);
+  }
+}
+
+.os-launch-btn {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    border-color 0.25s;
+}
+
+.os-launch-btn:hover,
+.os-launch-btn[aria-expanded='true'] {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.os-launch-btn:focus-visible,
+.os-launch-item:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.os-launch-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  min-width: 236px;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  animation: os-launch-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.os-launch-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.os-launch-item:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.os-launch-item small {
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--mute);
+}
+
+.os-launch-item:hover small {
+  color: var(--paper-3);
+}
+
+@keyframes os-launch-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .os-launch-item {
+    animation: none;
+  }
+}

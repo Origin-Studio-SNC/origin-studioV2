@@ -1,6 +1,6 @@
 /**
  * État de fermeture de `CookieBanner`, persisté dans `localStorage`.
- * Les widgets flottants (ex. `ChatWidget`) n'en dépendent pas : ils se décalent via la
+ * Les widgets flottants (ex. `ContactLauncher`) n'en dépendent pas : ils se décalent via la
  * variable CSS `--cookie-banner-h` que le bandeau expose tant qu'il est affiché.
  */
 

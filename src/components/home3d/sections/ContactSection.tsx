@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { EMAIL, PHONE_DISPLAY, whatsappUrl } from '@/lib/contact'
+
 import { CopyButton } from './CopyButton'
 import { SceneContactForm } from './SceneContactForm'
 import { SceneSection } from './SceneSection'
@@ -17,15 +19,23 @@ export function ContactSection() {
       <div className="contact">
         <div className="cline">
           <span className="v" id="mail">
-            info@origin-studio.ch
+            {EMAIL}
           </span>
           <CopyButton target="mail" />
         </div>
         <div className="cline">
           <span className="v" id="tel">
-            +41 79 176 39 92
+            {PHONE_DISPLAY}
           </span>
           <CopyButton target="tel" />
+          <a
+            className="mono"
+            href={whatsappUrl("Bonjour Origin Studio, j'aimerais discuter d'un projet.")}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
         </div>
       </div>
       <footer className="mono">

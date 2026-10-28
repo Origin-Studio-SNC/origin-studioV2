@@ -2,6 +2,7 @@ import { CheckCircle } from '@phosphor-icons/react/ssr'
 import React from 'react'
 
 import { Reveal } from '@/components/motion/Reveal'
+import { PHONE_DISPLAY, PHONE_HREF, whatsappUrl } from '@/lib/contact'
 
 const PROPS = [
   {
@@ -51,10 +52,18 @@ export function ContactSidebar() {
             Nous appeler
           </p>
           <a
-            href="tel:+41791763992"
+            href={PHONE_HREF}
             className="wrap-break-words text-lg text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary sm:text-xl"
           >
-            +41 79 176 39 92
+            {PHONE_DISPLAY}
+          </a>
+          <a
+            href={whatsappUrl("Bonjour Origin Studio, j'aimerais discuter d'un projet.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 block text-sm text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
+          >
+            ou écrivez-nous sur WhatsApp
           </a>
         </div>
       </Reveal>

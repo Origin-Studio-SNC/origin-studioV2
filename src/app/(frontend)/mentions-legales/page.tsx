@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { PHONE_DISPLAY, PHONE_HREF } from '@/lib/contact'
+
 export const metadata: Metadata = {
   title: 'Mentions légales — Origin Studio',
   description: 'Informations légales relatives à Origin Studio, agence web basée à Genève.',
@@ -37,8 +39,8 @@ export default function MentionsLegalesPage() {
               </a>
               <br />
               Téléphone :{' '}
-              <a href="tel:+41791763992" className="text-primary hover:underline">
-                +41 79 176 39 92
+              <a href={PHONE_HREF} className="text-primary hover:underline">
+                {PHONE_DISPLAY}
               </a>
             </p>
           </section>
