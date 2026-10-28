@@ -72,23 +72,23 @@ export function ContactSidebar() {
         <div className="flex flex-col gap-12">
           <div className="h-px w-full bg-border" aria-hidden />
           <ul className="m-0 w-full list-none space-y-8 p-0">
-        {PROPS.map((item) => (
-          <li key={item.title} className="flex w-full gap-3 text-left">
-            <CheckCircle
-              className="mt-0.5 size-5 shrink-0 text-primary"
-              weight="fill"
-              aria-hidden
-            />
-            <div className="min-w-0 flex-1">
-              <div className="text-[11px] font-semibold tracking-[0.15em] text-foreground uppercase">
-                {item.title}
-              </div>
-              <div className="mt-1 text-sm font-light leading-relaxed text-muted-foreground">
-                {item.body}
-              </div>
-            </div>
-          </li>
-        ))}
+            {PROPS.map((item) => (
+              <li key={item.title} className="flex w-full gap-3 text-left">
+                <CheckCircle
+                  className="mt-0.5 size-5 shrink-0 text-primary"
+                  weight="fill"
+                  aria-hidden
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="text-[11px] font-semibold tracking-[0.15em] text-foreground uppercase">
+                    {item.title}
+                  </div>
+                  <div className="mt-1 text-sm font-light leading-relaxed text-muted-foreground">
+                    {item.body}
+                  </div>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       </Reveal>

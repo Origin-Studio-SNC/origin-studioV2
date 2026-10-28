@@ -15,7 +15,7 @@ export function whatsappMessageFor(pathname?: string) {
   if (pathname?.startsWith('/realisations/')) {
     return "Bonjour Origin Studio, j'ai vu l'une de vos réalisations et j'aimerais un projet similaire. Pouvez-vous me rappeler ?"
   }
-  return "Bonjour Origin Studio, je souhaiterais lancer un projet. Pouvez-vous me rappeler ?"
+  return 'Bonjour Origin Studio, je souhaiterais lancer un projet. Pouvez-vous me rappeler ?'
 }
 
 /** Lien WhatsApp (wa.me attend le numéro sans « + »), message prérempli optionnel. */

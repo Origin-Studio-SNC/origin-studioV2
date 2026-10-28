@@ -11,7 +11,7 @@ export function AccueilSection() {
         taillé, puis assemblé avec précision.
       </p>
       <p className="mono hint">
-        <b aria-hidden="true"></b>Chaque pièce trouve sa place.
+        <b aria-hidden="true"></b>Réponse sous 24 h · Devis gratuit.
       </p>
       <div className="cta">
         <a className="btn dark" href="#contact">
