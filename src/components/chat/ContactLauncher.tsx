@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import { ChatWindow } from '@/components/chat/ChatWindow'
-import { whatsappUrl } from '@/lib/contact'
+import { whatsappMessageFor, whatsappUrl } from '@/lib/contact'
 
 /**
  * Un seul bouton flottant qui s'ouvre en deux : WhatsApp (humain) ou assistant (chatbot).
@@ -52,16 +52,14 @@ export function ContactLauncher() {
           <>
             <a
               className="os-launch-item"
-              href={whatsappUrl(
-                `Bonjour Origin Studio, j'ai une question à propos de votre site (${pathname}).`,
-              )}
+              href={whatsappUrl(whatsappMessageFor(pathname))}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
             >
               <WhatsappLogo className="size-5" weight="fill" aria-hidden />
               <span>
-                WhatsApp <small>· réponse rapide</small>
+                WhatsApp <small>· on vous rappelle</small>
               </span>
             </a>
             <button

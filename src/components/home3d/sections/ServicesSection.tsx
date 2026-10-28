@@ -81,8 +81,9 @@ export function ServicesSection() {
             <li key={s.g}>
               <SceneRow scene={1} g={s.g} href={s.offer ? offerHref[s.offer] : '/services'}>
                 <strong>{s.title}</strong>
-                <em>{price ? `${s.floor} · dès ${price} CHF` : s.floor}</em>
+                <em>{s.floor}</em>
                 <small>{s.text}</small>
+                <span className="price">{price ? `Dès ${price} CHF` : 'Voir les offres'}</span>
               </SceneRow>
             </li>
           )

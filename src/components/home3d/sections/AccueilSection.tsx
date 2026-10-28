@@ -4,7 +4,7 @@ export function AccueilSection() {
   return (
     <SceneSection id="accueil" scene={0}>
       <span className="mono lbl">Agence web · Genève</span>
-      <h1>Sites web et applications sur mesure, conçus à Genève.</h1>
+      <h1>On construit votre présence en ligne, pièce par pièce.</h1>
       <p className="lead">
         Nous concevons et développons des sites, boutiques en ligne et applications pour les PME,
         les commerces et les professions libérales de Suisse romande. Chaque élément est pensé,

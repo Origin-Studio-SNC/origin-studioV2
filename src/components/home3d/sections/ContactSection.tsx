@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { EMAIL, PHONE_DISPLAY, whatsappUrl } from '@/lib/contact'
+import { EMAIL, PHONE_DISPLAY, whatsappMessageFor, whatsappUrl } from '@/lib/contact'
 
 import { CopyButton } from './CopyButton'
 import { SceneContactForm } from './SceneContactForm'
@@ -30,7 +30,7 @@ export function ContactSection() {
           <CopyButton target="tel" />
           <a
             className="mono"
-            href={whatsappUrl("Bonjour Origin Studio, j'aimerais discuter d'un projet.")}
+            href={whatsappUrl(whatsappMessageFor())}
             target="_blank"
             rel="noopener noreferrer"
           >

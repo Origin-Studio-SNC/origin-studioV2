@@ -2,7 +2,7 @@ import { CheckCircle } from '@phosphor-icons/react/ssr'
 import React from 'react'
 
 import { Reveal } from '@/components/motion/Reveal'
-import { PHONE_DISPLAY, PHONE_HREF, whatsappUrl } from '@/lib/contact'
+import { PHONE_DISPLAY, PHONE_HREF, whatsappMessageFor, whatsappUrl } from '@/lib/contact'
 
 const PROPS = [
   {
@@ -58,7 +58,7 @@ export function ContactSidebar() {
             {PHONE_DISPLAY}
           </a>
           <a
-            href={whatsappUrl("Bonjour Origin Studio, j'aimerais discuter d'un projet.")}
+            href={whatsappUrl(whatsappMessageFor())}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-2 block text-sm text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
