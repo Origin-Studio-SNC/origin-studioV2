@@ -8,6 +8,7 @@ import { Archivo, JetBrains_Mono } from 'next/font/google'
 import { ContactLauncher } from '@/components/chat/ContactLauncher'
 import { CookieBanner } from '@/components/CookieBanner'
 import { SiteFooter } from '@/components/site/SiteFooter'
+import { ScrollRail } from '@/components/site/ScrollRail'
 import { SiteHeader } from '@/components/site/SiteHeader'
 import { EMAIL, PHONE_E164 } from '@/lib/contact'
 import { cn } from '@/lib/utils'
@@ -101,9 +102,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     // Variables de police sur <html> : les tokens de :root (--font-sans, --font-serif)
     // peuvent ainsi s'appuyer sur --font-archivo.
-    <html lang="fr" className={cn(archivo.variable, jetbrainsMono.variable)} suppressHydrationWarning>
+    <html lang="fr" className={cn(archivo.variable, jetbrainsMono.variable, 'motion-safe:scroll-smooth')} suppressHydrationWarning>
       <body
-        className={cn('h-full scroll-smooth antialiased overflow-x-hidden', archivo.className)}
+        className={cn('h-full antialiased overflow-x-hidden', archivo.className)}
         suppressHydrationWarning
       >
         <script
@@ -114,6 +115,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <SiteHeader />
         <main className="flex flex-1 flex-col">{children}</main>
         <SiteFooter />
+        <ScrollRail />
         <CookieBanner />
         <ContactLauncher />
         <Analytics />

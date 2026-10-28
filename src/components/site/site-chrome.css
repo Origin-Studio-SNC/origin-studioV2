@@ -401,3 +401,182 @@ body::before {
     animation: none;
   }
 }
+
+/* ─── Rail de défilement : filet fin + cube rouge qui descend ─── */
+.os-rail {
+  --rail-p: 0;
+  display: none;
+  position: fixed;
+  z-index: 48;
+  right: 4px;
+  top: 96px;
+  bottom: 28px;
+  width: 16px;
+  transition: opacity 0.3s;
+}
+
+/* Souris + écran large seulement : ailleurs, la scrollbar native (overlay) reste. */
+@media (min-width: 769px) and (pointer: fine) {
+  .os-rail {
+    display: block;
+  }
+
+  html.has-scroll-rail {
+    scrollbar-width: none;
+  }
+
+  html.has-scroll-rail::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.os-rail[data-empty='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.os-rail-track {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.os-rail-track::before,
+.os-rail-fill {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  margin-left: -0.5px;
+}
+
+.os-rail-track::before {
+  bottom: 0;
+  background: var(--line);
+}
+
+.os-rail-fill {
+  height: calc(var(--rail-p) * 100%);
+  background: var(--ink);
+}
+
+.os-rail-tick {
+  position: absolute;
+  right: 50%;
+  width: 7px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  background: var(--mute);
+  transform: translateY(-0.5px);
+  cursor: pointer;
+  transition:
+    width 0.25s,
+    background 0.25s;
+}
+
+/* Zone de clic plus large que le trait */
+.os-rail-tick::after {
+  content: '';
+  position: absolute;
+  inset: -7px -3px;
+}
+
+.os-rail-tick.is-active {
+  width: 12px;
+  background: var(--red);
+}
+
+.os-rail-thumb {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--rail-p) * 100%);
+  width: 0;
+  height: 0;
+  perspective: 120px;
+  pointer-events: none;
+}
+
+.os-cube {
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  transform-style: preserve-3d;
+  transform: rotateX(-24deg) rotateY(calc(var(--rail-p) * 720deg + 35deg));
+}
+
+.os-cube i {
+  position: absolute;
+  inset: 0;
+  background: var(--red);
+}
+
+.os-cube i:nth-child(1) {
+  transform: translateZ(6px);
+}
+.os-cube i:nth-child(2) {
+  transform: rotateY(180deg) translateZ(6px);
+  background: #a81d13;
+}
+.os-cube i:nth-child(3) {
+  transform: rotateY(90deg) translateZ(6px);
+  background: #b21f14;
+}
+.os-cube i:nth-child(4) {
+  transform: rotateY(-90deg) translateZ(6px);
+  background: #c4241a;
+}
+.os-cube i:nth-child(5) {
+  transform: rotateX(90deg) translateZ(6px);
+  background: #ef5a4d;
+}
+.os-cube i:nth-child(6) {
+  transform: rotateX(-90deg) translateZ(6px);
+  background: #8f1810;
+}
+
+.os-rail.is-dragging .os-cube {
+  filter: drop-shadow(0 0 6px rgba(218, 41, 28, 0.5));
+}
+
+/* Lettre de la section en cours + pourcentage, visibles pendant le scroll et au survol */
+.os-rail-label {
+  position: absolute;
+  right: 22px;
+  top: calc(var(--rail-p) * 100%);
+  transform: translateY(-50%);
+  padding: 3px 7px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.os-rail:hover .os-rail-label,
+.os-rail.is-scrolling .os-rail-label,
+.os-rail.is-dragging .os-rail-label {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .os-cube {
+    transform: rotateX(-24deg) rotateY(35deg);
+  }
+
+  .os-rail,
+  .os-rail-tick,
+  .os-rail-label {
+    transition: none;
+  }
+}
