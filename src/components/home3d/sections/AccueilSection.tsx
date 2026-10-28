@@ -4,11 +4,14 @@ export function AccueilSection() {
   return (
     <SceneSection id="accueil" scene={0}>
       <span className="mono lbl">Agence web · Genève</span>
-      <h1>Chaque pièce trouve sa place.</h1>
+      <h1>Sites web et applications sur mesure, conçus à Genève.</h1>
       <p className="lead">
-        Nous concevons et développons des sites et des applications sur mesure. Chaque élément est
-        pensé, taillé, puis assemblé avec précision, pour les PME, les commerces et les professions
-        libérales de Suisse romande.
+        Nous concevons et développons des sites, boutiques en ligne et applications pour les PME,
+        les commerces et les professions libérales de Suisse romande. Chaque élément est pensé,
+        taillé, puis assemblé avec précision.
+      </p>
+      <p className="mono hint">
+        <b aria-hidden="true"></b>Chaque pièce trouve sa place.
       </p>
       <div className="cta">
         <a className="btn dark" href="#contact">
