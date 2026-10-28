@@ -41,7 +41,9 @@ export function ContactSection() {
       <footer className="mono">
         <span>© 2026 Origin Studio</span>
         <span>Genève, Suisse</span>
+        <Link href="/about">À propos</Link>
         <Link href="/mentions-legales">Mentions légales</Link>
+        <Link href="/politique-de-confidentialite">Confidentialité</Link>
       </footer>
     </SceneSection>
   )
