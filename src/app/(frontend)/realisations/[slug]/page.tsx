@@ -59,6 +59,12 @@ export default async function RealisationPage({
 
   const categoryLabel = CATEGORY_LABELS[project.category ?? ''] ?? project.category
 
+  const caseBlocks = [
+    { title: 'Le défi', content: project.challenge, isResult: false },
+    { title: 'La solution', content: project.solution, isResult: false },
+    { title: 'Les résultats', content: project.results, isResult: true },
+  ].flatMap((b) => (b.content ? [{ ...b, content: b.content }] : []))
+
   const liveHref = normalizeExternalHref(project.liveUrl ?? undefined)
   const githubHref = normalizeExternalHref(project.githubUrl ?? undefined)
 
@@ -120,7 +126,7 @@ export default async function RealisationPage({
                 href={liveHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto sm:px-6"
+                className="case-btn case-btn--dark w-full sm:w-auto"
               >
                 Voir en ligne
                 <ArrowUpRight className="size-4" aria-hidden />
@@ -131,7 +137,7 @@ export default async function RealisationPage({
                 href={githubHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 border border-border px-5 py-3 text-sm text-foreground/70 transition-colors hover:border-foreground/40 sm:w-auto sm:px-6"
+                className="case-btn case-btn--ghost w-full sm:w-auto"
               >
                 Code sur GitHub
                 <ArrowUpRight className="size-4" aria-hidden />
@@ -158,30 +164,22 @@ export default async function RealisationPage({
         )}
 
         {/* Challenge / Solution / Results */}
-        {(project.challenge || project.solution || project.results) && (
-          <Reveal>
-          <div className="mb-20 grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-3">
-            {[
-              { label: '01 — Le défi', content: project.challenge },
-              { label: '02 — La solution', content: project.solution },
-              { label: '03 — Les résultats', content: project.results },
-            ].map(
-              (block) =>
-                block.content && (
-                  <div
-                    key={block.label}
-                    className="bg-background p-8 md:p-10"
-                  >
-                    <p className="section-label mb-6">{block.label}</p>
-                    <div className="prose prose-invert prose-sm max-w-none text-foreground/70">
-                      {/* RichText renderer — à adapter selon ton setup Payload */}
-                      <RichText content={block.content} />
-                    </div>
+        {caseBlocks.length > 0 && (
+          <div className="case-grid mb-20">
+            {caseBlocks.map((block, i) => (
+              <Reveal key={block.title} delay={i * 0.12}>
+                <article
+                  className={`case-block${block.isResult ? ' case-block--result' : ''}`}
+                >
+                  <p className="case-block__idx">{String(i + 1).padStart(2, '0')}</p>
+                  <h2 className="case-block__title">{block.title}</h2>
+                  <div className="case-prose">
+                    <RichText content={block.content} />
                   </div>
-                ),
-            )}
+                </article>
+              </Reveal>
+            ))}
           </div>
-          </Reveal>
         )}
 
         {/* Content principal */}
@@ -244,7 +242,7 @@ export default async function RealisationPage({
           </p>
           <Link
             href="/contact"
-            className="mx-auto inline-flex w-full max-w-xs items-center justify-center gap-2 border border-primary bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 sm:mx-0 sm:w-auto sm:max-w-none sm:px-8"
+            className="case-btn case-btn--dark mx-auto w-full max-w-xs sm:mx-0 sm:w-auto sm:max-w-none"
           >
             Démarrer un projet
             <ArrowUpRight className="size-4" />
