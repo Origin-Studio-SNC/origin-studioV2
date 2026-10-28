@@ -104,7 +104,10 @@ export function ScrollRail() {
     const settle = setTimeout(buildMarks, 400)
 
     const resizeObserver = new ResizeObserver(buildMarks)
+    // `body` a une hauteur fixe (100 %) : c'est `main` qui suit la hauteur réelle du contenu.
     resizeObserver.observe(document.body)
+    const main = document.querySelector('main')
+    if (main) resizeObserver.observe(main)
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', buildMarks)
 
@@ -165,7 +168,8 @@ export function ScrollRail() {
             style={{ top: `${m.p * 100}%` }}
             onPointerDown={(e) => e.stopPropagation()}
             onClick={() =>
-              document.getElementById(m.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              // `auto` laisse le CSS décider (`motion-safe:scroll-smooth` sur <html>)
+              document.getElementById(m.id)?.scrollIntoView({ behavior: 'auto', block: 'start' })
             }
           />
         ))}

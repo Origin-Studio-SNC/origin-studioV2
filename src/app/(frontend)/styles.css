@@ -460,7 +460,8 @@ h1.page-hero-title {
   transform: scaleX(1);
 }
 
-.case-block:first-child {
+/* Chaque .case-block est l'enfant unique de son wrapper Reveal : on cible le 1er item de la grille */
+.case-grid > :first-child .case-block {
   @media (min-width: 768px) {
     border-left: 0;
     padding-left: 0;
@@ -509,6 +510,8 @@ h1.page-hero-title {
   color: var(--mute);
   font-size: 16px;
   line-height: 1.6;
+  /* Une longue chaîne sans espace ne doit pas élargir la colonne de la grille */
+  overflow-wrap: anywhere;
 
   p {
     margin: 0 0 14px;
@@ -650,6 +653,12 @@ h1.page-hero-title {
   .reveal.reveal-scale,
   .reveal.reveal-line {
     transform: none;
+    transition: none;
+  }
+
+  /* Filet des blocs de fiche réalisation : affiché d'emblée, sans se dessiner */
+  .case-block::before {
+    transform: scaleX(1);
     transition: none;
   }
 

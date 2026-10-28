@@ -15,7 +15,15 @@ export function ContactLauncher() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const wasChatOpen = useRef(false)
   const pathname = usePathname()
+
+  // À la fermeture du chat, le focus revient sur le bouton du lanceur.
+  useEffect(() => {
+    if (wasChatOpen.current && !chatOpen) buttonRef.current?.focus()
+    wasChatOpen.current = chatOpen
+  }, [chatOpen])
 
   useEffect(() => {
     if (!menuOpen) return
@@ -79,6 +87,7 @@ export function ContactLauncher() {
         )}
         <button
           type="button"
+          ref={buttonRef}
           className="os-launch-btn"
           onClick={onToggle}
           aria-label={active ? 'Fermer' : 'Nous contacter'}
