@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
@@ -44,6 +45,9 @@ export async function RealisationsSection() {
           </li>
         ))}
       </ul>
+      <Link className="btn ghost" href="/realisations" style={{ alignSelf: 'flex-start' }}>
+        Toutes les réalisations
+      </Link>
     </SceneSection>
   )
 }
