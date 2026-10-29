@@ -15,7 +15,7 @@ function TechRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
           <svg
             viewBox="0 0 24 24"
             aria-hidden
-            className="h-4 w-4 shrink-0 fill-current text-foreground/40 transition-colors duration-300 group-hover:text-primary"
+            className="h-4 w-4 shrink-0 fill-current text-muted-foreground transition-colors duration-300 group-hover:text-primary"
           >
             <path d={tech.path} />
           </svg>

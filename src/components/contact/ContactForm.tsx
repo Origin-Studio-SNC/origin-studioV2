@@ -35,7 +35,7 @@ const SERVICE_QUERY_MAP: Record<string, (typeof PROJECT_TYPES)[number]> = {
 }
 
 const fieldClass =
-  'w-full rounded-lg border border-border bg-card/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/40'
+  'w-full rounded-lg border border-border bg-card/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/40'
 
 const labelClass = 'mb-2 block text-[10px] font-semibold tracking-[0.2em] text-primary uppercase'
 

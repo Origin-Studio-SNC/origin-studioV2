@@ -52,7 +52,7 @@ function TeamMemberCard({
         <h3 className="mb-1 text-xl font-semibold tracking-tight md:text-2xl">{member.name}</h3>
         <p className="mb-4 text-sm text-muted-foreground">{member.role}</p>
         <p className="text-sm leading-relaxed text-foreground/80">{member.description}</p>
-        <p className="mt-auto pt-5 text-xs text-foreground/45">
+        <p className="mt-auto pt-5 text-xs text-muted-foreground">
           <Link href="/contact" className="underline-offset-4 transition-colors hover:text-primary hover:underline">
             Nous écrire
           </Link>

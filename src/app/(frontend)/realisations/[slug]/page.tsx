@@ -77,7 +77,7 @@ export default async function RealisationPage({
         <Reveal>
           <Link
             href="/realisations"
-            className="mb-12 inline-flex items-center gap-2 text-sm text-foreground/50 transition-colors hover:text-foreground"
+            className="mb-12 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft className="size-4" />
             Nos réalisations
@@ -94,7 +94,7 @@ export default async function RealisationPage({
             <h1 className="mb-6 wrap-break-words text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
               {project.title}
             </h1>
-            <p className="mb-8 text-lg text-foreground/60 leading-relaxed">
+            <p className="mb-8 text-lg text-muted-foreground leading-relaxed">
               {project.excerpt}
             </p>
 
@@ -104,7 +104,7 @@ export default async function RealisationPage({
                 {categoryLabel}
               </span>
               {project.badge === 'acces-anticipe' && (
-                <span className="inline-flex items-center gap-1 border border-border/60 bg-card px-2.5 py-1 text-[10px] font-medium text-foreground/60">
+                <span className="inline-flex items-center gap-1 border border-border/60 bg-card px-2.5 py-1 text-[10px] font-medium text-muted-foreground">
                   🔒 Accès anticipé
                 </span>
               )}
@@ -186,7 +186,7 @@ export default async function RealisationPage({
         {project.content && (
           <Reveal>
             <div className="mb-20 min-w-0 max-w-3xl">
-              <div className="prose prose-invert prose-lg max-w-none wrap-break-words prose-pre:max-w-full prose-pre:overflow-x-auto">
+              <div className="post-prose">
                 <RichText content={project.content} />
               </div>
             </div>
@@ -218,7 +218,7 @@ export default async function RealisationPage({
                       className="object-cover"
                     />
                     {item.caption && (
-                      <p className="absolute bottom-3 left-4 text-xs text-foreground/50">
+                      <p className="absolute bottom-3 left-4 text-xs text-muted-foreground">
                         {item.caption}
                       </p>
                     )}
@@ -237,7 +237,7 @@ export default async function RealisationPage({
           <h2 className="mb-6 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
             Un projet similaire ?
           </h2>
-          <p className="mb-8 text-sm text-foreground/55 sm:text-base">
+          <p className="mb-8 text-sm text-muted-foreground sm:text-base">
             Parlons-en — réponse sous 24h, devis gratuit.
           </p>
           <Link

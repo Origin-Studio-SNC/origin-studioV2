@@ -83,7 +83,7 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
                 onClick={() => setActive(cat.value)}
                 className={cn(
                   'h-auto shrink-0 px-3 py-1.5 text-xs sm:px-4 sm:text-sm',
-                  !isActive && 'text-foreground/60 hover:border-foreground/40',
+                  !isActive && 'text-muted-foreground hover:border-foreground/40',
                 )}
               >
                 {cat.label}
@@ -104,7 +104,7 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
               key={s.label}
               className="border border-border bg-card/50 p-6 md:p-8"
             >
-              <p className="mb-2 text-[10px] uppercase tracking-widest text-foreground/50">
+              <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
                 {s.label}
               </p>
               <p className="text-3xl font-light">{s.value}</p>
@@ -121,7 +121,7 @@ function BentoGrid({ projects }: { projects: Project[] }) {
   if (!projects.length) {
     return (
       <Reveal>
-        <p className="py-20 text-center text-foreground/40">
+        <p className="py-20 text-center text-muted-foreground">
           Aucun projet dans cette catégorie.
         </p>
       </Reveal>
@@ -274,7 +274,7 @@ function ProjectCard({
           </a>
         )}
         {project.badge === 'acces-anticipe' && (
-          <span className="pointer-events-none inline-flex items-center gap-1 border border-border/60 bg-background/80 px-2.5 py-1 text-[10px] font-medium text-foreground/60 backdrop-blur-sm">
+          <span className="pointer-events-none inline-flex items-center gap-1 border border-border/60 bg-background/80 px-2.5 py-1 text-[10px] font-medium text-muted-foreground backdrop-blur-sm">
             🔒 Accès anticipé
           </span>
         )}
@@ -287,7 +287,7 @@ function ProjectCard({
       </div>
 
       <div className="pointer-events-none absolute bottom-5 left-5 right-5 z-20">
-        <p className="mb-2 text-xs text-foreground/50">{project.client}</p>
+        <p className="mb-2 text-xs text-muted-foreground">{project.client}</p>
         <h3 className="mb-3 wrap-break-words text-lg font-semibold leading-tight sm:text-xl md:text-2xl">
           {project.title}
         </h3>

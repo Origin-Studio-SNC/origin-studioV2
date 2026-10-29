@@ -53,7 +53,7 @@ export function BlogClient({
             Insights pour{' '}
             <span className="text-primary">PME</span>
             <br />
-            <span className="text-foreground/20">ET STARTUPS</span>{' '}
+            <span className="text-muted-foreground">ET STARTUPS</span>{' '}
             suisses.
           </h1>
           <p
@@ -76,7 +76,7 @@ export function BlogClient({
               className={`shrink-0 border px-3 py-1.5 text-xs transition-colors sm:px-4 sm:text-sm ${
                 active === cat.value
                   ? 'border-primary bg-primary text-primary-foreground'
-                  : 'border-border bg-transparent text-foreground/60 hover:border-foreground/40'
+                  : 'border-border bg-transparent text-muted-foreground hover:border-foreground/40'
               }`}
             >
               {cat.label}
@@ -111,14 +111,14 @@ export function BlogClient({
 
             {/* Content */}
             <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 md:p-10 lg:p-12">
-              <p className="mb-4 text-[11px] uppercase tracking-widest text-foreground/40">
+              <p className="mb-4 text-[11px] uppercase tracking-widest text-muted-foreground">
                 {formatDate(featured.publishedAt)} /{' '}
                 <span className="text-primary">{featured.category}</span>
               </p>
               <h2 className="mb-4 wrap-break-words text-xl font-bold leading-snug transition-colors group-hover:text-primary sm:text-2xl md:text-3xl">
                 {featured.title}
               </h2>
-              <p className="mb-8 line-clamp-3 text-sm text-foreground/55 leading-relaxed">
+              <p className="mb-8 line-clamp-3 text-sm text-muted-foreground leading-relaxed">
                 {featured.excerpt}
               </p>
               <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-foreground transition-colors group-hover:text-primary">
@@ -145,7 +145,7 @@ export function BlogClient({
         {totalPages > 1 && (
           <Reveal>
           <div className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-y-3">
-            <p className="shrink-0 text-xs text-foreground/40 uppercase tracking-widest sm:text-sm">
+            <p className="shrink-0 text-xs text-muted-foreground uppercase tracking-widest sm:text-sm">
               Page {String(currentPage).padStart(2, '0')} —{' '}
               {String(totalPages).padStart(2, '0')}
             </p>
@@ -153,7 +153,7 @@ export function BlogClient({
               {currentPage > 1 && (
                 <Link
                   href={`/blog?page=${currentPage - 1}`}
-                  className="text-xs uppercase tracking-widest text-foreground/50 transition-colors hover:text-foreground sm:text-sm"
+                  className="text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
                 >
                   ← Précédent
                 </Link>
@@ -161,13 +161,13 @@ export function BlogClient({
               {currentPage < totalPages && (
                 <Link
                   href={`/blog?page=${currentPage + 1}`}
-                  className="text-xs uppercase tracking-widest text-foreground/50 transition-colors hover:text-foreground sm:text-sm"
+                  className="text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
                 >
                   Suivant →
                 </Link>
               )}
             </div>
-            <p className="hidden text-xs uppercase tracking-widest text-foreground/30 sm:ml-auto sm:block sm:text-sm">
+            <p className="hidden text-xs uppercase tracking-widest text-muted-foreground sm:ml-auto sm:block sm:text-sm">
               Origin Studio / Journal de bord
             </p>
           </div>
@@ -213,7 +213,7 @@ function ArticleCard({ post, index }: { post: Post; index: number }) {
         <h3 className="mb-3 min-w-0 flex-1 wrap-break-words text-base font-bold leading-snug transition-colors group-hover:text-primary">
           {post.title}
         </h3>
-        <p className="mb-4 line-clamp-2 text-xs text-foreground/50 leading-relaxed">
+        <p className="mb-4 line-clamp-2 text-xs text-muted-foreground leading-relaxed">
           {post.excerpt}
         </p>
         <div className="flex items-center justify-between">
@@ -221,13 +221,13 @@ function ArticleCard({ post, index }: { post: Post; index: number }) {
             {post.tags?.slice(0, 2).map((t) => (
               <span
                 key={t.tag}
-                className=" border border-border px-2 py-0.5 text-[9px] uppercase tracking-wide text-foreground/50"
+                className=" border border-border px-2 py-0.5 text-[9px] uppercase tracking-wide text-muted-foreground"
               >
                 {t.tag}
               </span>
             ))}
           </div>
-          <span className="text-[10px] font-light text-foreground/30 uppercase tracking-widest">
+          <span className="text-[10px] font-light text-muted-foreground uppercase tracking-widest">
             / {String(index).padStart(2, '0')}
           </span>
         </div>
