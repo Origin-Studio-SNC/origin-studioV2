@@ -147,7 +147,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
         )}
 
         <Reveal delay={0.06}>
-          <div className="prose prose-invert prose-lg max-w-none wrap-break-words prose-pre:max-w-full prose-pre:overflow-x-auto">
+          <div className="post-prose">
             <RichText content={post.content} />
           </div>
         </Reveal>
