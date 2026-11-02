@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
 import { PLAN_NAMES, useActivePlan } from '@/components/home3d/sceneStore'
+import { shortcutsEnabled, useShortcutsEnabled } from '@/lib/shortcuts'
 import { cn } from '@/lib/utils'
 
 import { useSitePath } from './useSitePath'
@@ -30,7 +31,10 @@ const SECTIONS = [
 /** Index de la section correspondant à une route hors accueil, -1 si aucune. */
 function sectionForPath(pathname: string) {
   return SECTIONS.findIndex(
-    (s) => s.page !== '/' && !s.page.startsWith('/#') && (pathname === s.page || pathname.startsWith(`${s.page}/`)),
+    (s) =>
+      s.page !== '/' &&
+      !s.page.startsWith('/#') &&
+      (pathname === s.page || pathname.startsWith(`${s.page}/`)),
   )
 }
 
@@ -56,6 +60,7 @@ export function SiteHeader() {
   const active = isHome ? plan : sectionForPath(pathname)
   const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef<HTMLElement>(null)
+  const shortcuts = useShortcutsEnabled()
 
   /*
    * Raccourcis clavier : appuyer sur A à G déclenche le lien correspondant de la navigation
@@ -66,6 +71,7 @@ export function SiteHeader() {
    */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (!shortcutsEnabled()) return
       if (e.defaultPrevented || e.repeat || e.isComposing) return
       if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return
       const index = SECTIONS.findIndex((s) => s.letter.toLowerCase() === e.key.toLowerCase())
@@ -138,7 +144,8 @@ export function SiteHeader() {
                   key={s.letter}
                   href={s.anchor}
                   className={className}
-                  aria-keyshortcuts={s.letter}
+                  aria-keyshortcuts={shortcuts ? s.letter : undefined}
+                  title={shortcuts ? `Raccourci clavier : touche ${s.letter}` : undefined}
                   aria-current={i === active ? 'location' : undefined}
                 >
                   {content}
@@ -148,7 +155,8 @@ export function SiteHeader() {
                   key={s.letter}
                   href={s.page as Route}
                   className={className}
-                  aria-keyshortcuts={s.letter}
+                  aria-keyshortcuts={shortcuts ? s.letter : undefined}
+                  title={shortcuts ? `Raccourci clavier : touche ${s.letter}` : undefined}
                   aria-current={i === active ? 'page' : undefined}
                 >
                   {content}

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { ShortcutsToggle } from '@/components/site/ShortcutsToggle'
 import { EMAIL, PHONE_DISPLAY, whatsappMessageFor, whatsappUrl } from '@/lib/contact'
 
 import { CopyButton } from './CopyButton'
@@ -43,6 +44,7 @@ export function ContactSection() {
         <Link href="/about">À propos</Link>
         <Link href="/mentions-legales">Mentions légales</Link>
         <Link href="/politique-de-confidentialite">Confidentialité</Link>
+        <ShortcutsToggle />
       </footer>
     </SceneSection>
   )
