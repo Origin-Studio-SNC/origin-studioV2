@@ -1,4 +1,4 @@
-/** Aligné sur `ServiceVisual` */
+/** Aligné sur `IsoVisual` */
 export type ServiceOfferVisual = 'wireframe' | 'workflow' | 'devices' | 'commerce'
 
 export type OfferTier = {

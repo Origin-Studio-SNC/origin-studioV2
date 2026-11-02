@@ -1,35 +1,34 @@
 import { SceneRow } from './SceneRow'
 import { SceneSection } from './SceneSection'
 
+/**
+ * Chaque engagement reprend une affirmation déjà publiée ailleurs sur le site :
+ * code livré (À propos), prix publiés (/services), hébergement et stack (FAQ).
+ */
 const engagements = [
   {
-    title: 'Qualité suisse',
-    shape: 'Le bloc',
-    text: 'Une rigueur obsessionnelle dans chaque ligne de code et chaque pixel dessiné.',
+    title: 'Votre code vous appartient',
+    text: 'Pas de cage propriétaire : vous restez libre de faire évoluer votre stack, ou de changer d’équipe.',
   },
   {
-    title: 'Éco-conception',
-    shape: 'Le porte-à-faux',
-    text: "Des sites légers et rapides, à l'empreinte carbone réduite, sans rien sacrifier au design.",
+    title: 'Des prix publiés',
+    text: 'Prix de départ, paliers et délais sont sur la page Services. Le devis fixe le périmètre avant tout engagement.',
   },
   {
-    title: 'Transparence',
-    shape: 'Le cadre ouvert',
-    text: 'Pas de coûts cachés, pas de jargon technique inutile. Vous comprenez ce que vous payez.',
+    title: 'Des sites légers',
+    text: 'Next.js, hébergement en Suisse ou en Europe selon le besoin. Un site rapide consomme aussi moins.',
   },
 ] as const
 
 export function EngagementsSection() {
   return (
     <SceneSection id="engagements" scene={2}>
-      <span className="mono lbl">Plan C · Les trois piliers</span>
-      <h2>Trois engagements, sans exception.</h2>
-      <ul className="rows" data-hl="2">
+      <h2>Nos engagements.</h2>
+      <ul className="rows pledges" data-hl="2">
         {engagements.map((e, g) => (
           <li key={e.title}>
             <SceneRow scene={2} g={g}>
               <strong>{e.title}</strong>
-              <em>{e.shape}</em>
               <small>{e.text}</small>
             </SceneRow>
           </li>

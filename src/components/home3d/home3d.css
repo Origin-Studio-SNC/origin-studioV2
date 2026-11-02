@@ -61,20 +61,6 @@
   gap: 28px;
 }
 
-.home3d .lbl {
-  color: var(--mute);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.home3d .lbl::before {
-  content: '';
-  width: 28px;
-  height: 1px;
-  background: var(--ink);
-}
-
 .home3d h1,
 .home3d h2 {
   font-family: var(--display);
@@ -120,7 +106,32 @@
   border: 1px solid var(--ink);
   transition:
     background 0.25s,
-    color 0.25s;
+    color 0.25s,
+    transform 0.12s ease-out;
+}
+
+/* Retour immédiat à l'appui, pas au relâchement. */
+.home3d .btn:active {
+  transform: scale(0.98);
+}
+
+/* La flèche glisse vers l'avant au survol et au focus clavier (sortie exponentielle, sans rebond). */
+.home3d .btn span[aria-hidden='true'] {
+  display: inline-block;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0, 1);
+}
+
+.home3d .btn:hover span[aria-hidden='true'],
+.home3d .btn:focus-visible span[aria-hidden='true'] {
+  transform: translateX(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home3d .btn:active,
+  .home3d .btn:hover span[aria-hidden='true'],
+  .home3d .btn:focus-visible span[aria-hidden='true'] {
+    transform: none;
+  }
 }
 
 .home3d .btn.dark {
@@ -133,9 +144,18 @@
   border-color: var(--red);
 }
 
+/*
+ * Bouton secondaire : lien souligné avec flèche, sans cadre. Une seule action principale
+ * (le bouton plein), le reste reste discret. Le soulignement passe au rouge au survol.
+ */
+.home3d .btn.ghost {
+  border-color: transparent;
+  padding-inline: 2px;
+  background: linear-gradient(currentColor, currentColor) left bottom 12px / 100% 1px no-repeat;
+}
+
 .home3d .btn.ghost:hover {
-  background: var(--ink);
-  color: var(--paper);
+  color: var(--red);
 }
 
 .home3d .hint {
@@ -143,6 +163,70 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  margin: 0;
+  font-size: 15px;
+}
+
+/*
+ * Repère de défilement : un fil fin et un petit cube rouge qui le descend, écho du rail de droite.
+ * Masqué sous 1100 px (le bandeau cookies et le panneau mobile occupent le bas de l'écran).
+ */
+.home3d .cue {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--cookie-offset, 0px) + 28px);
+  z-index: 20;
+  width: 1px;
+  height: 48px;
+  background: rgba(23, 23, 20, 0.28);
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.2, 0.7, 0, 1);
+}
+
+.home3d .cue.is-gone {
+  opacity: 0;
+}
+
+.home3d .cue i {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 7px;
+  height: 7px;
+  background: var(--red);
+  animation: cue-drop 2.4s cubic-bezier(0.2, 0.7, 0, 1) infinite;
+}
+
+@keyframes cue-drop {
+  0% {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(46px);
+    opacity: 1;
+  }
+  85%,
+  100% {
+    transform: translateY(46px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1099px) {
+  .home3d .cue {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home3d .cue i {
+    animation: none;
+    transform: translateY(20px);
+  }
 }
 
 .home3d .hint b {
@@ -235,6 +319,42 @@
   color: var(--red);
 }
 
+/*
+ * Chaque liste a son poids : les réalisations dominent, le journal reste discret,
+ * les engagements sont des affirmations plus que des entrées de menu.
+ */
+.home3d .works .row {
+  padding-block: 22px;
+}
+
+.home3d .works .row strong {
+  font-size: clamp(22px, 1.9vw, 26px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.home3d .works .row small {
+  font-size: 16px;
+}
+
+.home3d .pledges .row strong {
+  font-size: 22px;
+}
+
+.home3d .pledges .row small {
+  font-size: 16px;
+  max-width: 32em;
+}
+
+.home3d .journal .row {
+  padding-block: 12px;
+}
+
+.home3d .journal .row strong {
+  font-size: 17px;
+  font-weight: 500;
+}
+
 .home3d .steps {
   counter-reset: s;
 }
@@ -303,6 +423,15 @@
   flex-wrap: wrap;
 }
 
+/* Le mono reste pour les données (prix, délais, dates) ; le texte courant repasse en casse normale. */
+.home3d footer.mono,
+.home3d .fld .mono {
+  font-family: var(--body);
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 /* formulaire */
 .home3d .form {
   display: flex;
@@ -328,7 +457,6 @@
 
 .home3d .fld .mono {
   color: var(--mute);
-  font-size: 11px;
 }
 
 .home3d .fld input,

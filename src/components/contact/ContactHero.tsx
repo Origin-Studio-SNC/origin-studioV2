@@ -1,24 +1,17 @@
 export function ContactHero() {
   return (
     <header className="relative z-10 mb-20 md:mb-28 lg:mb-36">
-      <span
-        className="reveal-on-load section-label mb-6 block max-w-none text-mute md:mb-8"
-        style={{ animationDelay: '0.06s' }}
-      >
-        Contact
-      </span>
       <h1
         className="reveal-on-load page-hero-title max-w-5xl wrap-break-words text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-        style={{ animationDelay: '0.16s' }}
+        style={{ animationDelay: '0.1s' }}
       >
-        Un projet <span className="text-primary">en tête ?</span>
+        Parlez-nous de votre projet.
       </h1>
       <p
-        className="reveal-on-load mt-8 max-w-2xl text-base font-light leading-relaxed text-mute md:mt-10 md:text-lg"
-        style={{ animationDelay: '0.26s' }}
+        className="reveal-on-load mt-8 max-w-2xl text-base leading-relaxed text-mute md:mt-10 md:text-lg"
+        style={{ animationDelay: '0.2s' }}
       >
-        Nous transformons des visions complexes en expériences numériques radicales. Échangeons sur
-        votre prochaine révolution.
+        Décrivez votre besoin en quelques lignes. Nous répondons sous 24 h.
       </p>
     </header>
   )

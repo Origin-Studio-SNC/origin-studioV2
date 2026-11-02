@@ -85,7 +85,27 @@ export function AssemblyScene() {
     scene.background = new Color('#F1EFEA')
 
     /* lumière : ciel doux + un soleil bas pour de longues ombres architecturales */
-    const sky = new HemisphereLight('#ffffff', '#c9c3b6', 1.55)
+    const sky = new HemisphereLight('#ffffff', '#c9c3b6', mobile ? 1.55 : 1.2)
+    /*
+     * Faux « ciel occlus » : une lumière douce, verticale, qui projette ses propres ombres.
+     * Elle assombrit le dessous des dalles et les creux entre les pièces, comme une occlusion
+     * ambiante, sans passe de post-traitement. Désactivée sur mobile pour économiser le GPU.
+     */
+    const occ = new DirectionalLight('#fffaf2', mobile ? 0 : 0.75)
+    if (!mobile) {
+      occ.castShadow = true
+      occ.shadow.mapSize.set(1024, 1024)
+      const oc = occ.shadow.camera
+      oc.left = -24
+      oc.right = 24
+      oc.top = 24
+      oc.bottom = -24
+      oc.near = 1
+      oc.far = 90
+      occ.shadow.bias = -0.0008
+      occ.shadow.normalBias = 0.03
+      occ.shadow.radius = 4
+    }
     const sun = new DirectionalLight('#fff6ea', 2.1)
     sun.castShadow = true
     sun.shadow.mapSize.set(mobile ? 1024 : 2048, mobile ? 1024 : 2048)
@@ -98,7 +118,7 @@ export function AssemblyScene() {
     sc.far = 90
     sun.shadow.bias = -0.0006
     sun.shadow.normalBias = 0.02
-    scene.add(sky, sun, sun.target)
+    scene.add(sky, sun, sun.target, occ, occ.target)
 
     const camera = new OrthographicCamera(-1, 1, 1, -1, 0.1, 400)
 
@@ -117,13 +137,22 @@ export function AssemblyScene() {
     const boxDir: [number, number, number][] = []
     const boxDelay: number[] = []
     const boxDist: number[] = []
+    /* Teinte propre à chaque bloc (±3,5 %) : casse l'aplat sans changer la palette.
+       Générateur séparé de `R` pour ne pas modifier la chorégraphie existante. */
+    const RT = rng(77)
+    const boxTint = Array.from({ length: N }, () => 1 + (RT() - 0.5) * 0.07)
     for (let i = 0; i < N; i++) {
       boxDir.push(cardinal[Math.floor(R() * 6)])
       boxDelay.push(R() * 0.42)
       boxDist.push(5 + R() * 9)
     }
 
-    const palette = [new Color('#ECEAE4'), new Color('#D8D3C9'), new Color('#B9B2A5'), new Color('#DA291C')]
+    const palette = [
+      new Color('#ECEAE4'),
+      new Color('#D8D3C9'),
+      new Color('#B9B2A5'),
+      new Color('#DA291C'),
+    ]
     const RED = palette[3]
 
     const targets: Target[][] = configs.map((cfg, ci) => {
@@ -152,6 +181,22 @@ export function AssemblyScene() {
       return T
     })
 
+    /*
+     * Retard d'arrivée par structure : une vague qui part du centre de la structure et gagne
+     * l'extérieur (plus un peu de hasard), au lieu d'un retard purement aléatoire. Le résultat
+     * se lit comme un assemblage. Les blocs inutilisés gardent leur retard aléatoire.
+     */
+    const RW = rng(404)
+    const waveDelay: number[][] = targets.map((T) => {
+      const live = T.filter((t) => t.on)
+      const center = new Vector3()
+      live.forEach((t) => center.add(t.p))
+      center.divideScalar(Math.max(1, live.length))
+      const dist = T.map((t) => (t.on ? t.p.distanceTo(center) : 0))
+      const max = Math.max(1e-6, ...dist)
+      return T.map((t, i) => (t.on ? (dist[i] / max) * 0.34 + RW() * 0.08 : boxDelay[i]))
+    })
+
     /* intro : chaque pièce du plan A part de loin sur un axe, tournée d'un quart */
     const scatter: Target[] = targets[0].map((t, i) => {
       const d = boxDir[i],
@@ -176,6 +221,63 @@ export function AssemblyScene() {
     /* ---------- mesh instancié ---------- */
     const geo = new BoxGeometry(1, 1, 1)
     const mat = new MeshStandardMaterial({ color: '#ffffff', roughness: 0.86, metalness: 0 })
+
+    /*
+     * Arêtes biseautées, sans changer la géométrie : un bloc étiré (dalle de 12 unités sur 0,3)
+     * déformerait un vrai biseau. Le shader lit donc la taille réelle de chaque instance et
+     * incline la normale près des arêtes sur une largeur constante en unités monde, comme un
+     * chanfrein qui accroche la lumière. Les axes de la boîte restent alignés sur ses faces, la
+     * normale se calcule sans matrice inverse.
+     */
+    mat.onBeforeCompile = (shader) => {
+      const varyings = `
+varying vec3 vLocal;
+varying vec3 vSize;
+varying vec3 vAx0;
+varying vec3 vAx1;
+varying vec3 vAx2;`
+      shader.vertexShader = shader.vertexShader
+        .replace('#include <common>', `#include <common>${varyings}`)
+        .replace(
+          '#include <begin_vertex>',
+          `#include <begin_vertex>
+vLocal = position;
+mat4 bevelM = modelViewMatrix;
+vSize = vec3(1.0);
+#ifdef USE_INSTANCING
+  bevelM = modelViewMatrix * instanceMatrix;
+  vSize = vec3(length(instanceMatrix[0].xyz), length(instanceMatrix[1].xyz), length(instanceMatrix[2].xyz));
+#endif
+vAx0 = normalize(bevelM[0].xyz);
+vAx1 = normalize(bevelM[1].xyz);
+vAx2 = normalize(bevelM[2].xyz);`,
+        )
+      shader.fragmentShader = shader.fragmentShader
+        .replace('#include <common>', `#include <common>${varyings}`)
+        .replace(
+          '#include <normal_fragment_begin>',
+          `#include <normal_fragment_begin>
+{
+  vec3 bp = vLocal * vSize;
+  vec3 bd = 0.5 * vSize - abs(bp);
+  float fx = step(bd.x, bd.y) * step(bd.x, bd.z);
+  float fy = (1.0 - fx) * step(bd.y, bd.z);
+  float fz = 1.0 - fx - fy;
+  vec3 de = bd + vec3(fx, fy, fz) * 1000.0;
+  float ex = step(de.x, de.y) * step(de.x, de.z);
+  float ey = (1.0 - ex) * step(de.y, de.z);
+  float ez = 1.0 - ex - ey;
+  float edge = min(de.x, min(de.y, de.z));
+  float width = min(0.06, 0.4 * min(vSize.x, min(vSize.y, vSize.z)));
+  float bw = 1.0 - smoothstep(0.0, width, edge);
+  vec3 tilt = sign(bp.x) * ex * vAx0 + sign(bp.y) * ey * vAx1 + sign(bp.z) * ez * vAx2;
+  normal = normalize(normal + tilt * bw * 1.2);
+  diffuseColor.rgb *= 1.0 + 0.05 * bw;
+}`,
+        )
+    }
+    mat.customProgramCacheKey = () => 'origin-iso-bevel-v1'
+
     const mesh = new InstancedMesh(geo, mat, N)
     mesh.castShadow = true
     mesh.receiveShadow = true
@@ -253,6 +355,9 @@ export function AssemblyScene() {
       camera.lookAt(camC)
       sun.position.set(camC.x + 14, camC.y + 26, camC.z + 6)
       sun.target.position.copy(camC)
+      // Presque à la verticale, mais pas pile : `lookAt` dégénère quand la direction est parallèle à « haut ».
+      occ.position.set(camC.x + 1.5, camC.y + 30, camC.z + 1)
+      occ.target.position.copy(camC)
     }
 
     /* ---------- boucle de rendu ---------- */
@@ -291,13 +396,18 @@ export function AssemblyScene() {
       const settled = (gt < 0.004 || gt > 0.996) && intro >= 1
       const cur = gt > 0.5 ? (A === scatter ? 0 : a + 1) : a
       const tgtCfg = cur === a ? A : B
+      // Indice de la structure d'arrivée, pour lire son retard de vague.
+      const bIdx = A === scatter ? 0 : a + 1
       // Formulaire envoyé : le portail du plan G reste allumé.
-      const hs = sceneStore.isSent() && cur === configs.length - 1 ? { scene: cur, g: 0 } : sceneStore.getHighlight()
+      const hs =
+        sceneStore.isSent() && cur === configs.length - 1
+          ? { scene: cur, g: 0 }
+          : sceneStore.getHighlight()
 
       for (let i = 0; i < N; i++) {
         const ta = A[i],
           tb = B[i]
-        const lt = clamp((gt - boxDelay[i]) / 0.58)
+        const lt = clamp((gt - waveDelay[bIdx][i]) / 0.58)
         const d = boxDir[i],
           dist = boxDist[i]
         if (lt < 0.62) {
@@ -320,7 +430,10 @@ export function AssemblyScene() {
 
         const want = settled && hs.scene === cur && tgtCfg[i].g === hs.g && hs.g >= 0 ? 1 : 0
         hlAmt[i] += (want - hlAmt[i]) * 0.12
-        col.copy(ta.c).lerp(tb.c, clamp(lt * 1.5))
+        col
+          .copy(ta.c)
+          .lerp(tb.c, clamp(lt * 1.5))
+          .multiplyScalar(boxTint[i])
         if (hlAmt[i] > 0.002) col.lerp(RED, hlAmt[i] * 0.85)
         mesh.setColorAt(i, col)
       }
@@ -366,11 +479,12 @@ export function AssemblyScene() {
       window.removeEventListener('scroll', readScroll)
       window.removeEventListener('resize', resize)
       window.removeEventListener('pointermove', onPointerMove)
-      scene.remove(mesh, sky, sun, sun.target)
+      scene.remove(mesh, sky, sun, sun.target, occ, occ.target)
       mesh.dispose()
       geo.dispose()
       mat.dispose()
       sun.dispose()
+      occ.dispose()
       sky.dispose()
       renderer.dispose()
       sceneStore.reset()
@@ -379,5 +493,7 @@ export function AssemblyScene() {
 
   if (failed) return null
 
-  return <canvas ref={canvasRef} aria-hidden="true" className="fixed inset-0 z-0 block h-full w-full" />
+  return (
+    <canvas ref={canvasRef} aria-hidden="true" className="fixed inset-0 z-0 block h-full w-full" />
+  )
 }

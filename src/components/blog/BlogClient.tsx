@@ -40,28 +40,17 @@ export function BlogClient({
       <div className="max-w-7xl text-left">
         {/* Hero */}
         <header className="relative z-10 mb-16 md:mb-20 lg:mb-24">
-          <p
-            className="reveal-on-load section-label mb-6 max-w-none text-mute md:mb-8"
-            style={{ animationDelay: '0.06s' }}
-          >
-            RESSOURCES
-          </p>
           <h1
             className="reveal-on-load page-hero-title mb-6 max-w-5xl wrap-break-words text-3xl leading-tight sm:text-4xl md:mb-8 md:text-5xl lg:text-6xl xl:text-7xl"
-            style={{ animationDelay: '0.16s' }}
+            style={{ animationDelay: '0.1s' }}
           >
-            Insights pour{' '}
-            <span className="text-primary">PME</span>
-            <br />
-            <span className="text-muted-foreground">ET STARTUPS</span>{' '}
-            suisses.
+            Articles pour les PME suisses.
           </h1>
           <p
-            className="reveal-on-load mt-8 max-w-2xl text-base font-light leading-relaxed text-mute md:mt-10 md:text-lg"
-            style={{ animationDelay: '0.26s' }}
+            className="reveal-on-load mt-8 max-w-2xl text-base leading-relaxed text-mute md:mt-10 md:text-lg"
+            style={{ animationDelay: '0.2s' }}
           >
-            Stratégies de design, ingénierie produit et culture de
-            l&apos;excellence pour les bâtisseurs de l&apos;écosystème helvétique.
+            Stratégie, technique, hébergement et cas clients.
           </p>
         </header>
 

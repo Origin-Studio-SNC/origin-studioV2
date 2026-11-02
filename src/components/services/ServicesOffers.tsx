@@ -1,8 +1,8 @@
 import React from 'react'
 
+import { IsoVisual } from '@/components/services/IsoVisual'
 import { ServiceOfferActions } from '@/components/services/ServiceOfferActions'
 import { SERVICE_OFFERS } from '@/components/services/serviceOffersData'
-import { ServiceVisual } from '@/components/services/ServiceVisual'
 import { Reveal } from '@/components/motion/Reveal'
 import { cn } from '@/lib/utils'
 
@@ -12,33 +12,24 @@ export function ServicesOffers() {
       <div className="flex flex-col gap-20 md:gap-28 lg:gap-36">
         {SERVICE_OFFERS.map((offer, i) => (
           <Reveal key={offer.title} delay={i * 0.08}>
-          <article
-            id={`offre-${offer.contactService}`}
-            className="grid scroll-mt-24 grid-cols-1 items-center gap-10 md:gap-14 md:scroll-mt-28 lg:grid-cols-2 lg:gap-16"
-          >
-            <div className={cn('min-w-0', offer.reverse && 'lg:order-2')}>
-              <ServiceVisual variant={offer.visual} />
-            </div>
-            <div className={cn('flex min-w-0 flex-col gap-6', offer.reverse && 'lg:order-1')}>
-              <h2 className="wrap-break-words text-2xl font-light tracking-tight text-foreground sm:text-3xl md:text-4xl">
-                {offer.title}
-              </h2>
-              <div className="max-w-xl text-base font-light leading-relaxed text-muted-foreground">
-                {offer.description}
+            <article
+              id={`offre-${offer.contactService}`}
+              className="grid scroll-mt-24 grid-cols-1 items-center gap-10 md:gap-14 md:scroll-mt-28 lg:grid-cols-2 lg:gap-16"
+            >
+              <div className={cn('min-w-0', offer.reverse && 'lg:order-2')}>
+                <IsoVisual variant={offer.visual} />
               </div>
-              <div className="flex flex-wrap gap-2">
-                {offer.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className=" border border-primary/25 bg-primary/10 px-3 py-1 text-[10px] font-bold tracking-wider text-primary uppercase"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              <div className={cn('flex min-w-0 flex-col gap-6', offer.reverse && 'lg:order-1')}>
+                <h2 className="wrap-break-words text-2xl font-light tracking-tight text-foreground sm:text-3xl md:text-4xl">
+                  {offer.title}
+                </h2>
+                <div className="max-w-xl text-base leading-relaxed text-muted-foreground">
+                  {offer.description}
+                </div>
+                <p className="max-w-xl text-sm text-muted-foreground">{offer.tags.join(' · ')}</p>
+                <ServiceOfferActions offer={offer} />
               </div>
-              <ServiceOfferActions offer={offer} />
-            </div>
-          </article>
+            </article>
           </Reveal>
         ))}
       </div>

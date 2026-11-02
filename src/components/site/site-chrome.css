@@ -260,6 +260,29 @@ body::before {
   line-height: 1.5;
 }
 
+/*
+ * Dès 768 px : petite carte en bas à gauche au lieu d'une barre pleine largeur qui recouvre le
+ * contenu. Le lanceur de contact est à droite, il n'a donc plus à se décaler (--cookie-offset).
+ */
+:root {
+  --cookie-offset: var(--cookie-banner-h, 0px);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --cookie-offset: 0px;
+  }
+
+  .os-cookie {
+    right: auto;
+    left: 24px;
+    bottom: 24px;
+    width: min(500px, calc(100vw - 48px));
+    padding: 16px 18px;
+    border: 1px solid var(--ink);
+  }
+}
+
 .os-cookie p {
   margin: 0;
 }
@@ -279,7 +302,11 @@ body::before {
 }
 
 .os-cookie-btn {
-  font-size: 11px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
   min-height: 40px;
   padding: 0 16px;
   border: 1px solid var(--ink);
@@ -297,11 +324,33 @@ body::before {
   border-color: var(--red);
 }
 
+/*
+ * Grain de papier : un bruit très léger sur tout le site, mélangé en multiplication.
+ * Donne de la matière au fond papier et à la scène 3D, sans image ni coût GPU notable.
+ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  mix-blend-mode: multiply;
+  opacity: 0.07;
+}
+
+@media (prefers-contrast: more) {
+  body::after {
+    display: none;
+  }
+}
+
 /* ─── Lanceur de contact (WhatsApp + assistant) ─── */
 .os-launch {
   position: fixed;
   right: 20px;
-  bottom: calc(var(--cookie-banner-h, 0px) + 20px);
+  bottom: calc(var(--cookie-offset, 0px) + 20px);
   z-index: 50;
   display: flex;
   flex-direction: column;
@@ -312,7 +361,7 @@ body::before {
 @media (min-width: 768px) {
   .os-launch {
     right: 32px;
-    bottom: calc(var(--cookie-banner-h, 0px) + 32px);
+    bottom: calc(var(--cookie-offset, 0px) + 32px);
   }
 }
 

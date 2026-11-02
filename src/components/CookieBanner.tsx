@@ -42,8 +42,8 @@ export function CookieBanner() {
         Ce site n&apos;utilise pas de cookies de suivi.{' '}
         <Link href="/politique-de-confidentialite">En savoir plus</Link>
       </p>
-      <button type="button" className="os-cookie-btn os-mono" onClick={dismiss}>
-        J&apos;ai compris
+      <button type="button" className="os-cookie-btn" onClick={dismiss}>
+        Compris
       </button>
     </div>
   )

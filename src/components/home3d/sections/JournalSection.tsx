@@ -52,9 +52,8 @@ export async function JournalSection() {
 
   return (
     <SceneSection id="journal" scene={5}>
-      <span className="mono lbl">Plan F · La bibliothèque</span>
-      <h2>Ce que nous apprenons, nous l&apos;écrivons.</h2>
-      <ul className="rows" data-hl="5">
+      <h2>Derniers articles.</h2>
+      <ul className="rows journal" data-hl="5">
         {posts.map((post, g) => (
           <li key={post.id}>
             <SceneRow scene={5} g={g} href={`/blog/${post.slug}`}>
@@ -66,7 +65,7 @@ export async function JournalSection() {
         ))}
       </ul>
       <Link className="btn ghost" href="/blog" style={{ alignSelf: 'flex-start' }}>
-        Tous les articles
+        Tous les articles <span aria-hidden="true">→</span>
       </Link>
     </SceneSection>
   )
