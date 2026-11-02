@@ -133,6 +133,68 @@
   font-size: 15px;
 }
 
+/*
+ * Repère de défilement : un fil fin et un petit cube rouge qui le descend, écho du rail de droite.
+ * Masqué sous 1100 px (le bandeau cookies et le panneau mobile occupent le bas de l'écran).
+ */
+.home3d .cue {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--cookie-offset, 0px) + 28px);
+  z-index: 20;
+  width: 1px;
+  height: 48px;
+  background: rgba(23, 23, 20, 0.28);
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.2, 0.7, 0, 1);
+}
+
+.home3d .cue.is-gone {
+  opacity: 0;
+}
+
+.home3d .cue i {
+  position: absolute;
+  top: 0;
+  left: -3px;
+  width: 7px;
+  height: 7px;
+  background: var(--red);
+  animation: cue-drop 2.4s cubic-bezier(0.2, 0.7, 0, 1) infinite;
+}
+
+@keyframes cue-drop {
+  0% {
+    transform: translateY(-4px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(46px);
+    opacity: 1;
+  }
+  85%,
+  100% {
+    transform: translateY(46px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1099px) {
+  .home3d .cue {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home3d .cue i {
+    animation: none;
+    transform: translateY(20px);
+  }
+}
+
 .home3d .hint b {
   display: inline-block;
   width: 8px;

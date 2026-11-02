@@ -117,6 +117,10 @@ export function AssemblyScene() {
     const boxDir: [number, number, number][] = []
     const boxDelay: number[] = []
     const boxDist: number[] = []
+    /* Teinte propre à chaque bloc (±3,5 %) : casse l'aplat sans changer la palette.
+       Générateur séparé de `R` pour ne pas modifier la chorégraphie existante. */
+    const RT = rng(77)
+    const boxTint = Array.from({ length: N }, () => 1 + (RT() - 0.5) * 0.07)
     for (let i = 0; i < N; i++) {
       boxDir.push(cardinal[Math.floor(R() * 6)])
       boxDelay.push(R() * 0.42)
@@ -320,7 +324,7 @@ export function AssemblyScene() {
 
         const want = settled && hs.scene === cur && tgtCfg[i].g === hs.g && hs.g >= 0 ? 1 : 0
         hlAmt[i] += (want - hlAmt[i]) * 0.12
-        col.copy(ta.c).lerp(tb.c, clamp(lt * 1.5))
+        col.copy(ta.c).lerp(tb.c, clamp(lt * 1.5)).multiplyScalar(boxTint[i])
         if (hlAmt[i] > 0.002) col.lerp(RED, hlAmt[i] * 0.85)
         mesh.setColorAt(i, col)
       }
