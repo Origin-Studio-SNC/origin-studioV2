@@ -22,10 +22,18 @@ export function SiteFooter() {
       <Link href="/services">Services &amp; tarifs</Link>
       <Link href="/about">À propos</Link>
       <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-      <a href="https://www.linkedin.com/company/origin-studio-swiss" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://www.linkedin.com/company/origin-studio-swiss"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         LinkedIn
       </a>
-      <a href="https://www.instagram.com/origin_studio.ch/" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://www.instagram.com/origin_studio.ch/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Instagram
       </a>
       <Link href="/mentions-legales">Mentions légales</Link>
