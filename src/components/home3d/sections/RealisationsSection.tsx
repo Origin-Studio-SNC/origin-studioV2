@@ -45,7 +45,7 @@ export async function RealisationsSection() {
         ))}
       </ul>
       <Link className="btn ghost" href="/realisations" style={{ alignSelf: 'flex-start' }}>
-        Toutes les réalisations
+        Toutes les réalisations <span aria-hidden="true">→</span>
       </Link>
     </SceneSection>
   )

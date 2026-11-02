@@ -106,7 +106,32 @@
   border: 1px solid var(--ink);
   transition:
     background 0.25s,
-    color 0.25s;
+    color 0.25s,
+    transform 0.12s ease-out;
+}
+
+/* Retour immédiat à l'appui, pas au relâchement. */
+.home3d .btn:active {
+  transform: scale(0.98);
+}
+
+/* La flèche glisse vers l'avant au survol et au focus clavier (sortie exponentielle, sans rebond). */
+.home3d .btn span[aria-hidden='true'] {
+  display: inline-block;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0, 1);
+}
+
+.home3d .btn:hover span[aria-hidden='true'],
+.home3d .btn:focus-visible span[aria-hidden='true'] {
+  transform: translateX(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home3d .btn:active,
+  .home3d .btn:hover span[aria-hidden='true'],
+  .home3d .btn:focus-visible span[aria-hidden='true'] {
+    transform: none;
+  }
 }
 
 .home3d .btn.dark {
@@ -119,9 +144,18 @@
   border-color: var(--red);
 }
 
+/*
+ * Bouton secondaire : lien souligné avec flèche, sans cadre. Une seule action principale
+ * (le bouton plein), le reste reste discret. Le soulignement passe au rouge au survol.
+ */
+.home3d .btn.ghost {
+  border-color: transparent;
+  padding-inline: 2px;
+  background: linear-gradient(currentColor, currentColor) left bottom 12px / 100% 1px no-repeat;
+}
+
 .home3d .btn.ghost:hover {
-  background: var(--ink);
-  color: var(--paper);
+  color: var(--red);
 }
 
 .home3d .hint {

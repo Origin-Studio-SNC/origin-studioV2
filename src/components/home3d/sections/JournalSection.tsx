@@ -65,7 +65,7 @@ export async function JournalSection() {
         ))}
       </ul>
       <Link className="btn ghost" href="/blog" style={{ alignSelf: 'flex-start' }}>
-        Tous les articles
+        Tous les articles <span aria-hidden="true">→</span>
       </Link>
     </SceneSection>
   )

@@ -18,7 +18,7 @@ export function AccueilSection() {
             Démarrer un projet <span aria-hidden="true">→</span>
           </a>
           <a className="btn ghost" href="#travaux">
-            Nos réalisations
+            Nos réalisations <span aria-hidden="true">→</span>
           </a>
         </div>
       </SceneSection>
