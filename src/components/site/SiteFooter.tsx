@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import { EMAIL } from '@/lib/contact'
 
+import { ShortcutsToggle } from './ShortcutsToggle'
 import { useSitePath } from './useSitePath'
 
 /**
@@ -29,6 +30,7 @@ export function SiteFooter() {
       </a>
       <Link href="/mentions-legales">Mentions légales</Link>
       <Link href="/politique-de-confidentialite">Confidentialité</Link>
+      <ShortcutsToggle />
     </footer>
   )
 }
