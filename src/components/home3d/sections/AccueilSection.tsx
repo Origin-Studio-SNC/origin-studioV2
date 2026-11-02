@@ -3,15 +3,13 @@ import { SceneSection } from './SceneSection'
 export function AccueilSection() {
   return (
     <SceneSection id="accueil" scene={0}>
-      <span className="mono lbl">Agence web · Genève</span>
       <h1>On construit votre présence en ligne, pièce par pièce.</h1>
       <p className="lead">
-        Nous concevons et développons des sites, boutiques en ligne et applications pour les PME,
-        les commerces et les professions libérales de Suisse romande. Chaque élément est pensé,
-        taillé, puis assemblé avec précision.
+        Deux développeurs à Genève. Nous réalisons des sites, des boutiques en ligne, des
+        applications métier et des automatisations pour les PME de Suisse romande.
       </p>
-      <p className="mono hint">
-        <b aria-hidden="true"></b>Réponse sous 24 h · Devis gratuit.
+      <p className="hint">
+        <b aria-hidden="true"></b>Réponse sous 24 h. Devis gratuit.
       </p>
       <div className="cta">
         <a className="btn dark" href="#contact">
@@ -21,9 +19,6 @@ export function AccueilSection() {
           Nos réalisations
         </a>
       </div>
-      <span className="mono hint">
-        <b aria-hidden="true"></b>Faites défiler, l&apos;espace se reconfigure
-      </span>
     </SceneSection>
   )
 }

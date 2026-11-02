@@ -215,131 +215,13 @@ svg {
 
 /* ─── Titres principaux pages vitrine (même graisse, casse, tracking) ─── */
 h1.page-hero-title {
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 1.08;
+  /* Même voix que le titre de l'accueil (Archivo large, gras, serré). */
+  font-weight: 700;
+  font-variation-settings: 'wdth' 118;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  text-wrap: balance;
   text-transform: none;
-}
-
-/* ─── ServiceVisual : automatisation — le tracé "coule" le long du pipeline ─── */
-.flow-path {
-  stroke-dasharray: 10 14;
-  animation: flow-pulse 1.5s linear infinite;
-}
-
-@keyframes flow-pulse {
-  to {
-    stroke-dashoffset: -48;
-  }
-}
-
-.flow-label-trigger,
-.flow-label-run {
-  animation: label-pulse 2.6s ease-in-out infinite;
-}
-
-.flow-label-run {
-  animation-delay: 1.3s;
-}
-
-@keyframes label-pulse {
-  0%,
-  100% {
-    opacity: 0.15;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-/* ─── ServiceVisual : devices — flottement indépendant (profondeur) ─── */
-.float-tablet {
-  animation: float-tablet 7s ease-in-out infinite;
-}
-
-.float-phone {
-  animation: float-phone 8.5s ease-in-out infinite;
-}
-
-@keyframes float-tablet {
-  0%,
-  100% {
-    transform: rotate(-8deg) translateY(0) scale(1);
-  }
-  50% {
-    transform: rotate(-4deg) translateY(-13px) scale(1.02);
-  }
-}
-
-@keyframes float-phone {
-  0%,
-  100% {
-    transform: rotate(6deg) translateY(0) scale(1);
-  }
-  50% {
-    transform: rotate(10deg) translateY(-15px) scale(1.025);
-  }
-}
-
-/* ─── ServiceVisual : commerce — catalogue vivant ─── */
-.commerce-card {
-  animation: card-breathe 3.2s ease-in-out infinite;
-}
-
-@keyframes card-breathe {
-  0%,
-  100% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.08) translateY(-4px);
-    opacity: 0.55;
-  }
-}
-
-/* ─── ServiceVisual : wireframe — éléments "en cours d'édition" ─── */
-.edit-breathe {
-  animation: edit-breathe 2.4s ease-in-out infinite;
-}
-
-@keyframes edit-breathe {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.15;
-  }
-}
-
-/* ─── AboutTechSection : bandeau de logos défilant ─── */
-.tech-marquee {
-  position: relative;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
-}
-
-.tech-marquee-track {
-  display: flex;
-  width: max-content;
-  animation: tech-marquee-scroll 26s linear infinite;
-}
-
-.tech-marquee:hover .tech-marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes tech-marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    /* La piste contient le contenu deux fois : -50% ramène exactement au
-       début de la seconde copie, ce qui rend la boucle imperceptible. */
-    transform: translateX(-50%);
-  }
 }
 
 /* ─── Signal (pétales radiales) — accent de confirmation ─── */
@@ -365,23 +247,12 @@ h1.page-hero-title {
   }
 }
 
-/* ─── Section label ─── */
+/* ─── Libellé de section : sobre, sans filets ni capitales espacées ─── */
 .section-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-
-  &::before,
-  &::after {
-    content: '';
-    width: 24px;
-    height: 1px;
-    background: var(--line);
-  }
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--mute);
 }
 
 /* ─── Fiche réalisation ─── */
@@ -801,41 +672,6 @@ h1.page-hero-title {
 
   .signal-ping-ring {
     animation: none;
-    display: none;
-  }
-
-  .flow-path {
-    animation: none;
-    stroke-dasharray: none;
-  }
-
-  .flow-label-trigger,
-  .flow-label-run,
-  .commerce-card,
-  .edit-breathe {
-    animation: none;
-  }
-
-  .float-tablet,
-  .float-phone {
-    animation: none;
-  }
-
-  /* Défilement coupé : on affiche la liste une seule fois, en clair, plutôt
-     qu'une piste figée à mi-parcours (qui couperait des logos en deux). */
-  .tech-marquee {
-    -webkit-mask-image: none;
-    mask-image: none;
-    overflow: visible;
-  }
-
-  .tech-marquee-track {
-    animation: none;
-    flex-wrap: wrap;
-    width: auto;
-  }
-
-  .tech-marquee-track > [aria-hidden='true'] {
     display: none;
   }
 }

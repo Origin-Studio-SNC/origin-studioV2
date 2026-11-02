@@ -4,7 +4,6 @@ import { AboutHeroSection } from '@/components/about/AboutHeroSection'
 import { AboutStorySection } from '@/components/about/AboutStorySection'
 import { AboutTeamSection } from '@/components/about/AboutTeamSection'
 import { AboutTechSection } from '@/components/about/AboutTechSection'
-import { AboutValuesSection } from '@/components/about/AboutValuesSection'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -19,7 +18,6 @@ export default function AboutPage() {
       <AboutHeroSection />
       <AboutStorySection />
       <AboutTeamSection />
-      <AboutValuesSection />
       <AboutTechSection />
     </div>
   )

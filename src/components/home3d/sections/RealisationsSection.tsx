@@ -32,9 +32,8 @@ export async function RealisationsSection() {
 
   return (
     <SceneSection id="travaux" scene={3}>
-      <span className="mono lbl">Plan D · Trois pièces</span>
-      <h2>Trois projets, trois espaces.</h2>
-      <ul className="rows" data-hl="3">
+      <h2>Projets choisis.</h2>
+      <ul className="rows works" data-hl="3">
         {projects.map((project, g) => (
           <li key={project.id}>
             <SceneRow scene={3} g={g} href={`/realisations/${project.slug}`}>

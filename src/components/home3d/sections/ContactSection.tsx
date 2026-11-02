@@ -9,11 +9,10 @@ import { SceneSection } from './SceneSection'
 export function ContactSection() {
   return (
     <SceneSection id="contact" scene={6}>
-      <span className="mono lbl">Plan G · Le seuil</span>
-      <h2>La porte est ouverte.</h2>
+      <h2>Racontez-nous votre projet.</h2>
       <p className="lead">
-        Décrivez votre projet en quelques lignes. Nous revenons vers vous avec des questions
-        précises, puis une proposition claire, sans coûts cachés.
+        Quelques lignes suffisent. Nous répondons sous 24 h avec des questions précises, puis une
+        proposition chiffrée.
       </p>
       <SceneContactForm />
       <div className="contact">

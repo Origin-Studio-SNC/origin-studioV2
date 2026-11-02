@@ -10,15 +10,18 @@ import { useSyncExternalStore } from 'react'
  * Sans dépendance à three : importable par la navbar et les sections.
  */
 
-/** Noms des plans, dans l'ordre des sections `data-scene` 0 à 6. */
+/**
+ * Libellé de la section affichée en haut à droite, dans l'ordre des sections `data-scene` 0 à 6.
+ * Noms simples : la métaphore des « plans » reste dans la scène 3D, pas dans les mots.
+ */
 export const PLAN_NAMES = [
-  'Plan A · Le palais',
-  'Plan B · La tour',
-  'Plan C · Les trois piliers',
-  'Plan D · Trois pièces',
-  "Plan E · L'escalier",
-  'Plan F · La bibliothèque',
-  'Plan G · Le seuil',
+  'Accueil',
+  'Services',
+  'Engagements',
+  'Réalisations',
+  'Méthode',
+  'Journal',
+  'Contact',
 ] as const
 
 export type Highlight = { scene: number; g: number }

@@ -61,20 +61,6 @@
   gap: 28px;
 }
 
-.home3d .lbl {
-  color: var(--mute);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.home3d .lbl::before {
-  content: '';
-  width: 28px;
-  height: 1px;
-  background: var(--ink);
-}
-
 .home3d h1,
 .home3d h2 {
   font-family: var(--display);
@@ -143,6 +129,8 @@
   display: flex;
   gap: 10px;
   align-items: center;
+  margin: 0;
+  font-size: 15px;
 }
 
 .home3d .hint b {
@@ -235,6 +223,42 @@
   color: var(--red);
 }
 
+/*
+ * Chaque liste a son poids : les réalisations dominent, le journal reste discret,
+ * les engagements sont des affirmations plus que des entrées de menu.
+ */
+.home3d .works .row {
+  padding-block: 22px;
+}
+
+.home3d .works .row strong {
+  font-size: clamp(22px, 1.9vw, 26px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.home3d .works .row small {
+  font-size: 16px;
+}
+
+.home3d .pledges .row strong {
+  font-size: 22px;
+}
+
+.home3d .pledges .row small {
+  font-size: 16px;
+  max-width: 32em;
+}
+
+.home3d .journal .row {
+  padding-block: 12px;
+}
+
+.home3d .journal .row strong {
+  font-size: 17px;
+  font-weight: 500;
+}
+
 .home3d .steps {
   counter-reset: s;
 }
@@ -303,6 +327,15 @@
   flex-wrap: wrap;
 }
 
+/* Le mono reste pour les données (prix, délais, dates) ; le texte courant repasse en casse normale. */
+.home3d footer.mono,
+.home3d .fld .mono {
+  font-family: var(--body);
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 /* formulaire */
 .home3d .form {
   display: flex;
@@ -328,7 +361,6 @@
 
 .home3d .fld .mono {
   color: var(--mute);
-  font-size: 11px;
 }
 
 .home3d .fld input,
