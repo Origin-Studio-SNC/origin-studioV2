@@ -3,7 +3,7 @@
 import type { Route } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { PLAN_NAMES, useActivePlan } from '@/components/home3d/sceneStore'
 import { cn } from '@/lib/utils'
@@ -55,6 +55,36 @@ export function SiteHeader() {
   const plan = useActivePlan()
   const active = isHome ? plan : sectionForPath(pathname)
   const [menuOpen, setMenuOpen] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
+
+  /*
+   * Raccourcis clavier : appuyer sur A à G déclenche le lien correspondant de la navigation
+   * (ancre sur l'accueil, page ailleurs). On passe par le clic du lien pour garder exactement le
+   * même comportement. Ignoré quand on tape (champ, liste, zone éditable), dans la fenêtre de
+   * chat et avec une touche de modification, pour ne jamais gêner le formulaire ni les
+   * raccourcis du navigateur.
+   */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.repeat || e.isComposing) return
+      if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return
+      const index = SECTIONS.findIndex((s) => s.letter.toLowerCase() === e.key.toLowerCase())
+      if (index < 0) return
+      const target = e.target
+      if (
+        target instanceof HTMLElement &&
+        (target.isContentEditable ||
+          target.closest(
+            'input, textarea, select, [contenteditable="true"], [role="textbox"], [role="dialog"]',
+          ))
+      ) {
+        return
+      }
+      navRef.current?.querySelectorAll<HTMLAnchorElement>('a')[index]?.click()
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [])
 
   // Menu mobile : fermé à chaque changement de page, Échap pour fermer, page figée dessous.
   useEffect(() => {
@@ -94,7 +124,7 @@ export function SiteHeader() {
               <BrandLogo />
             </Link>
           )}
-          <nav className="os-nav" aria-label={isHome ? 'Sections' : 'Principale'}>
+          <nav ref={navRef} className="os-nav" aria-label={isHome ? 'Sections' : 'Principale'}>
             {SECTIONS.map((s, i) => {
               const className = cn(i === active && 'on')
               const content = (
@@ -108,6 +138,7 @@ export function SiteHeader() {
                   key={s.letter}
                   href={s.anchor}
                   className={className}
+                  aria-keyshortcuts={s.letter}
                   aria-current={i === active ? 'location' : undefined}
                 >
                   {content}
@@ -117,6 +148,7 @@ export function SiteHeader() {
                   key={s.letter}
                   href={s.page as Route}
                   className={className}
+                  aria-keyshortcuts={s.letter}
                   aria-current={i === active ? 'page' : undefined}
                 >
                   {content}
