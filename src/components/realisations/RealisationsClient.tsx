@@ -56,7 +56,9 @@ export function RealisationsClient({ projects }: { projects: Project[] }) {
             className="reveal-on-load mt-8 max-w-2xl text-base leading-relaxed text-mute md:mt-10 md:text-lg"
             style={{ animationDelay: '0.2s' }}
           >
-            Sites vitrines, applications et migrations, avec hébergement en Suisse.
+            Sites vitrines, boutiques en ligne, applications et migrations pour des PME de Genève
+            et de Suisse romande, avec hébergement en Suisse. Chaque projet détaille le défi, la
+            solution et les résultats.
           </p>
         </header>
 

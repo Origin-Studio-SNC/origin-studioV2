@@ -4,6 +4,7 @@ import React from 'react'
 
 import { ServicesHero } from '@/components/services/ServicesHero'
 import { ServicesOffers } from '@/components/services/ServicesOffers'
+import { buildPageMetadata } from '@/lib/seo'
 
 // Dynamic imports pour les sections below-the-fold
 const ServicesProcess = dynamic(
@@ -15,11 +16,12 @@ const ServicesFaq = dynamic(
   { ssr: true }
 )
 
-export const metadata: Metadata = {
-  title: 'Services — Origin Studio',
+export const metadata: Metadata = buildPageMetadata({
+  title: 'Site internet, e-commerce & apps à Genève | Origin Studio',
   description:
-    'E-commerce headless, identité numérique, SaaS et plateformes sur mesure. Méthode en 4 étapes, Genève.',
-}
+    'Création de site internet, boutique e-commerce, applications web et automatisation IA à Genève. Méthode en 4 étapes, devis gratuit sous 24 h.',
+  path: '/services',
+})
 
 export default function ServicesPage() {
   return (
