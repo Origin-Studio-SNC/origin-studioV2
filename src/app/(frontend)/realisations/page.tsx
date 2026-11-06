@@ -1,6 +1,15 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import dynamic from 'next/dynamic'
+import type { Metadata } from 'next'
+import { buildPageMetadata } from '@/lib/seo'
+
+export const metadata: Metadata = buildPageMetadata({
+  title: 'Nos réalisations web à Genève | Origin Studio',
+  description:
+    'Sites vitrines, e-commerce et applications réalisés par Origin Studio pour des PME de Genève et de Suisse romande : défi, solution et résultats.',
+  path: '/realisations',
+})
 
 /** Comme la home : évite une page /realisations figée au dernier build (ISR). */
 export const revalidate = 60

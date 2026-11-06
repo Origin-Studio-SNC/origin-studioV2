@@ -4,12 +4,14 @@ import React, { Suspense } from 'react'
 import { ContactForm } from '@/components/contact/ContactForm'
 import { ContactHero } from '@/components/contact/ContactHero'
 import { ContactSidebar } from '@/components/contact/ContactSidebar'
+import { buildPageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Contact — Origin Studio',
+export const metadata: Metadata = buildPageMetadata({
+  title: 'Contact et devis gratuit | Origin Studio, Genève',
   description:
-    'Parlons de votre projet : Genève, développement web sur mesure, design et accompagnement.',
-}
+    'Parlons de votre projet : Genève, développement web sur mesure, design et accompagnement. Réponse sous 24 h, devis gratuit.',
+  path: '/contact',
+})
 
 export default function ContactPage() {
   return (

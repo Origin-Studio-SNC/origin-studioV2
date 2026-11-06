@@ -9,6 +9,13 @@ import { JournalSection } from '@/components/home3d/sections/JournalSection'
 import { MethodeSection } from '@/components/home3d/sections/MethodeSection'
 import { RealisationsSection } from '@/components/home3d/sections/RealisationsSection'
 import { ServicesSection } from '@/components/home3d/sections/ServicesSection'
+import { buildPageMetadata, SITE_DESCRIPTION, SITE_TITLE } from '@/lib/seo'
+
+export const metadata = buildPageMetadata({
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  path: '/',
+})
 
 /** Payload sur la home : sans ça, Next peut servir la page figée au dernier build statique. */
 export const revalidate = 60

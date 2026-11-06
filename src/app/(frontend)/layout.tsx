@@ -12,7 +12,7 @@ import { ScrollRail } from '@/components/site/ScrollRail'
 import { SiteHeader } from '@/components/site/SiteHeader'
 import { EMAIL, PHONE_E164 } from '@/lib/contact'
 import { cn } from '@/lib/utils'
-import { DEFAULT_OG_IMAGE, SITE_URL } from '@/lib/seo'
+import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '@/lib/seo'
 
 // Refonte 3D : Archivo variable (graisse + largeur) et JetBrains Mono, sur tout le site.
 const archivo = Archivo({
@@ -31,14 +31,11 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
-const SITE_TITLE = 'Origin Studio - Agence Web Genève, Développement Premium'
-const SITE_DESCRIPTION =
-  'Agence web premium à Genève. Développement sur mesure, design minimaliste, infrastructure sécurisée'
-
-// Métadonnées par défaut, héritées par toute page qui ne définit pas les
-// siennes (ex. accueil, réalisations). Une page avec son propre `openGraph`
-// (ex. un article de blog) remplace cet objet en entier — pas de fusion
-// champ par champ — d'où le fallback sur DEFAULT_OG_IMAGE côté blog.
+// Métadonnées de repli, héritées par toute page qui ne définit pas les siennes.
+// Volontairement sans `openGraph.url` ni canonical : une valeur ici serait
+// héritée par chaque page et pointerait vers l'accueil. Chaque page passe par
+// `buildPageMetadata` (src/lib/seo.ts), qui remplace `openGraph` en entier
+// (pas de fusion champ par champ).
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: SITE_TITLE,
@@ -46,7 +43,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    url: SITE_URL,
     siteName: 'Origin Studio',
     locale: 'fr_CH',
     type: 'website',

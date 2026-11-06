@@ -9,7 +9,7 @@ import type { Metadata } from 'next'
 import type { Post } from '@/payload-types'
 import { RichText } from '@/components/RichText'
 import { Reveal } from '@/components/motion/Reveal'
-import { DEFAULT_OG_IMAGE_PATH } from '@/lib/seo'
+import { buildPageMetadata, resolveShareImageUrl, SITE_DESCRIPTION } from '@/lib/seo'
 import { formatDate } from '@/lib/utils'
 
 const CATEGORY_LABELS: Record<Post['category'], string> = {
@@ -57,24 +57,17 @@ export async function generateMetadata(props: {
     (post.metaImage && typeof post.metaImage === 'object' ? post.metaImage : null) ??
     (post.coverImage && typeof post.coverImage === 'object' ? post.coverImage : null)
 
-  // Fallback sur l'image de partage par défaut du site : sans elle, un
-  // article sans coverImage/metaImage n'aurait aucune vignette au partage
-  // (openGraph d'un segment remplace celui du layout en entier, il ne le
-  // complète pas).
-  const imageUrl =
-    ogImage && typeof ogImage.url === 'string' && ogImage.url.startsWith('http')
-      ? ogImage.url
-      : DEFAULT_OG_IMAGE_PATH
+  // Sans image exploitable (coverImage/metaImage), buildPageMetadata retombe
+  // sur l'image de partage par défaut du site.
+  const image = resolveShareImageUrl(ogImage?.url)
 
-  return {
+  return buildPageMetadata({
     title: `${post.title} | Origin Studio`,
-    description: desc,
-    openGraph: {
-      title: post.title,
-      description: desc ?? undefined,
-      images: [{ url: imageUrl }],
-    },
-  }
+    description: desc || SITE_DESCRIPTION,
+    path: `/blog/${slug}`,
+    image,
+    type: 'article',
+  })
 }
 
 export default async function BlogPostPage(props: { params: Promise<{ slug: string }> }) {

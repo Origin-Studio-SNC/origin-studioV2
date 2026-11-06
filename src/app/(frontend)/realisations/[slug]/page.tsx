@@ -1,3 +1,5 @@
+import { cache } from 'react'
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
@@ -6,9 +8,32 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 import { RichText } from '@/components/RichText'
 import { Reveal } from '@/components/motion/Reveal'
+import { buildPageMetadata, resolveShareImageUrl, SITE_DESCRIPTION } from '@/lib/seo'
 import { normalizeExternalHref } from '@/lib/utils'
 
 export const revalidate = 60
+
+const CATEGORY_LABELS: Record<string, string> = {
+  vitrine: 'vitrine',
+  application: 'application',
+  refonte: 'refonte',
+  ecommerce: 'e-commerce',
+  'outil-interne': 'outil interne',
+}
+
+// Partagé entre generateMetadata et la page : une seule requête Payload par rendu.
+const getPublishedProjectBySlug = cache(async (slug: string) => {
+  const payload = await getPayload({ config: configPromise })
+  const { docs } = await payload.find({
+    collection: 'projects',
+    where: {
+      and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }],
+    },
+    depth: 2,
+    limit: 1,
+  })
+  return docs[0] ?? null
+})
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -21,41 +46,40 @@ export async function generateStaticParams() {
   return docs.map((doc) => ({ slug: doc.slug }))
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const project = await getPublishedProjectBySlug(slug)
+  if (!project) return { title: 'Réalisation introuvable' }
+
+  const thumbnail =
+    project.thumbnail && typeof project.thumbnail === 'object' ? project.thumbnail : null
+  const image = resolveShareImageUrl(thumbnail?.url)
+
+  return buildPageMetadata({
+    title: `${project.title.trim()} | Origin Studio`,
+    description: project.excerpt || SITE_DESCRIPTION,
+    path: `/realisations/${slug}`,
+    image,
+  })
+}
+
 export default async function RealisationPage({
   params,
 }: {
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const payload = await getPayload({ config: configPromise })
-
-  const { docs } = await payload.find({
-    collection: 'projects',
-    where: {
-      and: [
-        { slug: { equals: slug } },
-        { _status: { equals: 'published' } },
-      ],
-    },
-    depth: 2,
-    limit: 1,
-  })
-
-  const project = docs[0]
+  const project = await getPublishedProjectBySlug(slug)
   if (!project) notFound()
 
   const thumbnail =
     project.thumbnail && typeof project.thumbnail === 'object'
       ? project.thumbnail
       : null
-
-  const CATEGORY_LABELS: Record<string, string> = {
-    vitrine: 'vitrine',
-    application: 'application',
-    refonte: 'refonte',
-    ecommerce: 'e-commerce',
-    'outil-interne': 'outil interne',
-  }
 
   const categoryLabel = CATEGORY_LABELS[project.category ?? ''] ?? project.category
 
