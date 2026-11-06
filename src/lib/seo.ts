@@ -21,6 +21,19 @@ export const DEFAULT_OG_IMAGE = {
   alt: 'Origin Studio — Agence de développement web premium à Genève',
 }
 
+/**
+ * URL d'un média Payload utilisable comme image de partage, ou `undefined`
+ * pour retomber sur l'image par défaut. Accepte les URLs absolues et les
+ * chemins racine (`/api/media/file/...`, servis par le plugin Vercel Blob) —
+ * Next les résout contre `metadataBase`. Refuse `//hôte`, ambigu.
+ */
+export function resolveShareImageUrl(url: unknown): string | undefined {
+  if (typeof url !== 'string') return undefined
+  if (/^https?:\/\//.test(url)) return url
+  if (url.startsWith('/') && !url.startsWith('//')) return url
+  return undefined
+}
+
 type PageMetadataInput = {
   title: string
   description: string

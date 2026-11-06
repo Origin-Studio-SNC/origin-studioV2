@@ -9,7 +9,7 @@ import type { Metadata } from 'next'
 import type { Post } from '@/payload-types'
 import { RichText } from '@/components/RichText'
 import { Reveal } from '@/components/motion/Reveal'
-import { buildPageMetadata, SITE_DESCRIPTION } from '@/lib/seo'
+import { buildPageMetadata, resolveShareImageUrl, SITE_DESCRIPTION } from '@/lib/seo'
 import { formatDate } from '@/lib/utils'
 
 const CATEGORY_LABELS: Record<Post['category'], string> = {
@@ -57,12 +57,9 @@ export async function generateMetadata(props: {
     (post.metaImage && typeof post.metaImage === 'object' ? post.metaImage : null) ??
     (post.coverImage && typeof post.coverImage === 'object' ? post.coverImage : null)
 
-  // Sans image absolue (coverImage/metaImage), buildPageMetadata retombe sur
-  // l'image de partage par défaut du site.
-  const image =
-    ogImage && typeof ogImage.url === 'string' && ogImage.url.startsWith('http')
-      ? ogImage.url
-      : undefined
+  // Sans image exploitable (coverImage/metaImage), buildPageMetadata retombe
+  // sur l'image de partage par défaut du site.
+  const image = resolveShareImageUrl(ogImage?.url)
 
   return buildPageMetadata({
     title: `${post.title} | Origin Studio`,

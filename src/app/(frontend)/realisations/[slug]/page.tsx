@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
 import { RichText } from '@/components/RichText'
 import { Reveal } from '@/components/motion/Reveal'
-import { buildPageMetadata, SITE_DESCRIPTION } from '@/lib/seo'
+import { buildPageMetadata, resolveShareImageUrl, SITE_DESCRIPTION } from '@/lib/seo'
 import { normalizeExternalHref } from '@/lib/utils'
 
 export const revalidate = 60
@@ -57,11 +57,7 @@ export async function generateMetadata({
 
   const thumbnail =
     project.thumbnail && typeof project.thumbnail === 'object' ? project.thumbnail : null
-  // Même garde que le blog : seule une URL absolue sert d'image de partage.
-  const image =
-    thumbnail && typeof thumbnail.url === 'string' && thumbnail.url.startsWith('http')
-      ? thumbnail.url
-      : undefined
+  const image = resolveShareImageUrl(thumbnail?.url)
 
   return buildPageMetadata({
     title: `${project.title.trim()} | Origin Studio`,

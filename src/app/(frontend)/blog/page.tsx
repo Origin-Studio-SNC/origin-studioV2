@@ -10,6 +10,12 @@ const BlogClient = dynamic(
   { ssr: true }
 )
 
+/** Entier positif ; toute autre valeur (`1.5`, `-2`, `abc`, `0`) retombe sur la page 1. */
+function parsePage(page: string | undefined): number {
+  const n = Number(page ?? 1)
+  return Number.isInteger(n) && n > 0 ? n : 1
+}
+
 // Pagination : chaque page de liste a son propre canonical (`/blog?page=2`),
 // sinon la page 2 se déclarerait doublon de la page 1.
 export async function generateMetadata({
@@ -18,8 +24,8 @@ export async function generateMetadata({
   searchParams: Promise<{ page?: string }>
 }): Promise<Metadata> {
   const { page } = await searchParams
-  const pageNumber = Number(page ?? 1)
-  const path = Number.isInteger(pageNumber) && pageNumber > 1 ? `/blog?page=${pageNumber}` : '/blog'
+  const pageNumber = parsePage(page)
+  const path = pageNumber > 1 ? `/blog?page=${pageNumber}` : '/blog'
 
   return buildPageMetadata({
     title: 'Journal web & e-commerce en Suisse | Origin Studio',
@@ -36,7 +42,7 @@ export default async function BlogPage({
 }) {
   const { page } = await searchParams
   const payload = await getPayload({ config: configPromise })
-  const currentPage = Number(page ?? 1)
+  const currentPage = parsePage(page)
   const limit = 7 // 1 featured + 3 cards + 3 cards
 
   const { docs: posts, totalPages } = await payload.find({
